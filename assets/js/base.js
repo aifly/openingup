@@ -6,7 +6,7 @@
 	
 	title:'./assets/images/title.png',
 	headimg1:'./assets/images/1.jpg',
-	headimg2:'./assets/images/2.jpg',
+	headimg2:'./assets/images/1.jpg',//http://wx.qlogo.cn/mmopen/ajNVdqHZLLBdRPD56QKxojEyLE4HvhKFYFkLa2zPib2VJW3hlkmBvjL4I9f9yurwMNbDkUTibKMiaVX7zjN8R9QUbccqo7T9jJZ4Nic8cI7c99M/0',
 	headimg3:'./assets/images/3.png',
 	headimg4:'./assets/images/4.jpg',
 	headimg5:'./assets/images/5.jpg',
