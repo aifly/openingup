@@ -14,7 +14,6 @@
 	import './index.css';
 	import {imgs,mainImgList} from '../lib/assets.js';
 	import $ from 'jquery';
-	import HeadImg from '../lib/headimg'
 	export default {
 		props:['obserable','pv','randomPv','nickname','headimgurl'],
 		name:'zmitiindex',
@@ -46,7 +45,7 @@
 				var duration = 3000;
 				
 				new TWEEN.Tween( this.camera.position )
-						.to( { z:50}, Math.random() * duration/2 + duration/2 )
+						.to( { z:50,x:this.point.position.x,y:this.point.position.y}, Math.random() * duration/2 + duration/2 )
 						.easing( TWEEN.Easing.Exponential.InOut ).onUpdate(()=>{
 							
 						}).start();
@@ -65,7 +64,7 @@
 				///renderer.setClearColor(new THREE.Color(0xffffff, 1.0));
 				renderer.setSize(this.viewW,this.viewH);
 				renderer.setPixelRatio(window.devicePixelRatio);
-				scene.add(new THREE.AmbientLight('#f00'));
+				scene.add(new THREE.AmbientLight('#f90'));
 
 				var skyBoxGeometry = new THREE.BoxGeometry( 250, 350, 400 );  
   
@@ -229,7 +228,9 @@
 						scale =2;
 						sprite.scale.set(scale,scale,scale);
 
-						var plane = new THREE.Mesh(new THREE.PlaneGeometry(2,2,1),new THREE.MeshBasicMaterial({color:"#f00"}))
+						var pointLoader = new THREE.TextureLoader();
+						var pointTexture = pointLoader.load(imgs.point);
+						var plane = new THREE.Mesh(new THREE.CircleGeometry(2,20,20),new THREE.MeshLambertMaterial({map:pointTexture,transparent:true}))
 						plane.position.x = sprite.position.x;
 						plane.position.y= sprite.position.y;
 						plane.position.z = sprite.position.z+1;

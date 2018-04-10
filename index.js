@@ -157,6 +157,8 @@ new Vue({
 
 		})
 
+		window.$ = $;
+
 		obserable.on('showShare', () => {
 			this.showMask = true;
 		})
