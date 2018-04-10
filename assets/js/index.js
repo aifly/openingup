@@ -70,11 +70,11 @@
 
 	var _componentsMainIndex2 = _interopRequireDefault(_componentsMainIndex);
 
-	var _componentsMusicIndex = __webpack_require__(39);
+	var _componentsMusicIndex = __webpack_require__(40);
 
 	var _componentsMusicIndex2 = _interopRequireDefault(_componentsMusicIndex);
 
-	var _componentsLibObserable = __webpack_require__(42);
+	var _componentsLibObserable = __webpack_require__(43);
 
 	var _componentsLibObserable2 = _interopRequireDefault(_componentsLibObserable);
 
@@ -88,9 +88,9 @@
 
 	var _jquery2 = _interopRequireDefault(_jquery);
 
-	__webpack_require__(43);
+	__webpack_require__(44);
 
-	var _vueJsTap = __webpack_require__(44);
+	var _vueJsTap = __webpack_require__(45);
 
 	var _vueJsTap2 = _interopRequireDefault(_vueJsTap);
 
@@ -129,8 +129,9 @@
 	 	<audio src='./assets/music/photo.mp3' ref='photo'></audio>
 	 	<audio src='./assets/music/bg.mp3' ref='audio'></audio>
 	 	<audio src='./assets/music/tu.mp3' ref='tu' loop></audio>
+	 	<Music   :obserable='obserable'></Music>
 	 */
-		template: '<div>\n\t\t<Music   :obserable=\'obserable\'></Music>\n\t\t<Index  v-if=\'show && !isShare\'  :obserable=\'obserable\'></Index>\n\t\t<Main  v-if=\'show && !isShare\'  :obserable=\'obserable\'></Main>\n\t\t<Upload  v-if=\'show && !isShare\'  :obserable=\'obserable\'></Upload>\n\t\t<Share :pv=\'pv\' v-if=\'show\'    :obserable=\'obserable\'></Share>\n\t\t<div  v-if=\'!loaded\' :style=\'{background:"#158ae4"}\' class=\'zmiti-loading lt-full\'>\n\t\t\t<div class=\'zmiti-loading-ui\'>\n\t\t\t\t <a href="#">\n\t\t\t  \t\t<section class=\'zmiti-head\' :style="{background:\'url(./assets/images/logo.png) no-repeat center / cover\'}"></section>\n\t\t\t        <div class="line1"></div>\n\t\t\t        <div class="line2"></div>\n\t\t\t        <div class="line3"></div>\n\t\t\t\t\t<div class=\'zmiti-progress\'>{{width}}%</div>\n\t\t\t    </a>\n\t\t\t</div>\n\t\t</div>\n\n\t\n\t</div>',
+		template: '<div>\n\t\t<Main :pv=\'pv\'  v-if=\'show && !isShare\'  :obserable=\'obserable\'></Main>\n\t\t<div  v-if=\'!loaded\' :style=\'{background:"#158ae4"}\' class=\'zmiti-loading lt-full\'>\n\t\t\t<div class=\'zmiti-loading-ui\'>\n\t\t\t\t <a href="#">\n\t\t\t  \t\t<section class=\'zmiti-head\' :style="{background:\'url(./assets/images/logo.png) no-repeat center / cover\'}"></section>\n\t\t\t        <div class="line1"></div>\n\t\t\t        <div class="line2"></div>\n\t\t\t        <div class="line3"></div>\n\t\t\t\t\t<div class=\'zmiti-progress\'>{{width}}%</div>\n\t\t\t    </a>\n\t\t\t</div>\n\t\t</div>\n\n\t\n\t</div>',
 		methods: {
 
 			loading: function loading(arr, fn, fnEnd) {
@@ -165,7 +166,7 @@
 					url: window.protocol + '//api.zmiti.com/v2/custom/update_pvnum/',
 					type: 'post',
 					data: {
-						customid: 51
+						customid: 53
 					}
 				}).done(function (data) {
 					if (data.getret === 0) {
@@ -11996,7 +11997,7 @@
 	  var hotAPI = require("vue-hot-reload-api")
 	  hotAPI.install(require("vue"), true)
 	  if (!hotAPI.compatible) return
-	  var id = "F:\\xuchang2018\\project\\xiongan\\components\\index\\index.vue"
+	  var id = "F:\\xuchang2018\\project\\openingup\\components\\index\\index.vue"
 	  if (!module.hot.data) {
 	    hotAPI.createRecord(id, module.exports)
 	  } else {
@@ -22289,7 +22290,7 @@
 	  var hotAPI = require("vue-hot-reload-api")
 	  hotAPI.install(require("vue"), true)
 	  if (!hotAPI.compatible) return
-	  var id = "F:\\xuchang2018\\project\\xiongan\\components\\toast\\toast.vue"
+	  var id = "F:\\xuchang2018\\project\\openingup\\components\\toast\\toast.vue"
 	  if (!module.hot.data) {
 	    hotAPI.createRecord(id, module.exports)
 	  } else {
@@ -22313,8 +22314,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!../../node_modules/css-loader/index.js!../../node_modules/vue-loader/lib/style-rewriter.js?id=_v-5d6a8e10&file=toast.vue!../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./toast.vue", function() {
-				var newContent = require("!!../../node_modules/css-loader/index.js!../../node_modules/vue-loader/lib/style-rewriter.js?id=_v-5d6a8e10&file=toast.vue!../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./toast.vue");
+			module.hot.accept("!!../../node_modules/css-loader/index.js!../../node_modules/vue-loader/lib/style-rewriter.js?id=_v-1a389e01&file=toast.vue!../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./toast.vue", function() {
+				var newContent = require("!!../../node_modules/css-loader/index.js!../../node_modules/vue-loader/lib/style-rewriter.js?id=_v-1a389e01&file=toast.vue!../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./toast.vue");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -22406,7 +22407,7 @@
 	  var hotAPI = require("vue-hot-reload-api")
 	  hotAPI.install(require("vue"), true)
 	  if (!hotAPI.compatible) return
-	  var id = "F:\\xuchang2018\\project\\xiongan\\components\\share\\index.vue"
+	  var id = "F:\\xuchang2018\\project\\openingup\\components\\share\\index.vue"
 	  if (!module.hot.data) {
 	    hotAPI.createRecord(id, module.exports)
 	  } else {
@@ -22976,7 +22977,7 @@
 	  var hotAPI = require("vue-hot-reload-api")
 	  hotAPI.install(require("vue"), true)
 	  if (!hotAPI.compatible) return
-	  var id = "F:\\xuchang2018\\project\\xiongan\\components\\upload\\index.vue"
+	  var id = "F:\\xuchang2018\\project\\openingup\\components\\upload\\index.vue"
 	  if (!module.hot.data) {
 	    hotAPI.createRecord(id, module.exports)
 	  } else {
@@ -25656,7 +25657,7 @@
 
 	var __vue_script__, __vue_template__
 	__vue_script__ = __webpack_require__(35)
-	__vue_template__ = __webpack_require__(38)
+	__vue_template__ = __webpack_require__(39)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) { (typeof module.exports === "function" ? module.exports.options : module.exports).template = __vue_template__ }
@@ -25664,7 +25665,7 @@
 	  var hotAPI = require("vue-hot-reload-api")
 	  hotAPI.install(require("vue"), true)
 	  if (!hotAPI.compatible) return
-	  var id = "F:\\xuchang2018\\project\\xiongan\\components\\main\\index.vue"
+	  var id = "F:\\xuchang2018\\project\\openingup\\components\\main\\index.vue"
 	  if (!module.hot.data) {
 	    hotAPI.createRecord(id, module.exports)
 	  } else {
@@ -25678,55 +25679,12 @@
 
 	// <template>
 	// 	<transition name='main'>
-	// 		<div v-swipeup='next' v-swipeleft='next' v-swipedown='prev' v-swiperight='prev' class="lt-full zmiti-main-main-ui "  :class="{'show':show}" ref='page'>
-	// 			<div class="zmiti-main-canvas-C"    :style="{zIndex:isNext?19:10,width:viewW+offsetLeft+'px',WebkitTransform:'translateX('+transX+'px)'}">
-	// 				<canvas :width='viewW+offsetLeft' :height="viewH" ref='canvas'  ></canvas>
+	// 		<div class="lt-full zmiti-main-main-ui "  :class="{'show':show}" ref='page'>
+	// 			<canvas :width='viewW' :height='viewH' ref='canvas'></canvas>
+	// 			<div class="zmiti-operator" v-if='isAnimated'>
+	// 				<div v-tap='[seeHead]' class="zmiti-myheadimg">查看我的头像的位置</div>
+	// 				<div class="zmiti-preview">预览分享图片</div>
 	// 			</div>
-	// 			<div class="zmiti-main-canvas-C"  style="z-index: 10"   :style="{zIndex:isNext?9:19,width:viewW+offsetLeft+'px',WebkitTransform:'translateX('+transX+'px)'}">
-	// 				<canvas :width='viewW+offsetLeft' :height="viewH" ref='canvas1'  ></canvas>
-	// 			</div>
-	//
-	// 			<transition name='text'>
-	// 				<div class="zmiti-dashiji" v-if='showShiji' v-tap='[hideShiji]'>
-	// 					<img :src="imgs.shiji">
-	// 				</div>
-	// 			</transition>
-	//
-	// 			<transition name='text'>
-	// 				<div class="zmiti-img-text" v-if='showText && mainImgList[index][0] && !showShiji'>
-	// 					<img :src="imgs.textBg" class="zmiti-text-bg">
-	// 					<h4>{{mainImgList[index][0].date}}</h4>
-	// 					<div>
-	// 						{{mainImgList[index][0].text}}
-	// 						<span class="zmiti-back" v-tap='[close,"$event"]'>收起<label>>></label></span>
-	//
-	// 					</div>
-	// 					<div class="zmiti-text-line" hidden="">
-	// 						<span>
-	//
-	// 						</span>
-	// 						<img :src="imgs.close" v-tap='[close,"$event"]'>
-	// 					</div>
-	// 				</div>
-	// 			</transition>
-	//
-	// 			<div class="zmiti-photo" v-tap='[photo]'>
-	// 				<img :src="imgs.photo">
-	// 				<span>我要拍照</span>
-	// 			</div>
-	//
-	// 			<div class="zmiti-title">
-	// 				<img :src="imgs.title">
-	// 			</div>
-	//
-	// 			<div class="zmiti-year" v-if='false'>
-	// 				<img :src="imgs.year">
-	// 			</div>
-	//
-	//
-	// 			<div v-if='!animating && index < mainImgList.length-1'  v-tap='[next]' class="zmiti-next" ></div>
-	// 			<div v-if='!animating && index > 0' v-tap='[prev]'  class="zmiti-prev"></div>
-	//
 	// 		</div>
 	// 	</transition>
 	// </template>
@@ -25748,6 +25706,10 @@
 
 	var _jquery2 = _interopRequireDefault(_jquery);
 
+	var _libHeadimg = __webpack_require__(38);
+
+	var _libHeadimg2 = _interopRequireDefault(_libHeadimg);
+
 	exports['default'] = {
 		props: ['obserable', 'pv', 'randomPv', 'nickname', 'headimgurl'],
 		name: 'zmitiindex',
@@ -25756,207 +25718,370 @@
 				imgs: _libAssetsJs.imgs,
 				showTeam: false,
 				showQrcode: false,
-				show: false,
-				showShiji: false,
-				mainImgList: _libAssetsJs.mainImgList,
-				showText: true,
-				index: 0,
-				iNow: 0,
-				transX: 0,
-				offsetLeft: 200,
+				show: true,
 				viewW: window.innerWidth,
 				viewH: window.innerHeight,
 				showMasks: false,
-				animating: false, //正在动画
-				isNext: true
+				dots: [],
+				headimgs: [],
+				defaultPosition: [],
+				pressed: undefined,
+				stop: false,
+				isAnimated: false
+
 			};
 		},
 		components: {},
 
 		methods: {
 
-			hideShiji: function hideShiji() {
-				this.showShiji = false;
+			seeHead: function seeHead() {
+				var duration = 3000;
+
+				new TWEEN.Tween(this.camera.position).to({ z: 50 }, Math.random() * duration / 2 + duration / 2).easing(TWEEN.Easing.Exponential.InOut).onUpdate(function () {}).start();
 			},
 
-			close: function close(e) {
-				e.preventDefault();
-				this.showShiji = true;
-			},
-
-			photo: function photo() {
-				var obserable = this.obserable;
-
-				obserable.trigger({
-					type: 'toggleUpload',
-					data: {
-						show: true
-					}
-				});
-			},
-
-			next: function next() {
-
-				if (!this.mainImgList[this.index] || this.animating) {
-					return;
-				}
-
-				if (this.index >= this.mainImgList.length - 1) {
-					this.index = this.mainImgList.length - 1;
-					return;
-				}
-				this.showText = false;
-				this.animating = true;
-				this.initCanvas();
-
-				var context = this.context;
-
-				var t = setInterval((function () {
-					this.iNow += 30;
-					context.save();
-					context.rotate(40 * Math.PI / 180);
-					context.translate(0, -this.iNow);
-					context.fillRect(0, this.viewH, this.viewW * 2, this.viewH * 1.5);
-					context.restore();
-
-					if (this.iNow > this.viewH + this.viewW) {
-						//this.mainImgList[this.index][0].zIndex = 0;
-						clearInterval(t);
-						//this.isNext = false;
-						this.animating = false;
-						this.showText = true;
-
-						this.index++;
-						/*this.cacheData = this.mainImgList.shift();
-	     console.log(this.index);*/
-						this.iNow = 0;
-					}
-				}).bind(this), 20);
-			},
-
-			prev: function prev() {
-
-				this.index--;
-				if (this.index < 0 || this.animating) {
-					if (this.index < 0) {
-						this.index = 0;
-					}
-					return;
-				}
-
-				this.animating = true;
-				this.showText = false;
-
-				this.context = this.drawDefault('canvas', this.index, 0);
-				this.context1 = this.drawDefault('canvas1', this.index + 1);
-				//this.context = this.drawDefault('canvas',this.index);
-				var context = this.context1;
-				var opacity = 0;
-				var t = setInterval((function () {
-					opacity += .1;
-					if (opacity > 1) {
-						clearInterval(t);
-						this.animating = false;
-						this.showText = true;
-						return;
-					}
-					this.context = this.drawDefault('canvas', this.index, opacity);
-				}).bind(this), 20);
-			},
-			initCanvas: function initCanvas() {
-
-				this.context = this.drawDefault('canvas', this.index);
-				this.context1 = this.drawDefault('canvas1', this.index + 1);
-			},
-
-			drawDefault: function drawDefault(ref, index) {
+			initWebgl: function initWebgl() {
 				var _this = this;
 
-				var opacity = arguments.length <= 2 || arguments[2] === undefined ? 1 : arguments[2];
+				//
+				var scene = new THREE.Scene();
+				scene.background = new THREE.Color('#333');
+				this.scene = scene;
+				var camera = new THREE.PerspectiveCamera(45, this.viewW / this.viewH, 1, 1000);
+				camera.position.z = 120;
+				camera.position.y = 0;
+				this.camera = camera;
+				var renderer = new THREE.WebGLRenderer();
+				this.renderer = renderer;
+				///renderer.setClearColor(new THREE.Color(0xffffff, 1.0));
+				renderer.setSize(this.viewW, this.viewH);
+				renderer.setPixelRatio(window.devicePixelRatio);
+				scene.add(new THREE.AmbientLight('#f00'));
 
-				if (index < -1 || !this.mainImgList[index]) {
-					return;
-				}
-				var canvas = this.$refs[ref];
-				var context = canvas.getContext('2d');
-				context.globalCompositeOperation = "source-over";
-				context.shadowBlur = 0;
-				context.shadowColor = 'transparent';
-				context.globalAlpha = opacity;
-				this.drawImage(this.mainImgList[index][0].url, function (img) {
-					context.drawImage(img, 0, 0, _this.viewW + _this.offsetLeft, _this.viewH);
-					context.globalCompositeOperation = "destination-out";
-					context.shadowBlur = 280;
-					context.shadowColor = 'red';
-				});
-				return context;
-			},
+				var skyBoxGeometry = new THREE.BoxGeometry(250, 350, 400);
 
-			drawImage: function drawImage(url, fn) {
-				var img = new Image();
-				img.onload = function () {
-					fn(this);
+				var texture = new THREE.TextureLoader().load(_libAssetsJs.imgs.bg);
+				texture.needsUpdate = true;
+
+				var skyBoxMaterial = new THREE.MeshBasicMaterial({ map: texture, side: THREE.DoubleSide });
+
+				var skyBox = new THREE.Mesh(skyBoxGeometry, skyBoxMaterial);
+
+				this.skyBox = skyBox;
+
+				skyBox.visible = false;
+
+				scene.add(camera);
+				scene.add(skyBox);
+				//scene.add(ball);
+				this.$refs['page'].appendChild(renderer.domElement);
+
+				var i = 1;
+				var count = 0;
+				var sp = .05;
+				var render = function render() {
+					if (count >= 1) {
+
+						_this.pressed = false;
+					}
+					renderer.render(scene, camera);
+					!_this.stop && requestAnimationFrame(render);
+					if (_this.pressed && _this.headimgs.length) {
+						/*this.headimgs.forEach((headimg)=>{
+	     	headimg.position.x += headimg.speedX;
+	     	headimg.position.y += headimg.speedY;
+	     	headimg.position.z += headimg.speedZ;
+	     })*/
+					}
+
+					if (_this.point && _this.isAnimated) {
+						i += 4;
+						i %= 150;
+						//console.log(Math.sin(Math.PI/180*i),i)
+						_this.point.scale.x = Math.sin(Math.PI / 180 * i);
+						_this.point.scale.y = Math.sin(Math.PI / 180 * i);
+					}
+
+					TWEEN.update();
 				};
-				img.src = url;
-			}
-		},
-		watch: {
-			index: function index(_index) {
-				var obserable = this.obserable;
+				render();
+			},
+			fillText: function fillText() {
+				var canvas = document.createElement('canvas');
+				canvas.style.position = 'absolute';
+				canvas.style.top = 'auto';
+				canvas.style.bottom = 0;
+				canvas.style.left = 0;
+				canvas.width = this.viewW;
+				canvas.height = this.viewH;
+				canvas.style.zIndex = 100;
 
-				obserable.trigger({
-					type: 'fillIndex',
-					data: _index
+				var context = canvas.getContext('2d');
+
+				context.drawImage(canvas, 0, 0, this.viewW, this.viewH);
+				this.$refs['page'].appendChild(canvas);
+				context.textAlign = 'center';
+				context.font = "40px Georgia";
+				context.fillStyle = '#fff';
+				context.fillText("你是第" + this.pv + "位参与者", this.viewW / 2, this.viewH / 4 * 3);
+				this.isAnimated = true;
+				return canvas;
+			},
+			loadingTexture2: function loadingTexture2() {
+				var arr = [];
+				var imgList = [_libAssetsJs.imgs.headimg5];
+				for (var i = 0; i < imgList.length; i++) {
+					var canvas = document.createElement('canvas');
+					var img = new Image();
+					img.crossOrigin = '*';
+					img.src = imgList[i];
+					canvas.width = 300;
+					canvas.height = 300;
+					canvas.className = 'myCanavs';
+					//this.$refs['page'].appendChild(canvas);
+					var context = canvas.getContext('2d');
+					var texture = new THREE.Texture(canvas);
+					console.log(texture);
+					texture.needsUpdate = true;
+					context.drawImage(img, 0, 0, 300, 300);
+					var materials = new THREE.SpriteMaterial({
+						map: texture
+					});
+
+					arr.push(materials);
+				}
+				imgList.forEach(function (item) {
+					/*		var loader = new THREE.TextureLoader();
+	    		var myloader = loader.load(item);*/
+
 				});
+
+				this.arr = arr;
+
+				return arr;
+			},
+			loadingTexture: function loadingTexture() {
+				var arr = [];
+
+				[_libAssetsJs.imgs.headimg5].forEach(function (item) {
+					var loader = new THREE.TextureLoader();
+					var myloader = loader.load(item);
+					var materials = new THREE.SpriteMaterial({
+						map: myloader
+					});
+
+					arr.push(materials);
+				});
+
+				this.arr = arr;
+
+				return arr;
+			},
+			createHeadimg: function createHeadimg() {
+				var _this2 = this;
+
+				var k = 20,
+				    k1 = 10;
+
+				var materials = this.arr;
+
+				var group = new THREE.Group();
+				var index = this.dots.length * Math.random() | 0;
+				this.dots.forEach(function (dot, i) {
+					if (index === i) {
+
+						var loader = new THREE.TextureLoader();
+						var myloader = loader.load(_libAssetsJs.imgs.myhead);
+						var material = new THREE.SpriteMaterial({
+							map: myloader
+						});
+						var sprite = new THREE.Sprite(material);
+						_this2.defaultPosition.push([-(_this2.viewW / 2 - dot.x) / k, (_this2.viewH / 2 - dot.y) / k, 2]);
+						_this2.defaultPosition.push([-(_this2.viewW / 2 - dot.x) / k, (_this2.viewH / 2 - dot.y) / k, 1]);
+						sprite.position.set((Math.random() * _this2.viewW - _this2.viewW / 2) / k1, (Math.random() * _this2.viewH - _this2.viewH / 2) / k1, 0);
+						var scale = Math.random() * (.6 - .2) + .4 - .3;
+						scale = 2;
+						sprite.scale.set(scale, scale, scale);
+
+						var plane = new THREE.Mesh(new THREE.PlaneGeometry(2, 2, 1), new THREE.MeshBasicMaterial({ color: "#f00" }));
+						plane.position.x = sprite.position.x;
+						plane.position.y = sprite.position.y;
+						plane.position.z = sprite.position.z + 1;
+
+						group.add(sprite);
+						group.add(plane);
+						_this2.point = plane;
+						_this2.headimgs.push(plane);
+					} else {
+						var sprite = new THREE.Sprite(materials[i % materials.length]);
+						_this2.defaultPosition.push([-(_this2.viewW / 2 - dot.x) / k, (_this2.viewH / 2 - dot.y) / k, 0]);
+						sprite.position.set((Math.random() * _this2.viewW - _this2.viewW / 2) / k1, (Math.random() * _this2.viewH - _this2.viewH / 2) / k1, 0);
+						var scale = Math.random() * (.6 - .2) + .4 - .3;
+						sprite.scale.set(scale, scale, scale);
+
+						group.add(sprite);
+					}
+
+					if (i % 2 === 0) {
+						sprite.speedX = 0;
+						sprite.speedY = 0;
+						sprite.speedZ = Math.random();
+					} else {
+
+						sprite.speedX = Math.random() * (Math.random() - .5 > 0 ? 1 : -1);
+						sprite.speedY = Math.random() * (Math.random() - .5 > 0 ? 1 : -1);
+						sprite.speedZ = Math.random() * 6 + .2;
+					}
+					_this2.headimgs.push(sprite);
+				});
+				//group.rotation.x = Math.PI/180*-70;
+				this.scene.add(group);
+
+				return;
+
+				var img1 = new Image();
+				img1.src = _libAssetsJs.imgs.headimg1;
+
+				var img2 = new Image();
+				img2.src = _libAssetsJs.imgs.headimg2;
+
+				var img3 = new Image();
+				img3.src = _libAssetsJs.imgs.headimg3;
+
+				var img4 = new Image();
+				img4.src = _libAssetsJs.imgs.headimg4;
+
+				var img5 = new Image();
+				img5.src = _libAssetsJs.imgs.headimg5;
+
+				this.dots.map(function (dot, i) {
+					var imgObj = img1;
+					switch (i % 5) {
+						case 0:
+							imgObj = img2;
+							break;
+						case 1:
+							imgObj = img3;
+							break;
+						case 2:
+							imgObj = img4;
+							break;
+						case 3:
+							imgObj = img5;
+							break;
+					}
+
+					var headimg = new _libHeadimg2['default']({
+						context: _this2.context,
+						x: dot.x,
+						y: dot.y,
+						img: imgObj
+					});
+
+					_this2.headimgs.push(headimg);
+				});
+			},
+			initOffScreenCanvas: function initOffScreenCanvas() {
+				var canvas = document.createElement('canvas');
+				var img = new Image();
+				var myCanavs = this.$refs['canvas'];
+				var myContext = myCanavs.getContext('2d');
+				this.context = myContext;
+				var s = this;
+				img.onload = function () {
+					canvas.width = this.width;
+					canvas.height = this.height;
+					var context = canvas.getContext('2d');
+					context.drawImage(this, 0, 0);
+
+					var imgData = context.getImageData(0, 0, this.width, this.height);
+					var gap = 16;
+
+					for (var x = 0; x < imgData.width; x += gap) {
+						for (var y = 0; y < imgData.height; y += gap) {
+
+							var a = (x + y * imgData.width) * 4;
+							if (imgData.data[a + 3] > 128) {
+								s.dots.push({
+									x: x,
+									y: y,
+									r: imgData.data[a],
+									g: imgData.data[a + 1],
+									b: imgData.data[a + 2],
+									a: imgData.data[a + 3]
+								});
+							}
+						}
+					}
+
+					s.createHeadimg();
+
+					//myContext.putImageData(imgData,30,100);
+				};
+				img.src = _libAssetsJs.imgs.title;
+			},
+			animated: function animated() {
+				var _this3 = this;
+
+				//运动完成
+				this.fillText();
+				console.log(this.skyBox.material.opacity);
+				this.skyBox.material.needsUpdate = true;
+
+				new TWEEN.Tween(this.skyBox.material).to({ opacity: 1 }, 1000).easing(TWEEN.Easing.Exponential.InOut).onComplete(function () {}).onUpdate(function () {
+
+					console.log(_this3.skyBox.material.opacity);
+				}).start();
 			}
 		},
 		mounted: function mounted() {
-			var _this2 = this;
+			var _this4 = this;
+
+			this.loadingTexture();
+
+			this.initOffScreenCanvas();
+			this.initWebgl();
 
 			window.s = this;
 
-			this.initCanvas();
+			setTimeout(function () {
+				_this4.pressed = true;
 
-			this.transX = this.offsetLeft / 2 * -1;
-			var obserable = this.obserable;
+				var num = 0;
+				var num1 = 0;
+				_this4.headimgs.forEach(function (object, i) {
 
-			obserable.on('toggleMain', function (data) {
-				_this2.show = data.show;
-				if (data.index) {
-					_this2.index = data.index;
-					_this2.initCanvas();
-				}
-			});
+					var duration = 2000;
 
-			var s = this;
-			s.lastX = '';
-			s.lastY = '';
-			var i = 0;
-			var startX,
-			    startY,
-			    maxValue = 100;
+					new TWEEN.Tween(object.scale).to({ x: object.scale.x + .3, y: object.scale.y + .3, z: object.scale.z + .3 }, Math.random() * duration / 2 + duration / 2).easing(TWEEN.Easing.Exponential.InOut).onComplete(function () {
+						num1 += 1;
+						if (num1 >= _this4.defaultPosition.length) {
+							_this4.headimgs.forEach(function (object, i) {
+								new TWEEN.Tween(object.position).to({ x: Math.random() * 30 * (Math.random() - .5 > 0 ? 1 : -1), y: Math.random() * 100 * (Math.random() - .5 > 0 ? 1 : -1), z: Math.random() * 1000 * (Math.random() - .1 > 0 ? 1 : 1) }, Math.random() * duration + duration).easing(TWEEN.Easing.Exponential.InOut).onComplete(function () {
+									num += 1;
+									if (num >= _this4.defaultPosition.length) {
+										var s = _this4;
+										var duration = 2000;
 
-			window.addEventListener("deviceorientation", function (event) {
-
-				// document.title = event.beta|0;
-				i++;
-				if (i === 1) {
-					startY = event.beta;
-				}
-
-				var x = (event.gamma | 0) * 1.5,
-				    y = event.beta | 0;
-
-				if (x < -maxValue) {
-					x = -maxValue;
-				}
-				if (x > maxValue) {
-					x = maxValue;
-				}
-
-				s.transX = x - 100;
-				s.transY = y;
-			}, true);
+										num = 0;
+										_this4.headimgs.forEach(function (object, i) {
+											new TWEEN.Tween(object.position).to({ x: _this4.defaultPosition[i][0], y: _this4.defaultPosition[i][1], z: _this4.defaultPosition[i][2] }, Math.random() * duration + duration).easing(TWEEN.Easing.Exponential.InOut).onComplete(function () {
+												num += 1;
+												if (num >= _this4.defaultPosition.length) {
+													_this4.skyBox.visible = true;
+													_this4.animated();
+													//this.stop = true;
+												}
+											}).start();
+										});
+									}
+								}).start();
+							});
+						}
+					}).start();
+				});
+			}, 1000);
 		}
 	};
 
@@ -25998,7 +26123,7 @@
 
 
 	// module
-	exports.push([module.id, ".lt-full {\r\n  width: 100%;\r\n  height: 100%;\r\n  position: absolute;\r\n  left: 0;\r\n  top: 0; }\r\n\r\n.zmiti-text-overflow {\r\n  overflow: hidden;\r\n  white-space: nowrap;\r\n  word-break: break-all;\r\n  text-overflow: ellipsis;\r\n  -webkit-text-overflow: ellipsis; }\r\n\r\n.zmiti-play {\r\n  width: .8rem;\r\n  height: .8rem;\r\n  border-radius: 50%;\r\n  position: fixed;\r\n  z-index: 1000;\r\n  right: .5rem;\r\n  top: .5rem; }\r\n  .zmiti-play.rotate {\r\n    -webkit-animation: rotate 5s linear infinite;\r\n    animation: rotate 5s linear infinite; }\r\n\r\n@-webkit-keyframes rotate {\r\n  to {\r\n    -webkit-transform: rotate(360deg);\r\n    transform: rotate(360deg); } }\r\n.zmiti-main-main-ui {\r\n  overflow: hidden;\r\n  opacity: 0;\r\n  z-index: -1;\r\n  -webkit-transition: 1.5s;\r\n  transition: 1.5s; }\r\n  .zmiti-main-main-ui > canvas {\r\n    position: absolute;\r\n    left: 0;\r\n    top: 0; }\r\n  .zmiti-main-main-ui.show {\r\n    opacity: 1;\r\n    z-index: 100; }\r\n  .zmiti-main-main-ui.text-enter, .zmiti-main-main-ui.text-leave-to {\r\n    opacity: 0; }\r\n  .zmiti-main-main-ui > .zmiti-main-canvas-C {\r\n    position: absolute;\r\n    left: 0;\r\n    top: 0;\r\n    -webkit-transition: 0.2s;\r\n    transition: 0.2s; }\r\n  .zmiti-main-main-ui .zmiti-dashiji {\r\n    position: absolute;\r\n    width: 1.6rem;\r\n    top: 1.8rem;\r\n    left: .5rem;\r\n    z-index: 102; }\r\n    .zmiti-main-main-ui .zmiti-dashiji.text-enter-active, .zmiti-main-main-ui .zmiti-dashiji.text-leave-active {\r\n      -webkit-transition: 0.5s;\r\n      transition: 0.5s; }\r\n    .zmiti-main-main-ui .zmiti-dashiji.text-enter, .zmiti-main-main-ui .zmiti-dashiji.text-leave-to {\r\n      opacity: 0;\r\n      -webkit-transform: translate3d(0, -30px, 0);\r\n      transform: translate3d(0, -30px, 0); }\r\n  .zmiti-main-main-ui .zmiti-img-text {\r\n    position: absolute;\r\n    width: 8rem;\r\n    left: 1rem;\r\n    top: 3.5rem;\r\n    z-index: 40;\r\n    padding: 24px 24px 0 24px;\r\n    box-sizing: border-box; }\r\n    .zmiti-main-main-ui .zmiti-img-text.text-enter-active, .zmiti-main-main-ui .zmiti-img-text.text-leave-active {\r\n      -webkit-transition: 0.5s;\r\n      transition: 0.5s; }\r\n    .zmiti-main-main-ui .zmiti-img-text.text-enter, .zmiti-main-main-ui .zmiti-img-text.text-leave-to {\r\n      opacity: 0;\r\n      -webkit-transform: translate3d(0, -30px, 0);\r\n      transform: translate3d(0, -30px, 0); }\r\n    .zmiti-main-main-ui .zmiti-img-text .zmiti-back {\r\n      display: block;\r\n      width: 100%;\r\n      text-align: right;\r\n      position: relative;\r\n      float: right;\r\n      padding-right: 40px;\r\n      color: #0085d8; }\r\n      .zmiti-main-main-ui .zmiti-img-text .zmiti-back label {\r\n        display: none; }\r\n      .zmiti-main-main-ui .zmiti-img-text .zmiti-back:before, .zmiti-main-main-ui .zmiti-img-text .zmiti-back:after {\r\n        content: \"\";\r\n        position: absolute;\r\n        right: 12px;\r\n        -webkit-transform: rotate(45deg);\r\n        transform: rotate(45deg);\r\n        top: 14px;\r\n        border: 2px solid #0085d8;\r\n        border-bottom: none;\r\n        border-right: none;\r\n        width: 15px;\r\n        height: 15px; }\r\n      .zmiti-main-main-ui .zmiti-img-text .zmiti-back:after {\r\n        top: 24px; }\r\n    .zmiti-main-main-ui .zmiti-img-text > img.zmiti-text-bg {\r\n      position: absolute;\r\n      width: 100%;\r\n      height: 100%;\r\n      z-index: 0; }\r\n    .zmiti-main-main-ui .zmiti-img-text > h4, .zmiti-main-main-ui .zmiti-img-text > div {\r\n      position: relative;\r\n      z-index: 1;\r\n      text-indent: 2em;\r\n      margin-left: 40px;\r\n      margin-top: 10px;\r\n      color: #333; }\r\n    .zmiti-main-main-ui .zmiti-img-text > h4 {\r\n      text-indent: 0;\r\n      font-size: 36px; }\r\n    .zmiti-main-main-ui .zmiti-img-text > div {\r\n      margin-top: 20px; }\r\n    .zmiti-main-main-ui .zmiti-img-text > .zmiti-caidai {\r\n      position: absolute;\r\n      left: -1.9rem;\r\n      width: 1.5rem;\r\n      top: 1rem; }\r\n    .zmiti-main-main-ui .zmiti-img-text > .zmiti-caidai1 {\r\n      left: auto;\r\n      right: .4rem;\r\n      top: -1rem;\r\n      width: .5rem; }\r\n    .zmiti-main-main-ui .zmiti-img-text .zmiti-text-line {\r\n      position: absolute;\r\n      width: 1rem;\r\n      height: 4rem;\r\n      right: .5rem; }\r\n      .zmiti-main-main-ui .zmiti-img-text .zmiti-text-line img {\r\n        width: .6rem;\r\n        position: absolute;\r\n        left: .2rem;\r\n        bottom: 0; }\r\n      .zmiti-main-main-ui .zmiti-img-text .zmiti-text-line span {\r\n        width: .1rem;\r\n        position: absolute;\r\n        left: .45rem;\r\n        top: 0;\r\n        height: 100%;\r\n        background: rgba(255, 255, 227, 0.8); }\r\n  .zmiti-main-main-ui .zmiti-title {\r\n    position: absolute;\r\n    z-index: 20;\r\n    top: 0;\r\n    left: 0;\r\n    width: 4.5rem; }\r\n  .zmiti-main-main-ui .zmiti-year {\r\n    position: absolute;\r\n    z-index: 20;\r\n    top: .2rem;\r\n    right: 1.2rem; }\r\n  .zmiti-main-main-ui .zmiti-photo {\r\n    position: absolute;\r\n    width: 2rem;\r\n    z-index: 20;\r\n    bottom: .7rem;\r\n    left: 4rem;\r\n    text-align: center;\r\n    color: #fff; }\r\n  .zmiti-main-main-ui .zmiti-next, .zmiti-main-main-ui .zmiti-prev {\r\n    position: absolute;\r\n    width: 1.4rem;\r\n    height: 1rem;\r\n    left: .4rem;\r\n    bottom: .4rem;\r\n    z-index: 44;\r\n    z-index: 100; }\r\n    .zmiti-main-main-ui .zmiti-next:before, .zmiti-main-main-ui .zmiti-next:after, .zmiti-main-main-ui .zmiti-prev:before, .zmiti-main-main-ui .zmiti-prev:after {\r\n      content: \"\";\r\n      position: absolute;\r\n      left: 0;\r\n      top: 60%;\r\n      width: 100%;\r\n      height: .07rem;\r\n      background: #fff;\r\n      border-top-left-radius: 10px;\r\n      border-bottom-left-radius: 10px;\r\n      box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);\r\n      -webkit-animation: ar 1s linear infinite alternate;\r\n      animation: ar 1s linear infinite alternate; }\r\n    .zmiti-main-main-ui .zmiti-next:after, .zmiti-main-main-ui .zmiti-prev:after {\r\n      width: 30%;\r\n      -webkit-transform: rotate(-40deg);\r\n      transform: rotate(-40deg);\r\n      -webkit-transform-origin: left;\r\n      transform-origin: left; }\r\n  .zmiti-main-main-ui .zmiti-next {\r\n    left: auto;\r\n    right: .4rem; }\r\n    .zmiti-main-main-ui .zmiti-next:before, .zmiti-main-main-ui .zmiti-next:after {\r\n      content: \"\";\r\n      position: absolute;\r\n      left: 0;\r\n      top: 60%;\r\n      width: 100%;\r\n      height: .07rem;\r\n      background: #fff;\r\n      border-top-left-radius: 10px;\r\n      border-bottom-left-radius: 10px;\r\n      -webkit-animation: ar 0.6s linear infinite alternate;\r\n      animation: ar 0.6s linear infinite alternate; }\r\n    .zmiti-main-main-ui .zmiti-next:after {\r\n      width: 30%;\r\n      left: auto;\r\n      right: 0;\r\n      -webkit-transform: rotate(40deg);\r\n      transform: rotate(40deg);\r\n      -webkit-transform-origin: right;\r\n      transform-origin: right; }\r\n\r\n@-webkit-keyframes ar {\r\n  from {\r\n    margin-top: -5px; }\r\n  to {\r\n    margin-top: 5px; } }\r\n\r\n/*# sourceMappingURL=index.css.map */\r\n", ""]);
+	exports.push([module.id, ".lt-full {\r\n  width: 100%;\r\n  height: 100%;\r\n  position: absolute;\r\n  left: 0;\r\n  top: 0; }\r\n\r\n.zmiti-text-overflow {\r\n  overflow: hidden;\r\n  white-space: nowrap;\r\n  word-break: break-all;\r\n  text-overflow: ellipsis;\r\n  -webkit-text-overflow: ellipsis; }\r\n\r\n.zmiti-play {\r\n  width: .8rem;\r\n  height: .8rem;\r\n  border-radius: 50%;\r\n  position: fixed;\r\n  z-index: 1000;\r\n  right: .5rem;\r\n  top: .5rem; }\r\n  .zmiti-play.rotate {\r\n    -webkit-animation: rotate 5s linear infinite;\r\n    animation: rotate 5s linear infinite; }\r\n\r\n@-webkit-keyframes rotate {\r\n  to {\r\n    -webkit-transform: rotate(360deg);\r\n    transform: rotate(360deg); } }\r\n.zmiti-main-main-ui > canvas {\r\n  position: absolute;\r\n  left: 0;\r\n  top: 0; }\r\n.zmiti-main-main-ui .myCanavs {\r\n  bottom: 0;\r\n  top: auto;\r\n  z-index: 100;\r\n  border: 1px solid red; }\r\n.zmiti-main-main-ui .zmiti-operator {\r\n  position: absolute;\r\n  z-index: 102;\r\n  width: 100%;\r\n  height: 20vh;\r\n  bottom: 0;\r\n  left: 0; }\r\n  .zmiti-main-main-ui .zmiti-operator .zmiti-myheadimg {\r\n    background: #ff3f37;\r\n    color: #Fff;\r\n    width: 44vw;\r\n    text-align: center;\r\n    height: 70px;\r\n    line-height: 70px;\r\n    margin: 0 auto;\r\n    border-radius: 30px; }\r\n  .zmiti-main-main-ui .zmiti-operator .zmiti-preview {\r\n    margin-top: 20px;\r\n    text-align: center;\r\n    color: #54597e; }\r\n\r\n@-webkit-keyframes ar {\r\n  from {\r\n    margin-top: -5px; }\r\n  to {\r\n    margin-top: 5px; } }\r\n\r\n/*# sourceMappingURL=index.css.map */\r\n", ""]);
 
 	// exports
 
@@ -26007,15 +26132,57 @@
 /* 38 */
 /***/ (function(module, exports) {
 
-	module.exports = "\r\n\t<transition name='main'>\r\n\t\t<div v-swipeup='next' v-swipeleft='next' v-swipedown='prev' v-swiperight='prev' class=\"lt-full zmiti-main-main-ui \"  :class=\"{'show':show}\" ref='page'>\r\n\t\t\t<div class=\"zmiti-main-canvas-C\"    :style=\"{zIndex:isNext?19:10,width:viewW+offsetLeft+'px',WebkitTransform:'translateX('+transX+'px)'}\">\r\n\t\t\t\t<canvas :width='viewW+offsetLeft' :height=\"viewH\" ref='canvas'  ></canvas>\r\n\t\t\t</div>\r\n\t\t\t<div class=\"zmiti-main-canvas-C\"  style=\"z-index: 10\"   :style=\"{zIndex:isNext?9:19,width:viewW+offsetLeft+'px',WebkitTransform:'translateX('+transX+'px)'}\">\r\n\t\t\t\t<canvas :width='viewW+offsetLeft' :height=\"viewH\" ref='canvas1'  ></canvas>\r\n\t\t\t</div>\r\n\r\n\t\t\t<transition name='text'>\r\n\t\t\t\t<div class=\"zmiti-dashiji\" v-if='showShiji' v-tap='[hideShiji]'>\r\n\t\t\t\t\t<img :src=\"imgs.shiji\">\r\n\t\t\t\t</div>\r\n\t\t\t</transition>\r\n\t\t\t\r\n\t\t\t<transition name='text'>\r\n\t\t\t\t<div class=\"zmiti-img-text\" v-if='showText && mainImgList[index][0] && !showShiji'>\r\n\t\t\t\t\t<img :src=\"imgs.textBg\" class=\"zmiti-text-bg\">\r\n\t\t\t\t\t<h4>{{mainImgList[index][0].date}}</h4>\r\n\t\t\t\t\t<div>\r\n\t\t\t\t\t\t{{mainImgList[index][0].text}}\r\n\t\t\t\t\t\t<span class=\"zmiti-back\" v-tap='[close,\"$event\"]'>收起<label>>></label></span>\r\n\t\t\t\t\t\t\r\n\t\t\t\t\t</div>\r\n\t\t\t\t\t<div class=\"zmiti-text-line\" hidden=\"\">\r\n\t\t\t\t\t\t<span>\r\n\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t</span>\r\n\t\t\t\t\t\t<img :src=\"imgs.close\" v-tap='[close,\"$event\"]'>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</div>\r\n\t\t\t</transition>\r\n\r\n\t\t\t<div class=\"zmiti-photo\" v-tap='[photo]'>\r\n\t\t\t\t<img :src=\"imgs.photo\">\r\n\t\t\t\t<span>我要拍照</span>\r\n\t\t\t</div>\r\n\r\n\t\t\t<div class=\"zmiti-title\">\r\n\t\t\t\t<img :src=\"imgs.title\">\r\n\t\t\t</div>\r\n\r\n\t\t\t<div class=\"zmiti-year\" v-if='false'>\r\n\t\t\t\t<img :src=\"imgs.year\">\r\n\t\t\t</div>\r\n\r\n\r\n\t\t\t<div v-if='!animating && index < mainImgList.length-1'  v-tap='[next]' class=\"zmiti-next\" ></div>\r\n\t\t\t<div v-if='!animating && index > 0' v-tap='[prev]'  class=\"zmiti-prev\"></div>\r\n\t\t\t\r\n\t\t</div>\r\n\t</transition>\r\n";
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	var HeadImg = (function () {
+		function HeadImg() {
+			var option = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
+
+			_classCallCheck(this, HeadImg);
+
+			this.img = option.img;
+			this.x = option.x;
+			this.y = option.y;
+			this.context = option.context;
+
+			this.render();
+		}
+
+		_createClass(HeadImg, [{
+			key: "render",
+			value: function render() {
+
+				this.context.drawImage(this.img, this.x, this.y, 10, 10);
+			}
+		}]);
+
+		return HeadImg;
+	})();
+
+	exports["default"] = HeadImg;
+	module.exports = exports["default"];
 
 /***/ }),
 /* 39 */
+/***/ (function(module, exports) {
+
+	module.exports = "\r\n\t<transition name='main'>\r\n\t\t<div class=\"lt-full zmiti-main-main-ui \"  :class=\"{'show':show}\" ref='page'>\r\n\t\t\t<canvas :width='viewW' :height='viewH' ref='canvas'></canvas>\r\n\t\t\t<div class=\"zmiti-operator\" v-if='isAnimated'>\r\n\t\t\t\t<div v-tap='[seeHead]' class=\"zmiti-myheadimg\">查看我的头像的位置</div>\r\n\t\t\t\t<div class=\"zmiti-preview\">预览分享图片</div>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t</transition>\r\n";
+
+/***/ }),
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__vue_script__ = __webpack_require__(40)
-	__vue_template__ = __webpack_require__(41)
+	__vue_script__ = __webpack_require__(41)
+	__vue_template__ = __webpack_require__(42)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) { (typeof module.exports === "function" ? module.exports.options : module.exports).template = __vue_template__ }
@@ -26023,7 +26190,7 @@
 	  var hotAPI = require("vue-hot-reload-api")
 	  hotAPI.install(require("vue"), true)
 	  if (!hotAPI.compatible) return
-	  var id = "F:\\xuchang2018\\project\\xiongan\\components\\music\\index.vue"
+	  var id = "F:\\xuchang2018\\project\\openingup\\components\\music\\index.vue"
 	  if (!module.hot.data) {
 	    hotAPI.createRecord(id, module.exports)
 	  } else {
@@ -26032,7 +26199,7 @@
 	})()}
 
 /***/ }),
-/* 40 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	// <template>
@@ -26196,13 +26363,13 @@
 	module.exports = exports['default'];
 
 /***/ }),
-/* 41 */
+/* 42 */
 /***/ (function(module, exports) {
 
 	module.exports = "\r\n\t<div  class=\"lt-full zmiti-music-main-ui\" :style='{height:\"10vh\"}'>\r\n\t\t<audio ref='music' v-for='audio in audios' :src='audio.src' :autoplay=\"audio.autoplay\" :loop=\"audio.loop\"></audio>\r\n\r\n\t\t<div  @click='toggleMusic' class='zmiti-play' :class='{\"rotate\":rotate}' :style=\"playStyle\">\r\n\t\t\t<img  :src='imgs.play'/>\r\n\t\t</div>\r\n\t</div>\r\n";
 
 /***/ }),
-/* 42 */
+/* 43 */
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -26266,7 +26433,7 @@
 	module.exports = exports["default"];
 
 /***/ }),
-/* 43 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -26381,7 +26548,7 @@
 	});
 
 /***/ }),
-/* 44 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;/*!

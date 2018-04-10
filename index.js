@@ -55,7 +55,7 @@ new Vue({
 		<Music   :obserable='obserable'></Music>
 	*/
 	template: `<div>
-		<Main  v-if='show && !isShare'  :obserable='obserable'></Main>
+		<Main :pv='pv'  v-if='show && !isShare'  :obserable='obserable'></Main>
 		<div  v-if='!loaded' :style='{background:"#158ae4"}' class='zmiti-loading lt-full'>
 			<div class='zmiti-loading-ui'>
 				 <a href="#">
@@ -102,7 +102,7 @@ new Vue({
 				url: window.protocol + '//api.zmiti.com/v2/custom/update_pvnum/',
 				type: 'post',
 				data: {
-					customid: 51
+					customid: 53
 				}
 			}).done((data) => {
 				if (data.getret === 0) {

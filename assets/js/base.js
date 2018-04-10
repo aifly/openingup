@@ -1,15 +1,17 @@
 ﻿var imgs = {
 	play: './assets/images/play.png',
 	logo: './assets/images/logo.png',
+	bg: './assets/images/bg.jpg',
 
 	arrow: './assets/images/arrow.png',
 	
 	title:'./assets/images/title.png',
-	headimg1:'./assets/images/1.jpg',
+	headimg5:'http://h5.zmiti.com/public/qmh5/images/300.jpg',//http://h5.zhongguowangshi.com/tree/assets/images/logo.png
 	headimg2:'./assets/images/1.jpg',//http://wx.qlogo.cn/mmopen/ajNVdqHZLLBdRPD56QKxojEyLE4HvhKFYFkLa2zPib2VJW3hlkmBvjL4I9f9yurwMNbDkUTibKMiaVX7zjN8R9QUbccqo7T9jJZ4Nic8cI7c99M/0',
 	headimg3:'./assets/images/3.png',
 	headimg4:'./assets/images/4.jpg',
-	headimg5:'./assets/images/5.jpg',
+	headimg1:'./assets/images/5.jpg',
+	myhead:'http://api.zmiti.com/zmiti_ele/user/xuchang/material/20161210/29bf8fc29f42bd723e2feb83f6465f9f.jpg'
   
 }
 

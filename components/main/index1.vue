@@ -2,10 +2,6 @@
 	<transition name='main'>
 		<div class="lt-full zmiti-main-main-ui "  :class="{'show':show}" ref='page'>
 			<canvas :width='viewW' :height='viewH' ref='canvas'></canvas>
-			<div class="zmiti-operator" v-if='isAnimated'>
-				<div v-tap='[seeHead]' class="zmiti-myheadimg">查看我的头像的位置</div>
-				<div class="zmiti-preview">预览分享图片</div>
-			</div>
 		</div>
 	</transition>
 </template>
@@ -31,8 +27,7 @@
 				headimgs:[],
 				defaultPosition:[],
 				pressed:undefined,
-				stop:false,
-				isAnimated:false
+				stop:false
 
 				
 			}
@@ -41,16 +36,6 @@
 		},
 		
 		methods:{
-
-			seeHead(){
-				var duration = 3000;
-				
-				new TWEEN.Tween( this.camera.position )
-						.to( { z:50}, Math.random() * duration/2 + duration/2 )
-						.easing( TWEEN.Easing.Exponential.InOut ).onUpdate(()=>{
-							
-						}).start();
-			},
 
 			initWebgl(){//
 				var scene = new THREE.Scene();
@@ -65,37 +50,78 @@
 				///renderer.setClearColor(new THREE.Color(0xffffff, 1.0));
 				renderer.setSize(this.viewW,this.viewH);
 				renderer.setPixelRatio(window.devicePixelRatio);
-				scene.add(new THREE.AmbientLight('#f00'));
+				scene.add(new THREE.AmbientLight('#ccc'));
 
 				var skyBoxGeometry = new THREE.BoxGeometry( 250, 350, 400 );  
   
-				var texture = new THREE.TextureLoader().load(imgs.bg);
-				 texture.needsUpdate = true;
+				var texture = new THREE.TextureLoader().load(imgs.bg);  
 				  
-				var skyBoxMaterial = new THREE.MeshBasicMaterial( { map:texture,side: THREE.DoubleSide  } ); 
-
-
+				var skyBoxMaterial = new THREE.MeshBasicMaterial( { map:texture, side: THREE.DoubleSide } );  
+				  
 				var skyBox = new THREE.Mesh( skyBoxGeometry, skyBoxMaterial );
+
 
 				this.skyBox = skyBox;
 
+
 				skyBox.visible = false;
 
-
+				var planeGeo = new THREE.
 
 				
+
+
+
+
+				/*var loader = new THREE.FontLoader();
+				loader.load('./assets/fonts/font.json',(font)=>{
+					console.log("你是第"+this.pv+"位参与者")
+					 var textGeometry = new THREE.TextGeometry("THREEJS",{
+					 	font,
+	                    "size" :2,
+	                    "height" : 5,
+	                    "bevelEnabled" : true,
+	                    "curveSegments" : 30,
+	                    bevelSize: 1,
+	                    // material: 0,
+	                    // extrudeMaterial: 1
+	                })
+
+
+	               var text = new THREE.Mesh(textGeometry,new THREE.MultiMaterial( [
+	                    new THREE.MeshBasicMaterial( { color: 0xffffff, shading: THREE.FlatShading } ), // front
+	                    new THREE.MeshBasicMaterial( { color: 0xffffff, shading: THREE.SmoothShading } ) // side
+	                ] ))
+
+	                textGeometry.computeBoundingBox();
+	                var centerOffset = -0.5 * ( textGeometry.boundingBox.max.x - textGeometry.boundingBox.min.x );
+
+	                text.position.x = centerOffset;
+					text.position.y = 10;
+					text.position.z = 0;
+					text.rotation.x = 0;
+					text.rotation.y = Math.PI ;
+
+	                scene.add(text);
+				});
+*/
+
+				
+				this.fillText();
+				
+ 
+
 				scene.add(camera);
 				scene.add(skyBox);  
 				//scene.add(ball);
 				this.$refs['page'].appendChild(renderer.domElement)
 				
 
-				var i = 1;
+				var i = 0;
 				var count = 0;
-				var sp = .05;
 				var render = ()=>{
 					if(count>=1){
-						
+						i--;
 						this.pressed = false;
 					}
 					renderer.render(scene,camera);					
@@ -108,19 +134,19 @@
 						})*/
 					}
 
-					if(this.point && this.isAnimated){
-						i+=4;
-						i%=150;
-						//console.log(Math.sin(Math.PI/180*i),i)
-						this.point.scale.x =  Math.sin(Math.PI/180*i);
-						this.point.scale.y =  Math.sin(Math.PI/180*i);
+					if(this.pressed === false){
 						
-
-
+						
 					}
-					 
 					TWEEN.update();
-					 
+					if(i>200){
+						i = -1;
+						count++;
+					
+						
+					}else{
+						i++;
+					}
 				}
 				render();
 
@@ -133,61 +159,22 @@
 				canvas.style.bottom = 0;
 				canvas.style.left=0;
 				canvas.width = this.viewW;
-				canvas.height = this.viewH;
+				canvas.height = this.viewH/4;
 				canvas.style.zIndex = 100;
+				canvas.style.border='1px solid red'
 
 				var context = canvas.getContext('2d');
-
-				context.drawImage(canvas,0,0,this.viewW,this.viewH)
 				this.$refs['page'].appendChild(canvas);
 				context.textAlign = 'center';
 				context.font="40px Georgia";
 				context.fillStyle = '#fff';
-				context.fillText("你是第"+this.pv+"位参与者",this.viewW/2,this.viewH/4*3);
-				this.isAnimated = true;
-				return canvas;
+				context.fillText("你是第"+this.pv+"位参与者",this.viewW/2,this.viewH/4/4);
 
-			},
-			loadingTexture2(){
-				var arr = [];
-				var imgList = [imgs.headimg5];
-				for(var i=0;i<imgList.length;i++){
-					var canvas = document.createElement('canvas');
-					var img = new Image();
-					img.crossOrigin = '*';
-					img.src = imgList[i];
-					canvas.width = 300;
-					canvas.height = 300;
-					canvas.className = 'myCanavs';
-					//this.$refs['page'].appendChild(canvas);
-					var context = canvas.getContext('2d');
-					var texture = new THREE.Texture(canvas);
-					console.log(texture)
-					texture.needsUpdate = true;
-					context.drawImage(img,0,0,300,300);
-					var materials = new THREE.SpriteMaterial({
-							map:texture
-						});
-
-					arr.push(materials)
-				}
-				imgList.forEach(item=>{
-			/*		var loader = new THREE.TextureLoader();
-					var myloader = loader.load(item);*/
-
-					
-				});
-
-				this.arr = arr;
-
-				return arr;
-
-				
 			},
 			loadingTexture(){
 				var arr = [];
 
-				[imgs.headimg5].forEach(item=>{
+				[imgs.headimg1,imgs.headimg2,imgs.headimg3,imgs.headimg4,imgs.headimg5].forEach(item=>{
 					var loader = new THREE.TextureLoader();
 					var myloader = loader.load(item);
 					var materials = new THREE.SpriteMaterial({
@@ -197,7 +184,6 @@
 					arr.push(materials)
 				});
 
-				this.arr = arr;
 
 				return arr;
 
@@ -209,48 +195,17 @@
 				var k = 20,
 					k1 = 10;
 
-				var materials =this.arr;
+				var materials = this.loadingTexture();
 				
 				var group = new THREE.Group();
-				var index = (this.dots.length*Math.random())|0
+				 
 				this.dots.forEach((dot,i)=>{
-					if(index ===i ){
-
-						var loader = new THREE.TextureLoader();
-						var myloader = loader.load(imgs.myhead);
-						var material = new THREE.SpriteMaterial({
-								map:myloader
-							});
-						var sprite = new THREE.Sprite(material);
-						this.defaultPosition.push([-(this.viewW/2-dot.x)/k,(this.viewH/2-dot.y)/k,2])
-						this.defaultPosition.push([-(this.viewW/2-dot.x)/k,(this.viewH/2-dot.y)/k,1])
-						sprite.position.set((Math.random()*this.viewW-this.viewW/2)/k1,(Math.random()*this.viewH-this.viewH/2)/k1,0)
-						var scale = Math.random()*(.6-.2)+.4-.3;
-						scale =2;
-						sprite.scale.set(scale,scale,scale);
-
-						var plane = new THREE.Mesh(new THREE.PlaneGeometry(2,2,1),new THREE.MeshBasicMaterial({color:"#f00"}))
-						plane.position.x = sprite.position.x;
-						plane.position.y= sprite.position.y;
-						plane.position.z = sprite.position.z+1;
-
-						group.add(sprite);
-						group.add(plane);
-						this.point = plane;
-						this.headimgs.push(plane);
-					}else{
-						var sprite = new THREE.Sprite(materials[i%materials.length]);
-						this.defaultPosition.push([-(this.viewW/2-dot.x)/k,(this.viewH/2-dot.y)/k,0])
-						sprite.position.set((Math.random()*this.viewW-this.viewW/2)/k1,(Math.random()*this.viewH-this.viewH/2)/k1,0)
-						var scale = Math.random()*(.6-.2)+.4-.3;
-						sprite.scale.set(scale,scale,scale);
-						
-						group.add(sprite);
-					}
-
-
-
-
+					var sprite = new THREE.Sprite(materials[i%materials.length]);
+					this.defaultPosition.push([-(this.viewW/2-dot.x)/k,(this.viewH/2-dot.y)/k,0])
+					sprite.position.set((Math.random()*this.viewW-this.viewW/2)/k1,(Math.random()*this.viewH-this.viewH/2)/k1,0)
+					var scale = Math.random()*(.6-.2)+.4-.3;
+					sprite.scale.set(scale,scale,scale);
+					group.add(sprite);
 					if(i%2===0){
 						sprite.speedX =0;
 						sprite.speedY =0;
@@ -365,24 +320,9 @@
 				img.src = imgs.title;
 			},
 			animated(){//运动完成
-				this.fillText()
-				console.log(this.skyBox.material.opacity)
-				this.skyBox.material.needsUpdate = true;
-
-				new TWEEN.Tween(this.skyBox.material)
-					.to( { opacity:1 },1000)
-					.easing( TWEEN.Easing.Exponential.InOut ).onComplete(()=>{
-						
-
-					}).onUpdate(()=>{
-
-						console.log(this.skyBox.material.opacity)
-					}).start(); 
 			}
 		},
 		mounted(){
-
-			this.loadingTexture();
 
 			this.initOffScreenCanvas();
 			this.initWebgl();
@@ -422,7 +362,7 @@
 														if(num>=this.defaultPosition.length){
 															this.skyBox.visible = true;
 															this.animated();
-															//this.stop = true;
+															this.stop = true;
 														}
 
 													}).start(); 
