@@ -1,10 +1,35 @@
 <template>
 	<transition name='main'>
-		<div class="lt-full zmiti-main-main-ui "  :class="{'show':show}" ref='page'>
-			<canvas :width='viewW' :height='viewH' ref='canvas'></canvas>
-			<div class="zmiti-operator" v-if='isAnimated'>
-				<div v-tap='[seeHead]' class="zmiti-myheadimg">查看我的头像的位置</div>
-				<div class="zmiti-preview">预览分享图片</div>
+		<div class="lt-full zmiti-main-main-ui "  :class="{'show':show}" :style="{background:'url('+imgs.bg1+') no-repeat center',backgroundSize:'cover'}" ref='page'>
+
+			<section v-if='!createImg'>
+				
+				<canvas :width='viewW' :height='viewH' ref='canvas'></canvas>
+				<canvas :width='viewW' :height='viewH' ref='canvas1'></canvas>
+				<div class="zmiti-operator" v-if='isAnimated && !isPreviewed'>
+					<div class='zmiti-pv'>你是第{{pv}}位参与者</div>
+					<div v-if='overView' v-tap='[seeHead]' class="zmiti-myheadimg">查看我的头像的位置</div>
+					<div v-if='!overView'  v-tap='[backToImg]' class="zmiti-myheadimg">回看全景</div>
+					<div v-if='overView' v-tap='[preview]' class="zmiti-preview">预览分享图片</div>
+				</div>
+
+			</section>
+
+			<transition name='zmiti-scale'>
+				<div class="zmiti-createimg" v-if='createImg'>
+					<img :src="createImg">
+				</div>
+			</transition>
+
+			<transition name='btn'>
+				<div class="zmiti-btns" v-if='createImg'>
+					<div v-tap='[restart]'>重新点亮</div>
+					<div v-tap='[share]'>分享</div>
+				</div>
+			</transition>
+			
+			<div class="zmiti-mask" v-if='showMasks' @touchstart='showMasks = false'>
+				<img :src="imgs.arrow">
 			</div>
 		</div>
 	</transition>
@@ -13,7 +38,8 @@
 <script>
 	import './index.css';
 	import {imgs,mainImgList} from '../lib/assets.js';
-	import $ from 'jquery';
+	import $ from 'jquery'; 
+	import zmitiUtil from '../lib/util';
 	export default {
 		props:['obserable','pv','randomPv','nickname','headimgurl'],
 		name:'zmitiindex',
@@ -27,12 +53,21 @@
 				viewH:window.innerHeight,
 				showMasks:false,
 				dots:[],
+				isPreviewed:false,
+				createImg:'',
 				headimgs:[],
 				defaultPosition:[],
 				pressed:undefined,
 				stop:false,
-				isAnimated:false
-
+				isAnimated:false,
+				overView:true,
+				cameraZ:90,
+				text:[
+					'2018年，我们将迎来改革开放40周年',
+					'改革开放是当代中国发展的必由之路',
+					'是实现中国梦的必由之路',
+					'我们要以庆祝改革开放40周年为契机'
+				]
 				
 			}
 		},
@@ -41,22 +76,81 @@
 		
 		methods:{
 
-			seeHead(){
+			restart(){
+
+				window.location.href = window.location.href.split('?')[0];
+
+			},
+
+			share(){
+				this.showMasks = true;
+			},
+
+			preview(){//预览分享图片
+
+				this.isPreviewed = true;
 				var duration = 3000;
+				duration =  Math.random() * duration/2 + duration/2;
+
+				new TWEEN.Tween( this.camera.position )
+					.to( { y:-12,z:this.camera.position.z+30},duration)
+					.easing( TWEEN.Easing.Exponential.InOut ).onComplete(()=>{
+						//console.log(this.renderer.domElement.toDataURL())
+
+						var canvasMap = this.fillText();
+
+
+
+					}).start();
+			},
+
+			backToImg(){
+				var duration = 3000;
+				duration =  Math.random() * duration/2 + duration/2 
 				
 				new TWEEN.Tween( this.camera.position )
-						.to( { z:50,x:this.point.position.x,y:this.point.position.y}, Math.random() * duration/2 + duration/2 )
+						.to( { z:this.cameraZ,x:0,y:0},duration)
 						.easing( TWEEN.Easing.Exponential.InOut ).onUpdate(()=>{
 							
 						}).start();
+				var scale = Math.random()*(.6-.2)+.4-.3;
+				new TWEEN.Tween( this.myHead.scale )
+					.to( {x:scale,y:scale},duration )
+					.easing( TWEEN.Easing.Exponential.InOut ).onComplete(()=>{
+						this.point.visible = true;
+						this.overView = true;
+					}).start();
+			},
+			
+
+			seeHead(){
+				var duration = 3000;
+
+
+				duration =  Math.random() * duration/2 + duration/2 
+				
+				new TWEEN.Tween( this.camera.position )
+						.to( { z:10,x:this.point.position.x,y:this.point.position.y},duration)
+						.easing( TWEEN.Easing.Exponential.InOut ).onComplete(()=>{
+							this.overView = false;
+						}).start();
+				this.point.visible = false;
+				new TWEEN.Tween( this.myHead.scale )
+					.to( {x:3,y:3},duration )
+					.easing( TWEEN.Easing.Exponential.InOut ).onUpdate(()=>{
+						
+					}).start();
 			},
 
 			initWebgl(){//
+				if(this.createImg){
+					return;
+				}
 				var scene = new THREE.Scene();
 				scene.background = new THREE.Color('#333');
 				this.scene = scene;
 				var camera = new THREE.PerspectiveCamera(45,this.viewW/this.viewH,1,1000);
-				camera.position.z = 120;
+				camera.position.z = this.cameraZ;
 				camera.position.y = 0;
 				this.camera = camera;
 				var renderer = new THREE.WebGLRenderer();
@@ -75,18 +169,31 @@
 
 
 				var skyBox = new THREE.Mesh( skyBoxGeometry, skyBoxMaterial );
-
+				skyBox.position.y=20;
 				this.skyBox = skyBox;
 
 				skyBox.visible = false;
+
+				
+
+				
+
+
+				/*var infoPlane = new THREE.Mesh(new THREE.PlaneGeometry(50,50,20),new THREE.MeshLambertMaterial({
+					map:new THREE.Texture(canvasMap),transparent:true}))
+				infoPlane.position.y = -13;
+				infoPlane.position.z = 13;*/
+
 
 
 
 				
 				scene.add(camera);
 				scene.add(skyBox);  
+				//scene.add(infoPlane);
 				//scene.add(ball);
 				this.$refs['page'].appendChild(renderer.domElement)
+
 				
 
 				var i = 1;
@@ -126,30 +233,112 @@
 				
 			},
 			fillText(){
-				var canvas = document.createElement('canvas');
+				var canvas = this.$refs['canvas1'];
 				canvas.style.position = 'absolute';
 				canvas.style.top = 'auto';
 				canvas.style.bottom = 0;
 				canvas.style.left=0;
 				canvas.width = this.viewW;
 				canvas.height = this.viewH;
-				canvas.style.zIndex = 100;
-
+				var height =  this.viewH*.62
+				canvas.style.zIndex =100;
 				var context = canvas.getContext('2d');
 
-				context.drawImage(canvas,0,0,this.viewW,this.viewH)
-				this.$refs['page'].appendChild(canvas);
+
+				context.save();
+				//this.renderer.domElement.style.opacity =0;
+				context.drawImage(this.renderer.domElement,0,0,this.viewW,this.viewH);
+				context.restore();
+
+				context.translate(0,this.viewH*.38)
+			//	this.$refs['page'].appendChild(canvas);
 				context.textAlign = 'center';
-				context.font="40px Georgia";
+				context.font="30px Georgia";
+				context.fillStyle = '#696b72';
+				context.fillText('勋章编号：' + this.pv,this.viewW/2,50);
+
+				context.strokeStyle = 'rgba(105,107,114,.4)';
+				context.beginPath();
+				context.lineWidth = 1;
+				context.moveTo(50,80);
+				context.lineTo(this.viewW-50,80);
+				context.stroke();
+
+
+				var img = new Image();
+				//img.crossOrigin = 'anonymous'
+				img.setAttribute("crossOrigin",'Anonymous')
+				img.onload = ()=>{
+					context.drawImage(img,50,120,100,100);	
+				}
+				img.src = imgs.myhead;
+				
+				context.textAlign = 'start';
+				context.font="24px Arial";
+				this.drawText(context,'我是 '+(this.nickname||"新华社网友") + ' 纪念是为了更好地出发，不忘初心，继续前行 ！',200,130,this.viewW - 300);
+
+
+				var img1 = new Image();
+				img1.onload = ()=>{
+
+					context.drawImage(img1,(this.viewW-200)/2,height/3,200,200)
+				}
+				img1.src = imgs.qrcode;
+
+
+				context.textAlign = 'center';
 				context.fillStyle = '#fff';
-				context.fillText("你是第"+this.pv+"位参与者",this.viewW/2,this.viewH/4*3);
-				this.isAnimated = true;
+				this.text.forEach((t,i)=>{
+					context.fillText(t,this.viewW/2,height/1.5 + i * 36)
+				})
+
+
+
+				var img3 = new Image();
+				img3.onload = ()=>{
+					context.drawImage(img3,50,height*.85,60,60)
+				}
+				img3.src = imgs.logo;
+
+
+				setTimeout(()=>{
+					this.renderer.domElement.style.opacity = 0;
+					this.createImg = canvas.toDataURL();
+					//console.log(canvas.toDataURL())
+				},1000);
+
+
+				//context.fillText("你是第"+this.pv+"位参与者",this.viewW/2,this.viewH/4*3);
+				//this.isAnimated = true;
 				return canvas;
 
 			},
+			drawText(context,t,x,y,w){
+			    var chr = t.split("");
+			    var temp = "";              
+			    var row = [];
+
+			    context.textBaseline = "middle";
+
+			    for(var a = 0; a < chr.length; a++){
+			        if( context.measureText(temp).width < w ){
+			            ;
+			        }
+			        else{
+			            row.push(temp);
+			            temp = "";
+			        }
+			        temp += chr[a];
+			    }
+
+			    row.push(temp);
+			    for(var b = 0; b < row.length; b++){
+			        context.fillText(row[b],x,y+(b+1)*34);
+			    }
+			},
 			loadingTexture2(){
 				var arr = [];
-				var imgList = [imgs.headimg5];
+				var imgList = [imgs.headimg5,imgs.headimg1,imgs.headimg2,imgs.headimg3,imgs.headimg4];
 				for(var i=0;i<imgList.length;i++){
 					var canvas = document.createElement('canvas');
 					var img = new Image();
@@ -183,10 +372,11 @@
 
 				
 			},
+		 
 			loadingTexture(){
 				var arr = [];
-
-				[imgs.headimg5].forEach(item=>{
+				var imgList = [imgs.headimg5,imgs.headimg1,imgs.headimg2,imgs.headimg3,imgs.headimg4];
+				imgList.forEach(item=>{
 					var loader = new THREE.TextureLoader();
 					var myloader = loader.load(item);
 					var materials = new THREE.SpriteMaterial({
@@ -216,7 +406,7 @@
 					if(index ===i ){
 
 						var loader = new THREE.TextureLoader();
-						var myloader = loader.load(imgs.myhead);
+						var myloader = loader.load(this.headimgurl || imgs.myhead);
 						var material = new THREE.SpriteMaterial({
 								map:myloader
 							});
@@ -225,7 +415,7 @@
 						this.defaultPosition.push([-(this.viewW/2-dot.x)/k,(this.viewH/2-dot.y)/k,1])
 						sprite.position.set((Math.random()*this.viewW-this.viewW/2)/k1,(Math.random()*this.viewH-this.viewH/2)/k1,0)
 						var scale = Math.random()*(.6-.2)+.4-.3;
-						scale =2;
+						//scale =2;
 						sprite.scale.set(scale,scale,scale);
 
 						var pointLoader = new THREE.TextureLoader();
@@ -234,16 +424,20 @@
 						plane.position.x = sprite.position.x;
 						plane.position.y= sprite.position.y;
 						plane.position.z = sprite.position.z+1;
+						this.myHead = sprite;
 
 						group.add(sprite);
 						group.add(plane);
+						plane.scale.x = plane.scale.y = 0;
 						this.point = plane;
+						this.point.visible = false;
+						
 						this.headimgs.push(plane);
 					}else{
 						var sprite = new THREE.Sprite(materials[i%materials.length]);
 						this.defaultPosition.push([-(this.viewW/2-dot.x)/k,(this.viewH/2-dot.y)/k,0])
 						sprite.position.set((Math.random()*this.viewW-this.viewW/2)/k1,(Math.random()*this.viewH-this.viewH/2)/k1,0)
-						var scale = Math.random()*(.6-.2)+.4-.3;
+						var scale = Math.random()*(.3-.2);
 						sprite.scale.set(scale,scale,scale);
 						
 						group.add(sprite);
@@ -270,63 +464,13 @@
 				//group.rotation.x = Math.PI/180*-70;
 				this.scene.add(group)
 
-				
-
-				return;
-				
-
-				var img1 = new Image();
-				img1.src = imgs.headimg1;
-
-				var img2 = new Image();
-				img2.src = imgs.headimg2;
-
-
-				var img3 = new Image();
-				img3.src = imgs.headimg3;
-
-
-				var img4 = new Image();
-				img4.src = imgs.headimg4;
-
-
-				var img5 = new Image();
-				img5.src = imgs.headimg5;
-
-				this.dots.map((dot,i)=>{
-					var imgObj = img1;
-					switch(i%5){
-						case 0:
-						imgObj = img2;
-						break;
-						case 1:
-						imgObj = img3;
-						break;
-						case 2:
-							imgObj = img4;
-						break;
-						case 3:
-							imgObj = img5;
-						break;
-					}
-					
-
-
-
-					var headimg = new HeadImg({
-						context:this.context,
-						x:dot.x,
-						y:dot.y,
-						img:imgObj
-					});
-
-
-
-					this.headimgs.push(headimg)
-
-				})
+				 
+ 
 			},
 			initOffScreenCanvas(){
+				if(this.createImg){
+					return;
+				}
 				var canvas = document.createElement('canvas');
 				var img = new Image();
 				var myCanavs = this.$refs['canvas'];
@@ -340,7 +484,7 @@
 					context.drawImage(this,0,0);
 
 					var imgData =  context.getImageData(0,0,this.width,this.height);
-					var gap = 16
+					var gap = 12
 					
 					for(var x =0;x<imgData.width;x+=gap){
 						for(var y =0 ; y < imgData.height;y+=gap){
@@ -366,49 +510,47 @@
 				img.src = imgs.title;
 			},
 			animated(){//运动完成
-				this.fillText()
-				console.log(this.skyBox.material.opacity)
+				 
 				this.skyBox.material.needsUpdate = true;
 
-				new TWEEN.Tween(this.skyBox.material)
-					.to( { opacity:1 },1000)
-					.easing( TWEEN.Easing.Exponential.InOut ).onComplete(()=>{
-						
-
-					}).onUpdate(()=>{
-
-						console.log(this.skyBox.material.opacity)
-					}).start(); 
 			}
 		},
 		mounted(){
+
+
 
 			this.loadingTexture();
 
 			this.initOffScreenCanvas();
 			this.initWebgl();
 
+			//this.fillText();
+
 			window.s = this;
 
-			setTimeout(()=>{
+			var {obserable} = this;
+			obserable.on('openWebGl',()=>{
+
 				this.pressed = true;
-
-
 				var num = 0;
 				var num1 = 0;
+			
 				this.headimgs.forEach((object,i)=>{
 
 					var duration = 2000;
+
+					var easing = TWEEN.Easing.Exponential.InOut;
 					
 					new TWEEN.Tween( object.scale )
-						.to( { x:object.scale.x+.3, y:object.scale.y+.3, z:object.scale.z+.3 }, Math.random() * duration/2 + duration/2 )
-						.easing( TWEEN.Easing.Exponential.InOut ).onComplete(()=>{
+						.to( { x:object.scale.x+.3, y:object.scale.y+.3, z:object.scale.z+.3 }, Math.random() * duration + duration ).delay(Math.random()*800)
+						.easing( easing ).onComplete(()=>{
 							num1+=1;
 							if(num1>=this.defaultPosition.length){
+								
 									this.headimgs.forEach((object,i)=>{
 										new TWEEN.Tween( object.position )
-										.to( { x:Math.random()*30*(Math.random()-.5>0?1:-1), y:Math.random()*100*(Math.random()-.5>0?1:-1), z:Math.random()*1000*(Math.random()-.1>0?1:1) }, Math.random() * duration + duration )
-										.easing( TWEEN.Easing.Exponential.InOut ).onComplete(()=>{
+										.to( { x:Math.random()*5*(Math.random()-.5>0?1:-1), y:Math.random()*5*(Math.random()-.5>0?1:-1), z:Math.random()*600+10 }, Math.random() * duration + duration ).delay(i*2)
+										.easing( easing ).onComplete(()=>{
 											num+=1;
 											if(num>=this.defaultPosition.length){
 												var s = this;
@@ -417,13 +559,14 @@
 												num = 0;
 												this.headimgs.forEach((object,i)=>{
 													new TWEEN.Tween( object.position )
-													.to( { x:this.defaultPosition[i][0], y:this.defaultPosition[i][1], z:this.defaultPosition[i][2] }, Math.random() * duration + duration )
-													.easing( TWEEN.Easing.Exponential.InOut ).onComplete(()=>{
+													.to( { x:this.defaultPosition[i][0], y:this.defaultPosition[i][1], z:this.defaultPosition[i][2] }, Math.random() * duration + duration ).delay(i*2)
+													.easing( easing ).onComplete(()=>{
 														num+=1;
 														if(num>=this.defaultPosition.length){
 															this.skyBox.visible = true;
 															this.animated();
-															//this.stop = true;
+															this.isAnimated = true;
+															this.point.visible = true;
 														}
 
 													}).start(); 
@@ -439,8 +582,9 @@
 
 					
 				})
- 
-			},1000)
+			})
+
+			 
 
 
 		}

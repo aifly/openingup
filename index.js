@@ -1,8 +1,6 @@
 import Vue from "vue";
 import './components/css/index.css';
 import Index from './components/index/index';
-import Share from './components/share/index';
-import Upload from './components/upload/index';
 import Main from './components/main/index';
 import Music from './components/music/index';
 import Obserable from './components/lib/obserable';
@@ -55,7 +53,8 @@ new Vue({
 		<Music   :obserable='obserable'></Music>
 	*/
 	template: `<div>
-		<Main :pv='pv'  v-if='show && !isShare'  :obserable='obserable'></Main>
+		<Index   v-if='show && !isShare'  :obserable='obserable'></Index>
+		<Main :pv='pv' :nickname='nickname' :headimgurl='headimgurl'  v-if='show && !isShare'  :obserable='obserable'></Main>
 		<div  v-if='!loaded' :style='{background:"#158ae4"}' class='zmiti-loading lt-full'>
 			<div class='zmiti-loading-ui'>
 				 <a href="#">
@@ -109,7 +108,7 @@ new Vue({
 					this.pv = data.totalpv;
 					this.randomPv = data.randtotalpv;
 
-					zmitiUtil.wxConfig(document.title,window.desc);
+					zmitiUtil.wxConfig('我是第'+this.pv+'位参与者',window.desc);
 				}
 			});
 		}
@@ -118,8 +117,6 @@ new Vue({
 		Index,
 		Music,
 		Main,
-		Upload,
-		Share
 	},
 	mounted() {
 
@@ -132,6 +129,12 @@ new Vue({
 		this.src = src;
 
 		this.updatePv();
+
+
+		obserable.on("setUserInfo",(data)=>{
+			this.nickname = data.nickname;
+			this.headimgurl = data.headimgurl;
+		})
 
 		if(this.isShare){
 			setTimeout(()=>{
@@ -168,8 +171,8 @@ new Vue({
 			this.pv += data;
 
 		});
-
-		//zmitiUtil.wxConfig(document.title, window.desc);
+		zmitiUtil.getOauthurl(obserable);
+		zmitiUtil.wxConfig(document.title, window.desc);
 
 	}
 })

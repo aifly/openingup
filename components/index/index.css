@@ -38,68 +38,91 @@
   z-index: -1; }
   .zmiti-index-main-ui.show {
     opacity: 1;
-    z-index: 10; }
-  .zmiti-index-main-ui .zmiti-year {
-    width: 2rem;
-    margin: 6vh auto 0;
-    position: relative;
-    z-index: 10; }
-  .zmiti-index-main-ui .zmiti-title1 {
-    width: 7rem;
-    margin: 2vh auto 0;
-    position: relative;
-    z-index: 10; }
-  .zmiti-index-main-ui .zmiti-cloud {
+    z-index: 200; }
+  .zmiti-index-main-ui .zmiti-title {
     position: absolute;
-    top: 6vh;
-    width: 16rem;
-    left: -3rem; }
-    .zmiti-index-main-ui .zmiti-cloud.active {
-      -webkit-animation: rotate1 0.8s linear forwards;
-      animation: rotate1 0.8s linear forwards; }
-  .zmiti-index-main-ui .zmiti-xiongan {
-    position: absolute;
-    top: 10%;
-    width: 14rem;
-    left: -2rem; }
-    .zmiti-index-main-ui .zmiti-xiongan.active {
-      -webkit-animation: rotate1 0.8s linear forwards;
-      animation: rotate1 0.8s linear forwards; }
-  .zmiti-index-main-ui .zmiti-cloud2 {
-    z-index: 1000; }
-  .zmiti-index-main-ui .zmiti-text {
-    position: absolute;
-    width: 9rem;
-    left: .5rem;
-    bottom: 2rem;
-    z-index: 101;
-    color: #364b6a;
-    font-size: 20px;
-    text-indent: 2em;
-    line-height: .6rem; }
-  .zmiti-index-main-ui .zmiti-logo {
-    width: 3rem;
-    position: absolute;
-    bottom: .4rem;
-    color: #333;
-    right: .2rem;
-    text-align: center;
-    font-size: 18px; }
-    .zmiti-index-main-ui .zmiti-logo img {
-      width: 1rem;
-      display: block;
-      margin: 0 auto .1rem; }
-  .zmiti-index-main-ui .zmiti-entry {
-    width: 2rem;
-    text-align: center;
-    background: #fff;
-    line-height: .8rem;
-    border-radius: 10px;
-    position: absolute;
-    left: 4rem;
-    bottom: 1rem;
+    height: 60vh;
+    left: 50%;
+    top: 14vh;
     z-index: 10;
-    color: #ca141f;
+    -webkit-transform: translate3d(-50%, 0, 0);
+    transform: translate3d(-50%, 0, 0); }
+    .zmiti-index-main-ui .zmiti-title img {
+      height: 100%;
+      width: auto; }
+  .zmiti-index-main-ui .zmiti-index.index-enter-active, .zmiti-index-main-ui .zmiti-index.index-leave-active {
+    -webkit-transition: 1s;
+    transition: 1s; }
+  .zmiti-index-main-ui .zmiti-index.index-enter, .zmiti-index-main-ui .zmiti-index.index-leave-to {
+    opacity: 0; }
+  .zmiti-index-main-ui .zmiti-mask {
+    z-index: 6; }
+    .zmiti-index-main-ui .zmiti-mask.mask-enter-active, .zmiti-index-main-ui .zmiti-mask.mask-leave-active {
+      -webkit-transition: 1s;
+      transition: 1s; }
+    .zmiti-index-main-ui .zmiti-mask.mask-enter, .zmiti-index-main-ui .zmiti-mask.mask-leave-to {
+      opacity: 0; }
+  .zmiti-index-main-ui .zmiti-vidoe-page {
+    width: 750px;
+    height: 65vh;
+    position: absolute;
+    top: 50%;
+    -webkit-transform: translate3d(0, -50%, 0);
+    transform: translate3d(0, -50%, 0);
+    left: 0;
+    z-index: 100;
+    overflow: hidden; }
+    .zmiti-index-main-ui .zmiti-vidoe-page .zmiti-text {
+      text-align: center;
+      width: 100%;
+      margin-top: 20px;
+      position: relative;
+      z-index: 0; }
+    .zmiti-index-main-ui .zmiti-vidoe-page .zmiti-text1 {
+      position: absolute;
+      bottom: 60px; }
+    .zmiti-index-main-ui .zmiti-vidoe-page video {
+      z-index: 10;
+      position: fixed;
+      top: 50%;
+      margin-top: -210px;
+      width: 100%;
+      height: 420px;
+      background: #000; }
+    .zmiti-index-main-ui .zmiti-vidoe-page.video-enter-active, .zmiti-index-main-ui .zmiti-vidoe-page.video-leave-active {
+      -webkit-transition: 4s;
+      transition: 4s; }
+    .zmiti-index-main-ui .zmiti-vidoe-page.video-enter, .zmiti-index-main-ui .zmiti-vidoe-page.video-leave-to {
+      height: 0; }
+  .zmiti-index-main-ui .zmiti-open {
+    width: 400px;
+    height: 80px;
+    line-height: 80px;
+    position: absolute;
+    color: #fff;
+    left: 175px;
+    bottom: 10vh;
+    background: #ff3f37;
+    z-index: 102;
+    text-align: center;
+    border-radius: 40px;
+    font-size: 40px; }
+    .zmiti-index-main-ui .zmiti-open.open-enter-active, .zmiti-index-main-ui .zmiti-open.open-leave-active {
+      -webkit-transition: 1s 3s;
+      transition: 1s 3s; }
+    .zmiti-index-main-ui .zmiti-open.open-enter, .zmiti-index-main-ui .zmiti-open.open-leave-to {
+      opacity: 0; }
+  .zmiti-index-main-ui .zmiti-entry {
+    width: 2.4rem;
+    text-align: center;
+    background: #ff3f37;
+    line-height: .9rem;
+    border-radius: 30px;
+    position: absolute;
+    left: 3.8rem;
+    bottom: 1.5rem;
+    z-index: 10;
+    color: #fff;
     font-size: .45rem;
     -webkit-animation: scale 1s linear infinite alternate;
     animation: scale 1s linear infinite alternate; }

@@ -15,85 +15,128 @@ $bgColor: #4081dd;
 
 	&.show{
 		opacity: 1;
-		z-index: 10;
+		z-index: 200;
 	}
 
-	.zmiti-year{
-		width: 2rem;
-		margin: 6vh auto 0;
-		@include pos(r);
-		z-index: 10;
-	}
-
-	.zmiti-title1{
-		width: 7rem;
-		margin: 2vh auto 0;
-		@include pos(r);
-		z-index: 10;
-	}
-	.zmiti-cloud{
-		@include pos(a);
-		top: 6vh;
-		width: 16rem;
-		left: -3rem;
-		&.active{
-
-			@include animation(rotate1 .8s  linear forwards);
-		}
-	}
 	
-	.zmiti-xiongan{
+	.zmiti-title{
 		@include pos(a);
-		top: 10%;
-		width: 14rem;
-		left: -2rem;
-		&.active{
-			@include animation(rotate1 .8s  linear forwards);
-		}
-	}
-	.zmiti-cloud2{
-		z-index: 1000;
-	}
-	.zmiti-text{
-		@include pos(a);
-		width: 9rem;
-		left: .5rem;
-		bottom: 2rem;
-		z-index: 101;
-		color:#364b6a;
-		font-size: 20px;
-		text-indent: 2em;
-		line-height: .6rem;
-	}
-
-	.zmiti-logo{
-		width: 3rem;
-		@include pos(a);
-		bottom: .4rem;
-		color:#333;
-		right: .2rem;
-		text-align: center;
-		font-size: 18px;
+		height: 60vh;
+		left: 50%;
+		top: 14vh;
+		z-index: 10;
+		@include transform(translate3d(-50%,0,0));
 		img{
-			width: 1rem;
-			display: block;
-			margin: 0 auto .1rem;
-
+			height: 100%;
+			width: auto;
 		}
 	}
+
+	.zmiti-index{
+		&.index-enter-active, &.index-leave-active {
+			@include transition(1s);
+		}
+
+		&.index-enter, &.index-leave-to {
+			opacity: 0;
+		}
+	}
+
+	.zmiti-mask{
+		z-index: 6;
+		&.mask-enter-active, &.mask-leave-active {
+			@include transition(1s);
+		}
+
+		&.mask-enter, &.mask-leave-to {
+			opacity: 0;
+		}
+	}
+
+	.zmiti-vidoe-page{
+		width: $viewW;
+		height: 65vh;
+		@include pos(a);
+		top: 50%;
+		@include transform(translate3d(0,-50%,0));
+		left: 0;
+		z-index: 100;
+		overflow: hidden;
+		.zmiti-video-C{
+
+		}
+
+		.zmiti-text{
+			text-align: center;
+			width: 100%;
+			margin-top: 20px;
+			@include pos(r);
+
+			z-index: 0;
+
+		}
+		.zmiti-text1{
+			@include pos(a);
+			bottom: 60px;
+		}
+		video{
+			z-index: 10;
+			@include pos(f);
+			top: 50%;
+			margin-top: -210px;
+			width: 100%;
+			height:420px;
+			background: #000;
+		}
+
+		&.video-enter-active, &.video-leave-active {
+			@include transition(4s);
+		}
+
+		&.video-enter, &.video-leave-to {
+			height: 0;
+		}
+
+
+	}
+
+	.zmiti-open{
+		width: 400px;
+		height: 80px;
+		line-height: 80px;
+		@include pos(a);
+		color:#fff;
+		left: 175px;
+		bottom: 10vh;
+		background: #ff3f37;
+		z-index: 102;
+		text-align: center;
+		@include br(40px);
+		font-size: 40px;
+
+		&.open-enter-active, &.open-leave-active {
+			@include transition(1s 3s);
+		}
+
+		&.open-enter, &.open-leave-to {
+			opacity:0;
+		}
+	}
+
+	
 
 	.zmiti-entry{
-		width: 2rem;
+		width: 2.4rem;
 		text-align: center;
-		background: #fff;
-		line-height: .8rem;
-		@include br(10px);
+		background: #ff3f37;
+		line-height:.9rem;
+		@include br(30px);
 		@include pos(a);
-		left: 4rem;
-		bottom: 1rem;
+		left: 3.8rem;
+		bottom: 1.5rem;
 
 		z-index: 10;
-		color:#ca141f;
+		color:#fff;
 		font-size: .45rem;
 
 		@include animation(scale 1s linear infinite alternate);
