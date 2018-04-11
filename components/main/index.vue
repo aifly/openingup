@@ -93,7 +93,7 @@
 				duration =  Math.random() * duration/2 + duration/2;
 
 				new TWEEN.Tween( this.camera.position )
-					.to( { y:-12,z:this.camera.position.z+30},duration)
+					.to( {z:this.camera.position.z+20},duration)
 					.easing( TWEEN.Easing.Exponential.InOut ).onComplete(()=>{
 						//console.log(this.renderer.domElement.toDataURL())
 
@@ -172,7 +172,7 @@
 				skyBox.position.y=20;
 				this.skyBox = skyBox;
 
-				skyBox.visible = false;
+				//skyBox.visible = false;
 
 				
 

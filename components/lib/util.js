@@ -119,13 +119,13 @@ var zmitiUtil = {
 		if (!s.isWeiXin()) {
 			return;
 		}
-		if(window.localStorage.getItem('nickname') && window.localStorage.getItem('headimgurl')){
+		if(window.localStorage.getItem('nickname') && window.localStorage.getItem('headimgurl1')){
 			if (obserable) {
 				obserable.trigger({
 					type: 'setUserInfo',
 					data: {
 						nickname:window.localStorage.getItem('nickname'),
-						headimgurl: window.localStorage.getItem('headimgurl')
+						headimgurl: window.localStorage.getItem('headimgurl1')
 					}
 				})
 			}
@@ -152,7 +152,19 @@ var zmitiUtil = {
 					window.nickname = s.nickname;
 					window.headimgurl = s.headimgurl;
 					window.openid = s.openid;
-
+					$.ajax({
+						url:"http://api.zmiti.com/v2/share/createImageByUrl/",
+						type:'post',
+						data:{
+							setimagesrc:s.headimgurl,
+							setwidth:300,
+							setheight:300
+						}
+					}).done(data=>{
+						if(data.getret === 0){
+							window.localStorage.setItem('headimgurl1',data.getimageurl);
+						}
+					})
 					window.localStorage.setItem('nickname',s.nickname);
 					window.localStorage.setItem('headimgurl',s.headimgurl);
 

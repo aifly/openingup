@@ -66,18 +66,18 @@
     font-size: 34px; }
 .zmiti-main-main-ui .zmiti-createimg {
   position: absolute;
-  height: 76vh;
   z-index: 11;
-  top: 7vh;
-  left: 50%;
-  -webkit-transform: translate3d(-50%, 0, 0);
-  transform: translate3d(-50%, 0, 0); }
+  top: 2vh;
+  -webkit-transform: scale(0.7);
+  transform: scale(0.7);
+  -webkit-transform-origin: 50% 20%;
+  transform-origin: 50% 20%; }
   .zmiti-main-main-ui .zmiti-createimg.zmiti-scale-enter-active, .zmiti-main-main-ui .zmiti-createimg.zmiti-scale-leave-active {
     -webkit-transition: 0.4s;
     transition: 0.4s; }
   .zmiti-main-main-ui .zmiti-createimg.zmiti-scale-enter, .zmiti-main-main-ui .zmiti-createimg.zmiti-scale-leave-to {
-    height: 100vh;
-    top: 0; }
+    -webkit-transform: scale(1);
+    transform: scale(1); }
   .zmiti-main-main-ui .zmiti-createimg:after {
     content: '长按保存图片';
     position: absolute;

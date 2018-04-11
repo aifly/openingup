@@ -53,19 +53,20 @@ $color: #fffb88;
 
 	.zmiti-createimg{
 		@include pos(a);
-		height: 76vh;
+		//height: 76vh;
 		z-index: 11;
-		top: 7vh;
-		left: 50%;
-		@include transform(translate3d(-50%,0,0));
+		top: 2vh;
+
+		
+		@include transform( scale(.7) );
+		@include transformOrigin(50% 20%);
 
 		&.zmiti-scale-enter-active, &.zmiti-scale-leave-active {
 			@include transition(.4s);
 		}
 
 		&.zmiti-scale-enter, &.zmiti-scale-leave-to {
-			height: 100vh;
-			top: 0;
+			@include transform(scale(1) );
 		}
 
 		&:after {
