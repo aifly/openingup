@@ -22429,7 +22429,7 @@
 				renderer.setPixelRatio(window.devicePixelRatio);
 				scene.add(new THREE.AmbientLight('#f90'));
 
-				var skyBoxGeometry = new THREE.BoxGeometry(250, 350, 400);
+				var skyBoxGeometry = new THREE.BoxGeometry(180, 240, 400);
 
 				var texture = new THREE.TextureLoader().load(_libAssetsJs.imgs.bg);
 				texture.needsUpdate = true;
