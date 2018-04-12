@@ -165,7 +165,7 @@
 						_this.randomPv = data.randtotalpv;
 
 						//zmitiUtil.wxConfig('我是第'+this.pv+'位参与者',window.desc);
-						_componentsLibUtilJs2['default'].wxConfig('我是 ' + (_this.nickname || '新华社网友') + '纪念是为了更好地出发，不忘初心，继续前进', '我获得了改革开放40周年勋章，编号：No. ' + _this.pv);
+						_componentsLibUtilJs2['default'].wxConfig('我是' + (_this.nickname || '新华社网友') + '，纪念是为了更好地出发，不忘初心，继续前进', '我获得了改革开放40周年勋章，编号：No. ' + _this.pv);
 					}
 				});
 			}
@@ -11994,7 +11994,7 @@
 	  var hotAPI = require("vue-hot-reload-api")
 	  hotAPI.install(require("vue"), true)
 	  if (!hotAPI.compatible) return
-	  var id = "F:\\xuchang2018\\project\\openingup\\components\\index\\index.vue"
+	  var id = "E:\\project\\openingup\\components\\index\\index.vue"
 	  if (!module.hot.data) {
 	    hotAPI.createRecord(id, module.exports)
 	  } else {
@@ -22253,7 +22253,7 @@
 	  var hotAPI = require("vue-hot-reload-api")
 	  hotAPI.install(require("vue"), true)
 	  if (!hotAPI.compatible) return
-	  var id = "F:\\xuchang2018\\project\\openingup\\components\\main\\index.vue"
+	  var id = "E:\\project\\openingup\\components\\main\\index.vue"
 	  if (!module.hot.data) {
 	    hotAPI.createRecord(id, module.exports)
 	  } else {
@@ -22737,7 +22737,7 @@
 
 					var easing = TWEEN.Easing.Exponential.InOut;
 
-					new TWEEN.Tween(object.scale).to({ x: object.scale.x + .3, y: object.scale.y + .3, z: object.scale.z + .3 }, Math.random() * duration + duration / 2).delay(Math.random() * 100).easing(easing).onComplete(function () {
+					new TWEEN.Tween(object.scale).to({ x: object.scale.x + .6, y: object.scale.y + .6, z: object.scale.z + .6 }, Math.random() * duration + duration / 2).delay(Math.random() * 100).easing(easing).onComplete(function () {
 						num1 += 1;
 						if (num1 >= _this7.defaultPosition.length) {
 
@@ -22836,7 +22836,7 @@
 	  var hotAPI = require("vue-hot-reload-api")
 	  hotAPI.install(require("vue"), true)
 	  if (!hotAPI.compatible) return
-	  var id = "F:\\xuchang2018\\project\\openingup\\components\\music\\index.vue"
+	  var id = "E:\\project\\openingup\\components\\music\\index.vue"
 	  if (!module.hot.data) {
 	    hotAPI.createRecord(id, module.exports)
 	  } else {
