@@ -50,9 +50,9 @@ new Vue({
 		<audio src='./assets/music/photo.mp3' ref='photo'></audio>
 		<audio src='./assets/music/bg.mp3' ref='audio'></audio>
 		<audio src='./assets/music/tu.mp3' ref='tu' loop></audio>
-		<Music   :obserable='obserable'></Music>
 	*/
 	template: `<div>
+		<Music :obserable='obserable'></Music>
 		<Index   v-if='show && !isShare'  :obserable='obserable'></Index>
 		<Main :pv='pv' :nickname='nickname' :headimgurl='headimgurl'  v-if='show && !isShare'  :obserable='obserable'></Main>
 		<div  v-if='!loaded' :style='{background:"#158ae4"}' class='zmiti-loading lt-full'>
@@ -108,7 +108,9 @@ new Vue({
 					this.pv = data.totalpv;
 					this.randomPv = data.randtotalpv;
 
-					zmitiUtil.wxConfig('我是第'+this.pv+'位参与者',window.desc);
+
+					//zmitiUtil.wxConfig('我是第'+this.pv+'位参与者',window.desc);
+					zmitiUtil.wxConfig('我是 '+(this.nickname||'新华社网友') +'纪念是为了更好地出发，不忘初心，继续前行 ！','我获得改革开放40周年勋章编号：NO. '+this.pv);
 				}
 			});
 		}
@@ -172,7 +174,7 @@ new Vue({
 
 		});
 		zmitiUtil.getOauthurl(obserable);
-		zmitiUtil.wxConfig(document.title, window.desc);
+		//zmitiUtil.wxConfig(document.title, window.desc);
 
 	}
 })

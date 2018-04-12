@@ -29,7 +29,7 @@ var zmitiUtil = {
 	wxConfig: function(title, desc, url, isDebug = false) {
 		var s = this;
 
-		var img =window.protocol + '//h5.zhongguowangshi.com/'+window.h5name+'/assets/images/300.jpg';
+		var img = window.baseUrl + '/assets/images/300.jpg';
 
 		var appId = this.wxInfo().wxappid;
 
@@ -39,6 +39,7 @@ var zmitiUtil = {
 		var code_durl = encodeURIComponent(durl);
 
 		//alert(title+' \n' + desc + '\n');
+
 		$.ajax({
 			type: 'get',
 			url: window.baseUrl + "/weixin/jssdk.php?type=signature&durl=" + code_durl + '&worksid=' + window.customid,
@@ -49,9 +50,9 @@ var zmitiUtil = {
 
 			},
 			success: function(data) {
-				
+
 				wx.config({
-					debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+					debug: isDebug, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
 					appId: appId, // 必填，公众号的唯一标识
 					timestamp: '1488558145', // 必填，生成签名的时间戳
 					nonceStr: 'Wm3WZYTPz0wzccnW', // 必填，生成签名的随机串

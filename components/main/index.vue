@@ -5,7 +5,7 @@
 			<section v-if='!createImg'>
 				
 				<canvas :width='viewW' :height='viewH' ref='canvas'></canvas>
-				<canvas :width='viewW' :height='viewH' ref='canvas1'></canvas>
+				<canvas :width='viewW' :height='createCanvasH' ref='canvas1' class="canvas1"></canvas>
 				<div class="zmiti-operator" v-if='isAnimated && !isPreviewed'>
 					<div class='zmiti-pv'>你是第{{pv}}位参与者</div>
 					<div v-if='overView' v-tap='[seeHead]' class="zmiti-myheadimg">查看我的头像的位置</div>
@@ -16,7 +16,7 @@
 			</section>
 
 			<transition name='zmiti-scale'>
-				<div class="zmiti-createimg" v-if='createImg'>
+				<div class="zmiti-createimg" v-if='createImg' >
 					<img :src="createImg">
 				</div>
 			</transition>
@@ -54,6 +54,7 @@
 				showMasks:false,
 				dots:[],
 				isPreviewed:false,
+				createCanvasH:Math.min(1206,window.innerHeight),
 				createImg:'',
 				headimgs:[],
 				defaultPosition:[],
@@ -89,16 +90,16 @@
 			preview(){//预览分享图片
 
 				this.isPreviewed = true;
+				this.point.visible = false;
 				var duration = 3000;
 				duration =  Math.random() * duration/2 + duration/2;
 
 				new TWEEN.Tween( this.camera.position )
-					.to( {z:this.camera.position.z+20},duration)
+					.to( {z:this.camera.position.z+20,y:this.viewH>720*2?0:-12},duration)
 					.easing( TWEEN.Easing.Exponential.InOut ).onComplete(()=>{
 						//console.log(this.renderer.domElement.toDataURL())
 
 						var canvasMap = this.fillText();
-
 
 
 					}).start();
@@ -130,7 +131,7 @@
 				duration =  Math.random() * duration/2 + duration/2 
 				
 				new TWEEN.Tween( this.camera.position )
-						.to( { z:10,x:this.point.position.x,y:this.point.position.y},duration)
+						.to( { z:20,x:this.point.position.x,y:this.point.position.y},duration)
 						.easing( TWEEN.Easing.Exponential.InOut ).onComplete(()=>{
 							this.overView = false;
 						}).start();
@@ -169,7 +170,7 @@
 
 
 				var skyBox = new THREE.Mesh( skyBoxGeometry, skyBoxMaterial );
-				skyBox.position.y=20;
+				//skyBox.position.y=20;
 				this.skyBox = skyBox;
 
 				//skyBox.visible = false;
@@ -240,7 +241,7 @@
 				canvas.style.left=0;
 				canvas.width = this.viewW;
 				canvas.height = this.viewH;
-				var height =  this.viewH*.62
+				var height =  this.createCanvasH*.62
 				canvas.style.zIndex =100;
 				var context = canvas.getContext('2d');
 
@@ -255,7 +256,7 @@
 				context.textAlign = 'center';
 				context.font="30px Georgia";
 				context.fillStyle = '#696b72';
-				context.fillText('勋章编号：' + this.pv,this.viewW/2,50);
+				context.fillText('勋章编号：NO.' + this.pv,this.viewW/2,50);
 
 				context.strokeStyle = 'rgba(105,107,114,.4)';
 				context.beginPath();
@@ -271,7 +272,7 @@
 				img.onload = ()=>{
 					context.drawImage(img,50,120,100,100);	
 				}
-				img.src = imgs.myhead;
+				img.src = this.headimgurl || imgs.myhead;
 				
 				context.textAlign = 'start';
 				context.font="24px Arial";
@@ -296,7 +297,7 @@
 
 				var img3 = new Image();
 				img3.onload = ()=>{
-					context.drawImage(img3,50,height*.85,60,60)
+					context.drawImage(img3,50,height*.88,60,60)
 				}
 				img3.src = imgs.logo;
 
@@ -305,7 +306,7 @@
 					this.renderer.domElement.style.opacity = 0;
 					this.createImg = canvas.toDataURL();
 					//console.log(canvas.toDataURL())
-				},1000);
+				},2000);
 
 
 				//context.fillText("你是第"+this.pv+"位参与者",this.viewW/2,this.viewH/4*3);
@@ -336,46 +337,9 @@
 			        context.fillText(row[b],x,y+(b+1)*34);
 			    }
 			},
-			loadingTexture2(){
-				var arr = [];
-				var imgList = [imgs.headimg5,imgs.headimg1,imgs.headimg2,imgs.headimg3,imgs.headimg4];
-				for(var i=0;i<imgList.length;i++){
-					var canvas = document.createElement('canvas');
-					var img = new Image();
-					img.crossOrigin = '*';
-					img.src = imgList[i];
-					canvas.width = 300;
-					canvas.height = 300;
-					canvas.className = 'myCanavs';
-					//this.$refs['page'].appendChild(canvas);
-					var context = canvas.getContext('2d');
-					var texture = new THREE.Texture(canvas);
-					console.log(texture)
-					texture.needsUpdate = true;
-					context.drawImage(img,0,0,300,300);
-					var materials = new THREE.SpriteMaterial({
-							map:texture
-						});
-
-					arr.push(materials)
-				}
-				imgList.forEach(item=>{
-			/*		var loader = new THREE.TextureLoader();
-					var myloader = loader.load(item);*/
-
-					
-				});
-
-				this.arr = arr;
-
-				return arr;
-
-				
-			},
-		 
 			loadingTexture(){
 				var arr = [];
-				var imgList = [imgs.headimg5,imgs.headimg1,imgs.headimg2,imgs.headimg3,imgs.headimg4];
+				var imgList = window.headImgs;
 				imgList.forEach(item=>{
 					var loader = new THREE.TextureLoader();
 					var myloader = loader.load(item);
@@ -415,7 +379,7 @@
 						this.defaultPosition.push([-(this.viewW/2-dot.x)/k,(this.viewH/2-dot.y)/k,1])
 						sprite.position.set((Math.random()*this.viewW-this.viewW/2)/k1,(Math.random()*this.viewH-this.viewH/2)/k1,0)
 						var scale = Math.random()*(.6-.2)+.4-.3;
-						//scale =2;
+						scale =1;
 						sprite.scale.set(scale,scale,scale);
 
 						var pointLoader = new THREE.TextureLoader();
@@ -425,6 +389,7 @@
 						plane.position.y= sprite.position.y;
 						plane.position.z = sprite.position.z+1;
 						this.myHead = sprite;
+						sprite.name ='sprite'
 
 						group.add(sprite);
 						group.add(plane);
@@ -542,14 +507,17 @@
 					var easing = TWEEN.Easing.Exponential.InOut;
 					
 					new TWEEN.Tween( object.scale )
-						.to( { x:object.scale.x+.3, y:object.scale.y+.3, z:object.scale.z+.3 }, Math.random() * duration + duration ).delay(Math.random()*800)
+						.to( { x:object.scale.x+.3, y:object.scale.y+.3, z:object.scale.z+.3 }, Math.random() * duration + duration/2 ).delay(Math.random()*100)
 						.easing( easing ).onComplete(()=>{
 							num1+=1;
 							if(num1>=this.defaultPosition.length){
 								
 									this.headimgs.forEach((object,i)=>{
+										
+										var isMyHead = object.name === 'sprite';
+
 										new TWEEN.Tween( object.position )
-										.to( { x:Math.random()*5*(Math.random()-.5>0?1:-1), y:Math.random()*5*(Math.random()-.5>0?1:-1), z:Math.random()*600+10 }, Math.random() * duration + duration ).delay(i*2)
+										.to( { x:isMyHead ? 0 : (Math.random()*5*(Math.random()-.5>0?1:-1)), y:isMyHead?0:(Math.random()*5*(Math.random()-.5>0?1:-1)), z:isMyHead ? 70 : Math.random()*600+10 }, Math.random() * duration + duration/2 ).delay(i*2)
 										.easing( easing ).onComplete(()=>{
 											num+=1;
 											if(num>=this.defaultPosition.length){
@@ -559,7 +527,7 @@
 												num = 0;
 												this.headimgs.forEach((object,i)=>{
 													new TWEEN.Tween( object.position )
-													.to( { x:this.defaultPosition[i][0], y:this.defaultPosition[i][1], z:this.defaultPosition[i][2] }, Math.random() * duration + duration ).delay(i*2)
+													.to( { x:this.defaultPosition[i][0], y:this.defaultPosition[i][1], z:this.defaultPosition[i][2] }, Math.random() * duration + duration/2 ).delay(i*2)
 													.easing( easing ).onComplete(()=>{
 														num+=1;
 														if(num>=this.defaultPosition.length){

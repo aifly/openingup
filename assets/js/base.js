@@ -7,22 +7,27 @@
 
 	arrow: './assets/images/arrow.png',
 	point: './assets/images/point.png',
-	mask: './assets/images/mask.png',
-	qrcode: './assets/images/qrcode.png',
+	//mask: './assets/images/mask.png',
+	qrcode: './assets/images/qrcode2.png',
 	
 	title:'./assets/images/title.png',
 	title1:'./assets/images/title1.png',
-	headimg5:'http://api.zmiti.com/zmiti_ele/wx/20180410/7068977170.jpeg',
-	headimg2:'./assets/images/1.jpg',//http://wx.qlogo.cn/mmopen/ajNVdqHZLLBdRPD56QKxojEyLE4HvhKFYFkLa2zPib2VJW3hlkmBvjL4I9f9yurwMNbDkUTibKMiaVX7zjN8R9QUbccqo7T9jJZ4Nic8cI7c99M/0',
-	headimg3:'http://api.zmiti.com/zmiti_ele/wx/20180410/7068977170.jpeg',
-	headimg4:'./assets/images/4.jpg',
-	headimg1:'./assets/images/5.jpg',
-	myhead:'http://api.zmiti.com/zmiti_ele/user/xuchang/material/20161210/29bf8fc29f42bd723e2feb83f6465f9f.jpg'
+	
+	myhead:'./assets/images/logo.png'
   
 }
 
 
+var headImgs = [
+	
+]
+for(i =1 ;i<=100;i++){
+	headImgs.push('./assets/images/'+i+'.jpg');
+}
+
 var arr = [];
+
+arr = arr.concat(headImgs);
 for (var attr in imgs) {
 	arr.push(imgs[attr]);
 }

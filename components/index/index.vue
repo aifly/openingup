@@ -12,18 +12,18 @@
 			</div>
 		</transition>
 
-		<transition name='mask'>
+		<!-- <transition name='mask'>
 			<div class="zmiti-mask lt-full" v-if='showIndexMask' :style="{background:'url('+imgs.mask+') no-repeat center bottom',backgroundSize:'cover'}">
 			
 			</div>
-		</transition>
+		</transition> -->
 		
 		<transition name='video'>
 			<section v-if='showIndexMask' class="zmiti-vidoe-page">
 				<div class="zmiti-text">国家主席习近平携亿万中国人民</div>
 				<div class="zmiti-text">热烈庆祝改革开放40周年</div>
-				<div class="zmiti-video-C" >
-					<video  id="video"  controls x-webkit-airplay="true"  webkit-playsinline="true" playsinline="true" >
+				<div class="zmiti-video-C" v-show='show' >
+					<video  ref="video" id="video" controls x-webkit-airplay="true"  webkit-playsinline="true" playsinline="true" >
 						<source src="./assets/video/1.mp4" type="video/mp4">
 					</video>
 				</div>
@@ -33,7 +33,7 @@
 		
 		<transition name='open'>
 			<div v-if='showIndexMask' class="zmiti-open" v-tap='[open]'>
-				开启
+				开启接力
 			</div>
 		</transition>
 
@@ -65,12 +65,16 @@
 			},
 
 			entry(){
-
-				 this.showIndexMask = true;
-				
+				this.showIndexMask = true;
+				setTimeout(()=>{
+					this.$refs['video'].play()
+				},200)
 			},
 			open(){
 				this.show = false;
+				setTimeout(()=>{
+					this.$refs['video'].pause()
+				},400)
 				var {obserable} = this;
 				obserable.trigger({
 					type:'openWebGl'
