@@ -66,8 +66,7 @@
 				text:[
 					'2018年，我们将迎来改革开放40周年',
 					'改革开放是当代中国发展的必由之路',
-					'是实现中国梦的必由之路',
-					'我们要以庆祝改革开放40周年为契机'
+					'是实现中国梦的必由之路'
 				]
 				
 			}
@@ -256,7 +255,7 @@
 				context.textAlign = 'center';
 				context.font="30px Georgia";
 				context.fillStyle = '#696b72';
-				context.fillText('勋章编号：NO.' + this.pv,this.viewW/2,50);
+				context.fillText('我获得了改革开放40周年勋章，编号：No.' + this.pv,this.viewW/2,50);
 
 				context.strokeStyle = 'rgba(105,107,114,.4)';
 				context.beginPath();
@@ -276,7 +275,7 @@
 				
 				context.textAlign = 'start';
 				context.font="24px Arial";
-				this.drawText(context,'我是 '+(this.nickname||"新华社网友") + ' 纪念是为了更好地出发，不忘初心，继续前行 ！',200,130,this.viewW - 300);
+				this.drawText(context,'我是 '+(this.nickname||"新华社网友") + ' 纪念是为了更好地出发，不忘初心，继续前进',200,130,this.viewW - 300);
 
 
 				var img1 = new Image();

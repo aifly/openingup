@@ -1,7 +1,7 @@
 ﻿var imgs = {
 	play: './assets/images/play.png',
 	logo: './assets/images/logo.png',
-	bg: './assets/images/bg.jpg',
+	bg: './assets/images/bg2.jpg',
 	bg1: './assets/images/bg1.jpg',
 	indexBg: './assets/images/index-bg.jpg',
 
@@ -11,7 +11,7 @@
 	qrcode: './assets/images/qrcode2.png',
 	
 	title:'./assets/images/title.png',
-	title1:'./assets/images/title1.png',
+	title1:'./assets/images/title1-1.png',
 	
 	myhead:'./assets/images/logo.png'
   
@@ -49,7 +49,7 @@ var mainImgList = [
 
 var musics = {
 	music: {
-		src: './assets/music/bg.mp3',
+		src: './assets/music/bg2.mp3',
 		autoplay: false,
 		name: 'bg',
 		loop: true

@@ -68,16 +68,20 @@ $bgColor: #4081dd;
 
 		.zmiti-text{
 			text-align: center;
-			width: 100%;
-			margin-top: 20px;
+			width: 90%;
+			margin: 0 auto;
+			/*margin-top: 20px;*/
 			@include pos(r);
-
+			line-height: 0.6rem;
+			text-align: left;
 			z-index: 0;
 
 		}
 		.zmiti-text1{
 			@include pos(a);
 			bottom: 60px;
+			text-align: center;
+			width: 100%;
 		}
 		video{
 			z-index: 10;

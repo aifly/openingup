@@ -110,7 +110,7 @@ new Vue({
 
 
 					//zmitiUtil.wxConfig('我是第'+this.pv+'位参与者',window.desc);
-					zmitiUtil.wxConfig('我是 '+(this.nickname||'新华社网友') +'纪念是为了更好地出发，不忘初心，继续前行 ！','我获得改革开放40周年勋章编号：NO. '+this.pv);
+					zmitiUtil.wxConfig('我是 '+(this.nickname||'新华社网友') +'纪念是为了更好地出发，不忘初心，继续前进','我获得了改革开放40周年勋章，编号：No. '+this.pv);
 				}
 			});
 		}
