@@ -506,7 +506,7 @@
 					var easing = TWEEN.Easing.Exponential.InOut;
 					
 					new TWEEN.Tween( object.scale )
-						.to( { x:object.scale.x+.6, y:object.scale.y+.6, z:object.scale.z+.6 }, Math.random() * duration + duration/2 ).delay(Math.random()*100)
+						.to( { x:object.scale.x+.42, y:object.scale.y+.42, z:object.scale.z+.42 }, Math.random() * duration + duration/2 ).delay(Math.random()*100)
 						.easing( easing ).onComplete(()=>{
 							num1+=1;
 							if(num1>=this.defaultPosition.length){
