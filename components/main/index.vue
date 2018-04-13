@@ -65,11 +65,9 @@
 				overView:true,
 				cameraZ:90,
 				text:[
-					'2018年，我们迎来改革开放40周年',
-					'改革开放是当代中国发展的必由之路',
-					'是实现中国梦的必由之路',
-					'我们要以改革开放40周年为契机',
-					'逢山开路，遇水架桥，将改革进行到底'
+					'40年的改革开放历程',
+					'雄辩地证明只有改革开放才能发展中国',
+					'发展社会主义、发展马克思主义'
 				]
 				
 			}
@@ -316,7 +314,7 @@
 
 				var img3 = new Image();
 				img3.onload = ()=>{
-					context.drawImage(img3,this.viewW - 150,height/1.5 + 3 * 30,140,67)
+					context.drawImage(img3,this.viewW - 150,height/1.5 + 1 * 16,140,67)
 				}
 				img3.src = imgs.copyright;
 
@@ -443,7 +441,7 @@
 						group.add(sprite);
 					}
 
-					group.rotation.y = -1;
+					group.rotation.y = -.7;
 					this.group = group;
 
 
@@ -545,7 +543,7 @@
 					var easing = TWEEN.Easing.Exponential.InOut;
 					
 					new TWEEN.Tween( object.scale )
-						.to( { x:.5, y:.5, z:.5 }, 300 )
+						.to( { x:.5, y:.5, z:.5 }, 600 )
 						.easing( easing ).onComplete(()=>{
 							num1+=1;
 							//object.visible = false;

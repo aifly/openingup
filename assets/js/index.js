@@ -11994,7 +11994,7 @@
 	  var hotAPI = require("vue-hot-reload-api")
 	  hotAPI.install(require("vue"), true)
 	  if (!hotAPI.compatible) return
-	  var id = "F:\\xuchang2018\\project\\openingup\\components\\index\\index.vue"
+	  var id = "E:\\project\\openingup\\components\\index\\index.vue"
 	  if (!module.hot.data) {
 	    hotAPI.createRecord(id, module.exports)
 	  } else {
@@ -12031,10 +12031,10 @@
 	// 				<div class="zmiti-text">中共中央总书记、国家主席、中央军委主席习近平带领全国人民深化改革、扩大开放，为实现中华民族伟大复兴的中国梦接力奋斗。</div>
 	// 				<div class="zmiti-video-C" v-show='show' >
 	// 					<video  ref="video" id="video" controls x-webkit-airplay="true"  webkit-playsinline="true" playsinline="true" >
-	// 						<source src="./assets/video/1.mp4" type="video/mp4">
+	// 						<source src="./assets/video/3.mp4" type="video/mp4">
 	// 					</video>
 	// 				</div>
-	// 				<div class="zmiti-text zmiti-text1">回顾中国40年沧桑巨变</div>
+	// 				<div class="zmiti-text zmiti-text1">改革开放是决定当代中国命运的关键一招</div>
 	// 			</section>
 	// 		</transition>
 	//
@@ -12086,8 +12086,23 @@
 			entry: function entry() {
 				var _this = this;
 
+				var obserable = this.obserable;
+
 				this.showIndexMask = true;
 				setTimeout(function () {
+					_this.$refs['video'].addEventListener('play', function () {
+						obserable.trigger({
+							type: "toggleBgMusic",
+							data: false
+						});
+					});
+
+					_this.$refs['video'].addEventListener('ended', function () {
+						obserable.trigger({
+							type: "toggleBgMusic",
+							data: true
+						});
+					});
 					_this.$refs['video'].play();
 				}, 200);
 			},
@@ -12097,6 +12112,10 @@
 				this.show = false;
 				setTimeout(function () {
 					_this2.$refs['video'].pause();
+					obserable.trigger({
+						type: "toggleBgMusic",
+						data: true
+					});
 				}, 400);
 				var obserable = this.obserable;
 
@@ -12155,7 +12174,7 @@
 
 
 	// module
-	exports.push([module.id, ".lt-full {\r\n  width: 100%;\r\n  height: 100%;\r\n  position: absolute;\r\n  left: 0;\r\n  top: 0; }\r\n\r\n.zmiti-text-overflow {\r\n  overflow: hidden;\r\n  white-space: nowrap;\r\n  word-break: break-all;\r\n  text-overflow: ellipsis;\r\n  -webkit-text-overflow: ellipsis; }\r\n\r\n.zmiti-play {\r\n  width: .8rem;\r\n  height: .8rem;\r\n  border-radius: 50%;\r\n  position: fixed;\r\n  z-index: 1000;\r\n  right: .5rem;\r\n  top: .5rem; }\r\n  .zmiti-play.rotate {\r\n    -webkit-animation: rotate 5s linear infinite;\r\n    animation: rotate 5s linear infinite; }\r\n\r\n@-webkit-keyframes rotate {\r\n  to {\r\n    -webkit-transform: rotate(360deg);\r\n    transform: rotate(360deg); } }\r\n.zmiti-index-main-ui {\r\n  overflow: hidden;\r\n  width: 10rem;\r\n  left: 50% !important;\r\n  margin-left: -375px;\r\n  background: #4081dd;\r\n  opacity: 0;\r\n  z-index: -1; }\r\n  .zmiti-index-main-ui.show {\r\n    opacity: 1;\r\n    z-index: 200; }\r\n  .zmiti-index-main-ui .zmiti-title {\r\n    position: absolute;\r\n    height: 60vh;\r\n    left: 50%;\r\n    top: 14vh;\r\n    z-index: 10;\r\n    -webkit-transform: translate3d(-50%, 0, 0);\r\n    transform: translate3d(-50%, 0, 0); }\r\n    .zmiti-index-main-ui .zmiti-title img {\r\n      height: 100%;\r\n      width: auto; }\r\n  .zmiti-index-main-ui .zmiti-index.index-enter-active, .zmiti-index-main-ui .zmiti-index.index-leave-active {\r\n    -webkit-transition: 1s;\r\n    transition: 1s; }\r\n  .zmiti-index-main-ui .zmiti-index.index-enter, .zmiti-index-main-ui .zmiti-index.index-leave-to {\r\n    opacity: 0; }\r\n  .zmiti-index-main-ui .zmiti-mask {\r\n    z-index: 6; }\r\n    .zmiti-index-main-ui .zmiti-mask.mask-enter-active, .zmiti-index-main-ui .zmiti-mask.mask-leave-active {\r\n      -webkit-transition: 1s;\r\n      transition: 1s; }\r\n    .zmiti-index-main-ui .zmiti-mask.mask-enter, .zmiti-index-main-ui .zmiti-mask.mask-leave-to {\r\n      opacity: 0; }\r\n  .zmiti-index-main-ui .zmiti-vidoe-page {\r\n    width: 750px;\r\n    height: 65vh;\r\n    position: absolute;\r\n    top: 50%;\r\n    -webkit-transform: translate3d(0, -50%, 0);\r\n    transform: translate3d(0, -50%, 0);\r\n    left: 0;\r\n    z-index: 100;\r\n    overflow: hidden; }\r\n    .zmiti-index-main-ui .zmiti-vidoe-page .zmiti-text {\r\n      text-align: center;\r\n      width: 90%;\r\n      margin: 0 auto;\r\n      /*margin-top: 20px;*/\r\n      position: relative;\r\n      line-height: 0.6rem;\r\n      text-align: left;\r\n      z-index: 0; }\r\n    .zmiti-index-main-ui .zmiti-vidoe-page .zmiti-text1 {\r\n      position: absolute;\r\n      bottom: 60px;\r\n      text-align: center;\r\n      width: 100%; }\r\n    .zmiti-index-main-ui .zmiti-vidoe-page video {\r\n      z-index: 10;\r\n      position: fixed;\r\n      top: 50%;\r\n      margin-top: -210px;\r\n      width: 100%;\r\n      height: 420px;\r\n      background: #000; }\r\n    .zmiti-index-main-ui .zmiti-vidoe-page.video-enter-active, .zmiti-index-main-ui .zmiti-vidoe-page.video-leave-active {\r\n      -webkit-transition: 4s;\r\n      transition: 4s; }\r\n    .zmiti-index-main-ui .zmiti-vidoe-page.video-enter, .zmiti-index-main-ui .zmiti-vidoe-page.video-leave-to {\r\n      height: 0; }\r\n  .zmiti-index-main-ui .zmiti-open {\r\n    width: 400px;\r\n    height: 80px;\r\n    line-height: 80px;\r\n    position: absolute;\r\n    color: #fff;\r\n    left: 175px;\r\n    bottom: 10vh;\r\n    background: #ff3f37;\r\n    z-index: 102;\r\n    text-align: center;\r\n    border-radius: 40px;\r\n    font-size: 40px; }\r\n    .zmiti-index-main-ui .zmiti-open.open-enter-active, .zmiti-index-main-ui .zmiti-open.open-leave-active {\r\n      -webkit-transition: 1s 3s;\r\n      transition: 1s 3s; }\r\n    .zmiti-index-main-ui .zmiti-open.open-enter, .zmiti-index-main-ui .zmiti-open.open-leave-to {\r\n      opacity: 0; }\r\n  .zmiti-index-main-ui .zmiti-entry {\r\n    width: 2.4rem;\r\n    text-align: center;\r\n    background: #ff3f37;\r\n    line-height: .9rem;\r\n    border-radius: 30px;\r\n    position: absolute;\r\n    left: 3.8rem;\r\n    bottom: 1.5rem;\r\n    z-index: 10;\r\n    color: #fff;\r\n    font-size: .45rem;\r\n    -webkit-animation: scale 1s linear infinite alternate;\r\n    animation: scale 1s linear infinite alternate; }\r\n\r\n@-webkit-keyframes rotate1 {\r\n  to {\r\n    -webkit-transform: rotate(360deg) scale(2);\r\n    transform: rotate(360deg) scale(2);\r\n    opacity: 0; } }\r\n.zmiti-loading {\r\n  z-index: 1000; }\r\n  .zmiti-loading .zmiti-loading-ui {\r\n    width: 6rem;\r\n    left: 2rem;\r\n    position: absolute;\r\n    top: 6rem; }\r\n    .zmiti-loading .zmiti-loading-ui .zmiti-loading-bar {\r\n      width: 2rem;\r\n      border-radius: 10px;\r\n      position: relative;\r\n      margin: 0 auto; }\r\n      .zmiti-loading .zmiti-loading-ui .zmiti-loading-bar:before {\r\n        content: '';\r\n        border-radius: 10px;\r\n        position: absolute;\r\n        left: 0;\r\n        top: 0;\r\n        width: 100%;\r\n        height: 100%;\r\n        box-shadow: 0 0 3px rgba(255, 255, 255, 0.5); }\r\n      .zmiti-loading .zmiti-loading-ui .zmiti-loading-bar .zmiti-target {\r\n        width: 0.4rem;\r\n        height: 0.4rem;\r\n        border-radius: 50%;\r\n        background: #fff;\r\n        left: 50%;\r\n        top: .4rem;\r\n        position: absolute;\r\n        margin-left: -0.2rem;\r\n        -webkit-animation: scale linear 2s infinite alternate;\r\n        animation: scale linear 2s infinite alternate; }\r\n    .zmiti-loading .zmiti-loading-ui .zmiti-progress {\r\n      margin-top: .5rem;\r\n      text-align: center;\r\n      color: #fff;\r\n      font-family: Georgia;\r\n      font-size: .7rem; }\r\n\r\n/*# sourceMappingURL=index.css.map */\r\n", ""]);
+	exports.push([module.id, ".lt-full {\r\n  width: 100%;\r\n  height: 100%;\r\n  position: absolute;\r\n  left: 0;\r\n  top: 0; }\r\n\r\n.zmiti-text-overflow {\r\n  overflow: hidden;\r\n  white-space: nowrap;\r\n  word-break: break-all;\r\n  text-overflow: ellipsis;\r\n  -webkit-text-overflow: ellipsis; }\r\n\r\n.zmiti-play {\r\n  width: .8rem;\r\n  height: .8rem;\r\n  border-radius: 50%;\r\n  position: fixed;\r\n  z-index: 1000;\r\n  right: .5rem;\r\n  top: .5rem; }\r\n  .zmiti-play.rotate {\r\n    -webkit-animation: rotate 5s linear infinite;\r\n    animation: rotate 5s linear infinite; }\r\n\r\n@-webkit-keyframes rotate {\r\n  to {\r\n    -webkit-transform: rotate(360deg);\r\n    transform: rotate(360deg); } }\r\n.zmiti-index-main-ui {\r\n  overflow: hidden;\r\n  width: 10rem;\r\n  left: 50% !important;\r\n  margin-left: -375px;\r\n  background: #4081dd;\r\n  opacity: 0;\r\n  z-index: -1; }\r\n  .zmiti-index-main-ui.show {\r\n    opacity: 1;\r\n    z-index: 200; }\r\n  .zmiti-index-main-ui .zmiti-title {\r\n    position: absolute;\r\n    height: 60vh;\r\n    left: 50%;\r\n    top: 14vh;\r\n    z-index: 10;\r\n    -webkit-transform: translate3d(-50%, 0, 0);\r\n    transform: translate3d(-50%, 0, 0); }\r\n    .zmiti-index-main-ui .zmiti-title img {\r\n      height: 100%;\r\n      width: auto; }\r\n  .zmiti-index-main-ui .zmiti-index.index-enter-active, .zmiti-index-main-ui .zmiti-index.index-leave-active {\r\n    -webkit-transition: 1s;\r\n    transition: 1s; }\r\n  .zmiti-index-main-ui .zmiti-index.index-enter, .zmiti-index-main-ui .zmiti-index.index-leave-to {\r\n    opacity: 0; }\r\n  .zmiti-index-main-ui .zmiti-mask {\r\n    z-index: 6; }\r\n    .zmiti-index-main-ui .zmiti-mask.mask-enter-active, .zmiti-index-main-ui .zmiti-mask.mask-leave-active {\r\n      -webkit-transition: 1s;\r\n      transition: 1s; }\r\n    .zmiti-index-main-ui .zmiti-mask.mask-enter, .zmiti-index-main-ui .zmiti-mask.mask-leave-to {\r\n      opacity: 0; }\r\n  .zmiti-index-main-ui .zmiti-vidoe-page {\r\n    width: 750px;\r\n    height: 70vh;\r\n    position: absolute;\r\n    top: 50%;\r\n    -webkit-transform: translate3d(0, -50%, 0);\r\n    transform: translate3d(0, -50%, 0);\r\n    left: 0;\r\n    z-index: 100;\r\n    overflow: hidden; }\r\n    .zmiti-index-main-ui .zmiti-vidoe-page .zmiti-text {\r\n      text-align: center;\r\n      width: 90%;\r\n      margin: 0 auto;\r\n      /*margin-top: 20px;*/\r\n      position: relative;\r\n      line-height: 0.6rem;\r\n      text-align: left;\r\n      z-index: 0; }\r\n    .zmiti-index-main-ui .zmiti-vidoe-page .zmiti-text1 {\r\n      position: absolute;\r\n      bottom: 60px;\r\n      text-align: center;\r\n      width: 100%; }\r\n    .zmiti-index-main-ui .zmiti-vidoe-page video {\r\n      z-index: 10;\r\n      position: fixed;\r\n      top: 50%;\r\n      margin-top: -284px;\r\n      width: 100%;\r\n      height: 567px;\r\n      background: #000; }\r\n    .zmiti-index-main-ui .zmiti-vidoe-page.video-enter-active, .zmiti-index-main-ui .zmiti-vidoe-page.video-leave-active {\r\n      -webkit-transition: 4s;\r\n      transition: 4s; }\r\n    .zmiti-index-main-ui .zmiti-vidoe-page.video-enter, .zmiti-index-main-ui .zmiti-vidoe-page.video-leave-to {\r\n      height: 0; }\r\n  .zmiti-index-main-ui .zmiti-open {\r\n    width: 400px;\r\n    height: 80px;\r\n    line-height: 80px;\r\n    position: absolute;\r\n    color: #fff;\r\n    left: 175px;\r\n    bottom: 10vh;\r\n    background: #ff3f37;\r\n    z-index: 102;\r\n    text-align: center;\r\n    border-radius: 40px;\r\n    font-size: 40px; }\r\n    .zmiti-index-main-ui .zmiti-open.open-enter-active, .zmiti-index-main-ui .zmiti-open.open-leave-active {\r\n      -webkit-transition: 1s 3s;\r\n      transition: 1s 3s; }\r\n    .zmiti-index-main-ui .zmiti-open.open-enter, .zmiti-index-main-ui .zmiti-open.open-leave-to {\r\n      opacity: 0; }\r\n  .zmiti-index-main-ui .zmiti-entry {\r\n    width: 2.4rem;\r\n    text-align: center;\r\n    background: #ff3f37;\r\n    line-height: .9rem;\r\n    border-radius: 30px;\r\n    position: absolute;\r\n    left: 3.8rem;\r\n    bottom: 1.5rem;\r\n    z-index: 10;\r\n    color: #fff;\r\n    font-size: .45rem;\r\n    -webkit-animation: scale 1s linear infinite alternate;\r\n    animation: scale 1s linear infinite alternate; }\r\n\r\n@-webkit-keyframes rotate1 {\r\n  to {\r\n    -webkit-transform: rotate(360deg) scale(2);\r\n    transform: rotate(360deg) scale(2);\r\n    opacity: 0; } }\r\n.zmiti-loading {\r\n  z-index: 1000; }\r\n  .zmiti-loading .zmiti-loading-ui {\r\n    width: 6rem;\r\n    left: 2rem;\r\n    position: absolute;\r\n    top: 6rem; }\r\n    .zmiti-loading .zmiti-loading-ui .zmiti-loading-bar {\r\n      width: 2rem;\r\n      border-radius: 10px;\r\n      position: relative;\r\n      margin: 0 auto; }\r\n      .zmiti-loading .zmiti-loading-ui .zmiti-loading-bar:before {\r\n        content: '';\r\n        border-radius: 10px;\r\n        position: absolute;\r\n        left: 0;\r\n        top: 0;\r\n        width: 100%;\r\n        height: 100%;\r\n        box-shadow: 0 0 3px rgba(255, 255, 255, 0.5); }\r\n      .zmiti-loading .zmiti-loading-ui .zmiti-loading-bar .zmiti-target {\r\n        width: 0.4rem;\r\n        height: 0.4rem;\r\n        border-radius: 50%;\r\n        background: #fff;\r\n        left: 50%;\r\n        top: .4rem;\r\n        position: absolute;\r\n        margin-left: -0.2rem;\r\n        -webkit-animation: scale linear 2s infinite alternate;\r\n        animation: scale linear 2s infinite alternate; }\r\n    .zmiti-loading .zmiti-loading-ui .zmiti-progress {\r\n      margin-top: .5rem;\r\n      text-align: center;\r\n      color: #fff;\r\n      font-family: Georgia;\r\n      font-size: .7rem; }\r\n\r\n/*# sourceMappingURL=index.css.map */\r\n", ""]);
 
 	// exports
 
@@ -22237,7 +22256,7 @@
 /* 16 */
 /***/ (function(module, exports) {
 
-	module.exports = "\r\n\t<div v-tap='[entry]'  class=\"lt-full zmiti-index-main-ui \" :style=\"{background:'url('+imgs.indexBg+') no-repeat center bottom',backgroundSize:'cover'}\"  :class=\"{'show':show}\">\r\n\t\t\r\n\t\t<transition name='index'>\r\n\t\t\t<div class=\"zmiti-index\" v-if='!showIndexMask'>\r\n\t\t\t\t<div class=\"zmiti-title\">\r\n\t\t\t\t\t<img @touchstart='imgStart' :src=\"imgs.title1\">\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class=\"zmiti-entry\" >\r\n\t\t\t\t\t进入\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t</transition>\r\n\r\n\t\t<!-- <transition name='mask'>\r\n\t\t\t<div class=\"zmiti-mask lt-full\" v-if='showIndexMask' :style=\"{background:'url('+imgs.mask+') no-repeat center bottom',backgroundSize:'cover'}\">\r\n\t\t\t\r\n\t\t\t</div>\r\n\t\t</transition> -->\r\n\t\t\r\n\t\t<transition name='video'>\r\n\t\t\t<section v-if='showIndexMask' class=\"zmiti-vidoe-page\">\r\n\t\t\t\t<div class=\"zmiti-text\">中共中央总书记、国家主席、中央军委主席习近平带领全国人民深化改革、扩大开放，为实现中华民族伟大复兴的中国梦接力奋斗。</div>\r\n\t\t\t\t<div class=\"zmiti-video-C\" v-show='show' >\r\n\t\t\t\t\t<video  ref=\"video\" id=\"video\" controls x-webkit-airplay=\"true\"  webkit-playsinline=\"true\" playsinline=\"true\" >\r\n\t\t\t\t\t\t<source src=\"./assets/video/1.mp4\" type=\"video/mp4\">\r\n\t\t\t\t\t</video>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class=\"zmiti-text zmiti-text1\">回顾中国40年沧桑巨变</div>\r\n\t\t\t</section>\r\n\t\t</transition>\r\n\t\t\r\n\t\t<transition name='open'>\r\n\t\t\t<div v-if='showIndexMask' class=\"zmiti-open\" v-tap='[open]'>\r\n\t\t\t\t开启接力\r\n\t\t\t</div>\r\n\t\t</transition>\r\n\r\n\t</div>\r\n";
+	module.exports = "\r\n\t<div v-tap='[entry]'  class=\"lt-full zmiti-index-main-ui \" :style=\"{background:'url('+imgs.indexBg+') no-repeat center bottom',backgroundSize:'cover'}\"  :class=\"{'show':show}\">\r\n\t\t\r\n\t\t<transition name='index'>\r\n\t\t\t<div class=\"zmiti-index\" v-if='!showIndexMask'>\r\n\t\t\t\t<div class=\"zmiti-title\">\r\n\t\t\t\t\t<img @touchstart='imgStart' :src=\"imgs.title1\">\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class=\"zmiti-entry\" >\r\n\t\t\t\t\t进入\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t</transition>\r\n\r\n\t\t<!-- <transition name='mask'>\r\n\t\t\t<div class=\"zmiti-mask lt-full\" v-if='showIndexMask' :style=\"{background:'url('+imgs.mask+') no-repeat center bottom',backgroundSize:'cover'}\">\r\n\t\t\t\r\n\t\t\t</div>\r\n\t\t</transition> -->\r\n\t\t\r\n\t\t<transition name='video'>\r\n\t\t\t<section v-if='showIndexMask' class=\"zmiti-vidoe-page\">\r\n\t\t\t\t<div class=\"zmiti-text\">中共中央总书记、国家主席、中央军委主席习近平带领全国人民深化改革、扩大开放，为实现中华民族伟大复兴的中国梦接力奋斗。</div>\r\n\t\t\t\t<div class=\"zmiti-video-C\" v-show='show' >\r\n\t\t\t\t\t<video  ref=\"video\" id=\"video\" controls x-webkit-airplay=\"true\"  webkit-playsinline=\"true\" playsinline=\"true\" >\r\n\t\t\t\t\t\t<source src=\"./assets/video/3.mp4\" type=\"video/mp4\">\r\n\t\t\t\t\t</video>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class=\"zmiti-text zmiti-text1\">改革开放是决定当代中国命运的关键一招</div>\r\n\t\t\t</section>\r\n\t\t</transition>\r\n\t\t\r\n\t\t<transition name='open'>\r\n\t\t\t<div v-if='showIndexMask' class=\"zmiti-open\" v-tap='[open]'>\r\n\t\t\t\t开启接力\r\n\t\t\t</div>\r\n\t\t</transition>\r\n\r\n\t</div>\r\n";
 
 /***/ }),
 /* 17 */
@@ -22253,7 +22272,7 @@
 	  var hotAPI = require("vue-hot-reload-api")
 	  hotAPI.install(require("vue"), true)
 	  if (!hotAPI.compatible) return
-	  var id = "F:\\xuchang2018\\project\\openingup\\components\\main\\index.vue"
+	  var id = "E:\\project\\openingup\\components\\main\\index.vue"
 	  if (!module.hot.data) {
 	    hotAPI.createRecord(id, module.exports)
 	  } else {
@@ -22347,7 +22366,7 @@
 				isAnimated: false,
 				overView: true,
 				cameraZ: 90,
-				text: ['2018年，我们迎来改革开放40周年', '改革开放是当代中国发展的必由之路', '是实现中国梦的必由之路', '我们要以改革开放40周年为契机', '逢山开路，遇水架桥，将改革进行到底']
+				text: ['40年的改革开放历程', '雄辩地证明只有改革开放才能发展中国', '发展社会主义、发展马克思主义']
 
 			};
 		},
@@ -22558,7 +22577,7 @@
 
 				var img3 = new Image();
 				img3.onload = function () {
-					context.drawImage(img3, _this5.viewW - 150, height / 1.5 + 3 * 30, 140, 67);
+					context.drawImage(img3, _this5.viewW - 150, height / 1.5 + 1 * 16, 140, 67);
 				};
 				img3.src = _libAssetsJs.imgs.copyright;
 
@@ -22677,7 +22696,7 @@
 						group.add(sprite);
 					}
 
-					group.rotation.y = -1;
+					group.rotation.y = -.7;
 					_this6.group = group;
 
 					if (i % 2 === 0) {
@@ -22769,7 +22788,7 @@
 
 					var easing = TWEEN.Easing.Exponential.InOut;
 
-					new TWEEN.Tween(object.scale).to({ x: .5, y: .5, z: .5 }, 300).easing(easing).onComplete(function () {
+					new TWEEN.Tween(object.scale).to({ x: .5, y: .5, z: .5 }, 600).easing(easing).onComplete(function () {
 						num1 += 1;
 						//object.visible = false;
 						if (num1 >= _this7.defaultPosition.length) {
@@ -22868,7 +22887,7 @@
 	  var hotAPI = require("vue-hot-reload-api")
 	  hotAPI.install(require("vue"), true)
 	  if (!hotAPI.compatible) return
-	  var id = "F:\\xuchang2018\\project\\openingup\\components\\music\\index.vue"
+	  var id = "E:\\project\\openingup\\components\\music\\index.vue"
 	  if (!module.hot.data) {
 	    hotAPI.createRecord(id, module.exports)
 	  } else {

@@ -55,7 +55,7 @@ $bgColor: #4081dd;
 
 	.zmiti-vidoe-page{
 		width: $viewW;
-		height: 65vh;
+		height: 70vh;
 		@include pos(a);
 		top: 50%;
 		@include transform(translate3d(0,-50%,0));
@@ -87,9 +87,9 @@ $bgColor: #4081dd;
 			z-index: 10;
 			@include pos(f);
 			top: 50%;
-			margin-top: -210px;
+			margin-top: -284px;
 			width: 100%;
-			height:420px;
+			height:567px;
 			background: #000;
 		}
 
