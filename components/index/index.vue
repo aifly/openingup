@@ -22,8 +22,7 @@
 			<section v-if='showIndexMask' class="zmiti-vidoe-page">
 				<div class="zmiti-text">中共中央总书记、国家主席、中央军委主席习近平带领全国人民深化改革、扩大开放，为实现中华民族伟大复兴的中国梦接力奋斗。</div>
 				<div class="zmiti-video-C" v-show='show' >
-					<video  ref="video" id="video" controls x-webkit-airplay="true"  webkit-playsinline="true" playsinline="true" >
-						<source src="./assets/video/3.mp4" type="video/mp4">
+					<video loop='loop' src="./assets/video/4.mp4" x5-playsinline="" ref="video" controls x-webkit-airplay="true"  webkit-playsinline="true" playsinline="true" > 
 					</video>
 				</div>
 				<div class="zmiti-text zmiti-text1">改革开放是决定当代中国命运的关键一招</div>
@@ -79,6 +78,10 @@
 		 					type:"toggleBgMusic",
 		 					data:true
 		 				})
+		 			})
+
+		 			this.$refs['video'].addEventListener('pause',()=>{
+		 				this.show && this.$refs['video'].play()	
 		 			})
 					this.$refs['video'].play()
 				},200)

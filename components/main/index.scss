@@ -38,7 +38,7 @@ $color: #fffb88;
 			padding: 0 30px;
 			height: 70px;
 			line-height: 70px;
-			margin: 30px auto;
+			margin: 30px auto 0;
 			@include br(30px);
 
 		}
@@ -46,6 +46,8 @@ $color: #fffb88;
 			
 			text-align: center;
 			color:#fff;
+			height: 80px;
+			line-height: 80px;
 		}
 		.zmiti-pv{
 			text-align: center;
