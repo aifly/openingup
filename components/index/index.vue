@@ -20,7 +20,7 @@
 		
 		<transition name='video'>
 			<section v-if='showIndexMask' class="zmiti-vidoe-page">
-				<div class="zmiti-text">中央委员会总书记，中共中央军事委员会主席，中华人民共和国主席，中华人民共和国中央军事委员会主席习近平带领亿万中国人民深化改革、扩大开放，为实现中华民族伟大复兴的中国梦接力奋斗。</div>
+				<div class="zmiti-text">中共中央总书记、国家主席、中央军委主席习近平带领全国人民深化改革、扩大开放，为实现中华民族伟大复兴的中国梦接力奋斗。</div>
 				<div class="zmiti-video-C" v-show='show' >
 					<video  ref="video" id="video" controls x-webkit-airplay="true"  webkit-playsinline="true" playsinline="true" >
 						<source src="./assets/video/1.mp4" type="video/mp4">

@@ -13,7 +13,9 @@
 	title:'./assets/images/title.png',
 	title1:'./assets/images/title1-1.png',
 	
-	myhead:'./assets/images/logo.png'
+	myhead:'./assets/images/logo.png',
+
+	copyright:'./assets/images/copyright.png'
   
 }
 

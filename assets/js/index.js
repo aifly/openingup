@@ -11994,7 +11994,7 @@
 	  var hotAPI = require("vue-hot-reload-api")
 	  hotAPI.install(require("vue"), true)
 	  if (!hotAPI.compatible) return
-	  var id = "E:\\project\\openingup\\components\\index\\index.vue"
+	  var id = "F:\\xuchang2018\\project\\openingup\\components\\index\\index.vue"
 	  if (!module.hot.data) {
 	    hotAPI.createRecord(id, module.exports)
 	  } else {
@@ -12028,7 +12028,7 @@
 	//
 	// 		<transition name='video'>
 	// 			<section v-if='showIndexMask' class="zmiti-vidoe-page">
-	// 				<div class="zmiti-text">中央委员会总书记，中共中央军事委员会主席，中华人民共和国主席，中华人民共和国中央军事委员会主席习近平带领亿万中国人民深化改革、扩大开放，为实现中华民族伟大复兴的中国梦接力奋斗。</div>
+	// 				<div class="zmiti-text">中共中央总书记、国家主席、中央军委主席习近平带领全国人民深化改革、扩大开放，为实现中华民族伟大复兴的中国梦接力奋斗。</div>
 	// 				<div class="zmiti-video-C" v-show='show' >
 	// 					<video  ref="video" id="video" controls x-webkit-airplay="true"  webkit-playsinline="true" playsinline="true" >
 	// 						<source src="./assets/video/1.mp4" type="video/mp4">
@@ -22237,7 +22237,7 @@
 /* 16 */
 /***/ (function(module, exports) {
 
-	module.exports = "\r\n\t<div v-tap='[entry]'  class=\"lt-full zmiti-index-main-ui \" :style=\"{background:'url('+imgs.indexBg+') no-repeat center bottom',backgroundSize:'cover'}\"  :class=\"{'show':show}\">\r\n\t\t\r\n\t\t<transition name='index'>\r\n\t\t\t<div class=\"zmiti-index\" v-if='!showIndexMask'>\r\n\t\t\t\t<div class=\"zmiti-title\">\r\n\t\t\t\t\t<img @touchstart='imgStart' :src=\"imgs.title1\">\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class=\"zmiti-entry\" >\r\n\t\t\t\t\t进入\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t</transition>\r\n\r\n\t\t<!-- <transition name='mask'>\r\n\t\t\t<div class=\"zmiti-mask lt-full\" v-if='showIndexMask' :style=\"{background:'url('+imgs.mask+') no-repeat center bottom',backgroundSize:'cover'}\">\r\n\t\t\t\r\n\t\t\t</div>\r\n\t\t</transition> -->\r\n\t\t\r\n\t\t<transition name='video'>\r\n\t\t\t<section v-if='showIndexMask' class=\"zmiti-vidoe-page\">\r\n\t\t\t\t<div class=\"zmiti-text\">中央委员会总书记，中共中央军事委员会主席，中华人民共和国主席，中华人民共和国中央军事委员会主席习近平带领亿万中国人民深化改革、扩大开放，为实现中华民族伟大复兴的中国梦接力奋斗。</div>\r\n\t\t\t\t<div class=\"zmiti-video-C\" v-show='show' >\r\n\t\t\t\t\t<video  ref=\"video\" id=\"video\" controls x-webkit-airplay=\"true\"  webkit-playsinline=\"true\" playsinline=\"true\" >\r\n\t\t\t\t\t\t<source src=\"./assets/video/1.mp4\" type=\"video/mp4\">\r\n\t\t\t\t\t</video>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class=\"zmiti-text zmiti-text1\">回顾中国40年沧桑巨变</div>\r\n\t\t\t</section>\r\n\t\t</transition>\r\n\t\t\r\n\t\t<transition name='open'>\r\n\t\t\t<div v-if='showIndexMask' class=\"zmiti-open\" v-tap='[open]'>\r\n\t\t\t\t开启接力\r\n\t\t\t</div>\r\n\t\t</transition>\r\n\r\n\t</div>\r\n";
+	module.exports = "\r\n\t<div v-tap='[entry]'  class=\"lt-full zmiti-index-main-ui \" :style=\"{background:'url('+imgs.indexBg+') no-repeat center bottom',backgroundSize:'cover'}\"  :class=\"{'show':show}\">\r\n\t\t\r\n\t\t<transition name='index'>\r\n\t\t\t<div class=\"zmiti-index\" v-if='!showIndexMask'>\r\n\t\t\t\t<div class=\"zmiti-title\">\r\n\t\t\t\t\t<img @touchstart='imgStart' :src=\"imgs.title1\">\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class=\"zmiti-entry\" >\r\n\t\t\t\t\t进入\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t</transition>\r\n\r\n\t\t<!-- <transition name='mask'>\r\n\t\t\t<div class=\"zmiti-mask lt-full\" v-if='showIndexMask' :style=\"{background:'url('+imgs.mask+') no-repeat center bottom',backgroundSize:'cover'}\">\r\n\t\t\t\r\n\t\t\t</div>\r\n\t\t</transition> -->\r\n\t\t\r\n\t\t<transition name='video'>\r\n\t\t\t<section v-if='showIndexMask' class=\"zmiti-vidoe-page\">\r\n\t\t\t\t<div class=\"zmiti-text\">中共中央总书记、国家主席、中央军委主席习近平带领全国人民深化改革、扩大开放，为实现中华民族伟大复兴的中国梦接力奋斗。</div>\r\n\t\t\t\t<div class=\"zmiti-video-C\" v-show='show' >\r\n\t\t\t\t\t<video  ref=\"video\" id=\"video\" controls x-webkit-airplay=\"true\"  webkit-playsinline=\"true\" playsinline=\"true\" >\r\n\t\t\t\t\t\t<source src=\"./assets/video/1.mp4\" type=\"video/mp4\">\r\n\t\t\t\t\t</video>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class=\"zmiti-text zmiti-text1\">回顾中国40年沧桑巨变</div>\r\n\t\t\t</section>\r\n\t\t</transition>\r\n\t\t\r\n\t\t<transition name='open'>\r\n\t\t\t<div v-if='showIndexMask' class=\"zmiti-open\" v-tap='[open]'>\r\n\t\t\t\t开启接力\r\n\t\t\t</div>\r\n\t\t</transition>\r\n\r\n\t</div>\r\n";
 
 /***/ }),
 /* 17 */
@@ -22253,7 +22253,7 @@
 	  var hotAPI = require("vue-hot-reload-api")
 	  hotAPI.install(require("vue"), true)
 	  if (!hotAPI.compatible) return
-	  var id = "E:\\project\\openingup\\components\\main\\index.vue"
+	  var id = "F:\\xuchang2018\\project\\openingup\\components\\main\\index.vue"
 	  if (!module.hot.data) {
 	    hotAPI.createRecord(id, module.exports)
 	  } else {
@@ -22341,12 +22341,13 @@
 				createImg: '',
 				headimgs: [],
 				defaultPosition: [],
+				defaultPosition1: [],
 				pressed: undefined,
 				stop: false,
 				isAnimated: false,
 				overView: true,
 				cameraZ: 90,
-				text: ['2018年，我们将迎来改革开放40周年', '改革开放是当代中国发展的必由之路', '是实现中国梦的必由之路']
+				text: ['2018年，我们迎来改革开放40周年', '改革开放是当代中国发展的必由之路', '是实现中国梦的必由之路', '我们要以改革开放40周年为契机', '逢山开路，遇水架桥，将改革进行到底']
 
 			};
 		},
@@ -22455,6 +22456,7 @@
 
 				var i = 1;
 				var count = 0;
+				var count1 = 0;
 				var sp = .05;
 				var render = function render() {
 					if (count >= 1) {
@@ -22479,10 +22481,23 @@
 						_this4.point.scale.y = Math.sin(Math.PI / 180 * i);
 					}
 
+					//count1++;
+
+					count1 += 1.2;
+
+					if (_this4.group && _this4.pressed) {
+
+						_this4.group.rotation.y += .01; // Math.PI/180*count1;
+						if (_this4.group.rotation.y >= 0) {
+							_this4.group.rotation.y = 0;
+						}
+					}
+
 					TWEEN.update();
 				};
 				render();
 			},
+
 			fillText: function fillText() {
 				var _this5 = this;
 
@@ -22503,7 +22518,7 @@
 				context.restore();
 
 				context.translate(0, this.viewH * .38);
-				//	this.$refs['page'].appendChild(canvas);
+				//this.$refs['page'].appendChild(canvas);
 				context.textAlign = 'center';
 				context.font = "30px Georgia";
 				context.fillStyle = '#696b72';
@@ -22526,7 +22541,7 @@
 
 				context.textAlign = 'start';
 				context.font = "24px Arial";
-				this.drawText(context, '我是 ' + (this.nickname || "新华社网友") + ' 纪念是为了更好地出发，不忘初心，继续前进', 200, 130, this.viewW - 300);
+				this.drawText(context, '我是' + (this.nickname || "新华社网友") + '，纪念是为了更好地出发，不忘初心，继续前进', 200, 130, this.viewW - 300);
 
 				var img1 = new Image();
 				img1.onload = function () {
@@ -22543,9 +22558,9 @@
 
 				var img3 = new Image();
 				img3.onload = function () {
-					context.drawImage(img3, 50, height * .88, 60, 60);
+					context.drawImage(img3, _this5.viewW - 150, height / 1.5 + 3 * 30, 140, 67);
 				};
-				img3.src = _libAssetsJs.imgs.logo;
+				img3.src = _libAssetsJs.imgs.copyright;
 
 				setTimeout(function () {
 					_this5.renderer.domElement.style.opacity = 0;
@@ -22617,6 +22632,7 @@
 						var sprite = new THREE.Sprite(material);
 						_this6.defaultPosition.push([-(_this6.viewW / 2 - dot.x) / k, (_this6.viewH / 2 - dot.y) / k, 2]);
 						_this6.defaultPosition.push([-(_this6.viewW / 2 - dot.x) / k, (_this6.viewH / 2 - dot.y) / k, 1]);
+						_this6.defaultPosition1.push([-(_this6.viewW / 2 - dot.x) / k, (_this6.viewH / 2 - dot.y) / k, 1]);
 						sprite.position.set((Math.random() * _this6.viewW - _this6.viewW / 2) / k1, (Math.random() * _this6.viewH - _this6.viewH / 2) / k1, 0);
 						var scale = Math.random() * (.6 - .2) + .4 - .3;
 						scale = 1;
@@ -22639,14 +22655,30 @@
 
 						_this6.headimgs.push(plane);
 					} else {
+
 						var sprite = new THREE.Sprite(materials[i % materials.length]);
 						_this6.defaultPosition.push([-(_this6.viewW / 2 - dot.x) / k, (_this6.viewH / 2 - dot.y) / k, 0]);
-						sprite.position.set((Math.random() * _this6.viewW - _this6.viewW / 2) / k1, (Math.random() * _this6.viewH - _this6.viewH / 2) / k1, 0);
-						var scale = Math.random() * (.3 - .2);
+
+						var theta = Math.random() * 360 | 0;
+						var phi = Math.random() * 360 | 0;
+
+						var r = 15;
+						var x = r * Math.sin(theta * Math.PI / 180) * Math.cos(phi * Math.PI / 180),
+						    y = r * Math.sin(theta * Math.PI / 180) * Math.sin(phi * Math.PI / 180),
+						    z = r * Math.cos(Math.PI / 180 * theta);
+
+						_this6.defaultPosition1 = _this6.defaultPosition1 || [];
+						//sprite.position.set((Math.random()*this.viewW-this.viewW/2)/k1,(Math.random()*this.viewH-this.viewH/2)/k1,0)
+						_this6.defaultPosition1.push([x, y, z]);
+						sprite.position.set(x, y, z);
+						var scale = Math.random() * .2 + .3;
 						sprite.scale.set(scale, scale, scale);
 
 						group.add(sprite);
 					}
+
+					group.rotation.y = -1;
+					_this6.group = group;
 
 					if (i % 2 === 0) {
 						sprite.speedX = 0;
@@ -22733,23 +22765,23 @@
 
 				_this7.headimgs.forEach(function (object, i) {
 
-					var duration = 2000;
+					var duration = 1300;
 
 					var easing = TWEEN.Easing.Exponential.InOut;
 
-					new TWEEN.Tween(object.scale).to({ x: object.scale.x + .42, y: object.scale.y + .42, z: object.scale.z + .42 }, Math.random() * duration + duration / 2).delay(Math.random() * 100).easing(easing).onComplete(function () {
+					new TWEEN.Tween(object.scale).to({ x: .5, y: .5, z: .5 }, 300).easing(easing).onComplete(function () {
 						num1 += 1;
+						//object.visible = false;
 						if (num1 >= _this7.defaultPosition.length) {
 
 							_this7.headimgs.forEach(function (object, i) {
 
 								var isMyHead = object.name === 'sprite';
 
-								new TWEEN.Tween(object.position).to({ x: isMyHead ? 0 : Math.random() * 5 * (Math.random() - .5 > 0 ? 1 : -1), y: isMyHead ? 0 : Math.random() * 5 * (Math.random() - .5 > 0 ? 1 : -1), z: isMyHead ? 70 : Math.random() * 600 + 10 }, Math.random() * duration + duration / 2).delay(i * 2).easing(easing).onComplete(function () {
+								new TWEEN.Tween(object.position).to({ x: isMyHead ? 0 : Math.random() * 5 * (Math.random() - .5 > 0 ? 1 : -1), y: isMyHead ? 0 : Math.random() * 5 * (Math.random() - .5 > 0 ? 1 : -1), z: isMyHead ? 70 : i % 4 !== 0 ? Math.random() * 400 + 10 : 10 }, Math.random() * duration + duration / 2).delay(i * 2).easing(easing).onComplete(function () {
 									num += 1;
 									if (num >= _this7.defaultPosition.length) {
 										var s = _this7;
-										var duration = 2000;
 
 										num = 0;
 										_this7.headimgs.forEach(function (object, i) {
@@ -22836,7 +22868,7 @@
 	  var hotAPI = require("vue-hot-reload-api")
 	  hotAPI.install(require("vue"), true)
 	  if (!hotAPI.compatible) return
-	  var id = "E:\\project\\openingup\\components\\music\\index.vue"
+	  var id = "F:\\xuchang2018\\project\\openingup\\components\\music\\index.vue"
 	  if (!module.hot.data) {
 	    hotAPI.createRecord(id, module.exports)
 	  } else {

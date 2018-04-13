@@ -58,15 +58,18 @@
 				createImg:'',
 				headimgs:[],
 				defaultPosition:[],
+				defaultPosition1:[],
 				pressed:undefined,
 				stop:false,
 				isAnimated:false,
 				overView:true,
 				cameraZ:90,
 				text:[
-					'2018年，我们将迎来改革开放40周年',
+					'2018年，我们迎来改革开放40周年',
 					'改革开放是当代中国发展的必由之路',
-					'是实现中国梦的必由之路'
+					'是实现中国梦的必由之路',
+					'我们要以改革开放40周年为契机',
+					'逢山开路，遇水架桥，将改革进行到底'
 				]
 				
 			}
@@ -198,6 +201,7 @@
 
 				var i = 1;
 				var count = 0;
+				var count1 = 0;
 				var sp = .05;
 				var render = ()=>{
 					if(count>=1){
@@ -224,6 +228,22 @@
 
 
 					}
+
+					//count1++;
+
+					count1+=1.2;
+					
+
+					if(this.group && this.pressed){
+
+						this.group.rotation.y +=.01;// Math.PI/180*count1;
+						if(this.group.rotation.y>=0){
+							this.group.rotation.y = 0;
+						}
+					}
+
+					
+					
 					 
 					TWEEN.update();
 					 
@@ -232,6 +252,8 @@
 
 				
 			},
+
+
 			fillText(){
 				var canvas = this.$refs['canvas1'];
 				canvas.style.position = 'absolute';
@@ -251,7 +273,7 @@
 				context.restore();
 
 				context.translate(0,this.viewH*.38)
-			//	this.$refs['page'].appendChild(canvas);
+				//this.$refs['page'].appendChild(canvas);
 				context.textAlign = 'center';
 				context.font="30px Georgia";
 				context.fillStyle = '#696b72';
@@ -275,7 +297,7 @@
 				
 				context.textAlign = 'start';
 				context.font="24px Arial";
-				this.drawText(context,'我是 '+(this.nickname||"新华社网友") + ' 纪念是为了更好地出发，不忘初心，继续前进',200,130,this.viewW - 300);
+				this.drawText(context,'我是'+(this.nickname||"新华社网友") + '，纪念是为了更好地出发，不忘初心，继续前进',200,130,this.viewW - 300);
 
 
 				var img1 = new Image();
@@ -292,13 +314,11 @@
 					context.fillText(t,this.viewW/2,height/1.5 + i * 36)
 				})
 
-
-
 				var img3 = new Image();
 				img3.onload = ()=>{
-					context.drawImage(img3,50,height*.88,60,60)
+					context.drawImage(img3,this.viewW - 150,height/1.5 + 3 * 30,140,67)
 				}
-				img3.src = imgs.logo;
+				img3.src = imgs.copyright;
 
 
 				setTimeout(()=>{
@@ -366,7 +386,7 @@
 				var group = new THREE.Group();
 				var index = (this.dots.length*Math.random())|0
 				this.dots.forEach((dot,i)=>{
-					if(index ===i ){
+					if(index ===i  ){
 
 						var loader = new THREE.TextureLoader();
 						var myloader = loader.load(this.headimgurl || imgs.myhead);
@@ -376,6 +396,7 @@
 						var sprite = new THREE.Sprite(material);
 						this.defaultPosition.push([-(this.viewW/2-dot.x)/k,(this.viewH/2-dot.y)/k,2])
 						this.defaultPosition.push([-(this.viewW/2-dot.x)/k,(this.viewH/2-dot.y)/k,1])
+						this.defaultPosition1.push([-(this.viewW/2-dot.x)/k,(this.viewH/2-dot.y)/k,1])
 						sprite.position.set((Math.random()*this.viewW-this.viewW/2)/k1,(Math.random()*this.viewH-this.viewH/2)/k1,0)
 						var scale = Math.random()*(.6-.2)+.4-.3;
 						scale =1;
@@ -398,14 +419,32 @@
 						
 						this.headimgs.push(plane);
 					}else{
+
 						var sprite = new THREE.Sprite(materials[i%materials.length]);
-						this.defaultPosition.push([-(this.viewW/2-dot.x)/k,(this.viewH/2-dot.y)/k,0])
-						sprite.position.set((Math.random()*this.viewW-this.viewW/2)/k1,(Math.random()*this.viewH-this.viewH/2)/k1,0)
-						var scale = Math.random()*(.3-.2);
+						this.defaultPosition.push([-(this.viewW/2-dot.x)/k,(this.viewH/2-dot.y)/k,0]);
+
+						var theta = Math.random()*360 | 0 ;
+						var phi = Math.random()*360 | 0 ;
+
+						var r = 15;
+						var x = r*Math.sin(theta*Math.PI/180)*Math.cos(phi*Math.PI/180),
+							y = r*Math.sin(theta*Math.PI/180)*Math.sin(phi*Math.PI/180),
+							z = r*Math.cos(Math.PI/180*theta);
+
+						this.defaultPosition1 = this.defaultPosition1 || [];
+						//sprite.position.set((Math.random()*this.viewW-this.viewW/2)/k1,(Math.random()*this.viewH-this.viewH/2)/k1,0)
+						this.defaultPosition1.push([x,y,z])
+						sprite.position.set(x,y,z)
+						var scale = Math.random()*(.2)+.3;
 						sprite.scale.set(scale,scale,scale);
+
+
 						
 						group.add(sprite);
 					}
+
+					group.rotation.y = -1;
+					this.group = group;
 
 
 
@@ -501,47 +540,47 @@
 			
 				this.headimgs.forEach((object,i)=>{
 
-					var duration = 2000;
+					var duration = 1300;
 
 					var easing = TWEEN.Easing.Exponential.InOut;
 					
 					new TWEEN.Tween( object.scale )
-						.to( { x:object.scale.x+.42, y:object.scale.y+.42, z:object.scale.z+.42 }, Math.random() * duration + duration/2 ).delay(Math.random()*100)
+						.to( { x:.5, y:.5, z:.5 }, 300 )
 						.easing( easing ).onComplete(()=>{
 							num1+=1;
-							if(num1>=this.defaultPosition.length){
-								
-									this.headimgs.forEach((object,i)=>{
-										
-										var isMyHead = object.name === 'sprite';
+							//object.visible = false;
+							if(num1>=this.defaultPosition.length ){
+									
+								this.headimgs.forEach((object,i)=>{
+									
+									var isMyHead = object.name === 'sprite';
 
-										new TWEEN.Tween( object.position )
-										.to( { x:isMyHead ? 0 : (Math.random()*5*(Math.random()-.5>0?1:-1)), y:isMyHead?0:(Math.random()*5*(Math.random()-.5>0?1:-1)), z:isMyHead ? 70 : Math.random()*600+10 }, Math.random() * duration + duration/2 ).delay(i*2)
-										.easing( easing ).onComplete(()=>{
-											num+=1;
-											if(num>=this.defaultPosition.length){
-												var s = this;
-												var duration = 2000;
+									new TWEEN.Tween( object.position )
+									.to( { x:isMyHead ? 0 : (Math.random()*5*(Math.random()-.5>0?1:-1)), y:isMyHead?0:(Math.random()*5*(Math.random()-.5>0?1:-1)), z:isMyHead ? 70 :(i%4!== 0? Math.random()*400+10:10) }, Math.random() * duration + duration/2 ).delay(i*2)
+									.easing( easing ).onComplete(()=>{
+										num+=1;
+										if(num>=this.defaultPosition.length){
+											var s = this;
 
-												num = 0;
-												this.headimgs.forEach((object,i)=>{
-													new TWEEN.Tween( object.position )
-													.to( { x:this.defaultPosition[i][0], y:this.defaultPosition[i][1], z:this.defaultPosition[i][2] }, Math.random() * duration + duration/2 ).delay(i*2)
-													.easing( easing ).onComplete(()=>{
-														num+=1;
-														if(num>=this.defaultPosition.length){
-															this.skyBox.visible = true;
-															this.animated();
-															this.isAnimated = true;
-															this.point.visible = true;
-														}
+											num = 0;
+											this.headimgs.forEach((object,i)=>{
+												new TWEEN.Tween( object.position )
+												.to( { x:this.defaultPosition[i][0], y:this.defaultPosition[i][1], z:this.defaultPosition[i][2] }, Math.random() * duration + duration/2 ).delay(i*2)
+												.easing( easing ).onComplete(()=>{
+													num+=1;
+													if(num>=this.defaultPosition.length){
+														this.skyBox.visible = true;
+														this.animated();
+														this.isAnimated = true;
+														this.point.visible = true;
+													}
 
-													}).start(); 
-												})
-											}
+												}).start(); 
+											})
+										}
 
-										}).start(); 
-									});
+									}).start(); 
+								});
 							}
 
 						}).start(); 
@@ -551,6 +590,8 @@
 				})
 			})
 
+
+			
 			 
 
 
