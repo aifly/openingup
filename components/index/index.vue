@@ -20,12 +20,12 @@
 		
 		<transition name='video'>
 			<section v-if='showIndexMask' class="zmiti-vidoe-page">
-				<div class="zmiti-text">中共中央总书记、国家主席、中央军委主席习近平带领全国人民深化改革、扩大开放，为实现中华民族伟大复兴的中国梦接力奋斗。</div>
+				<div class="zmiti-text">习近平总书记在庆祝海南建省办经济特区30周年大会上发表重要讲话</div>
 				<div class="zmiti-video-C" v-show='show' >
-					<video loop='loop' src="./assets/video/4.mp4" x5-playsinline="" ref="video" controls x-webkit-airplay="true"  webkit-playsinline="true" playsinline="true" > 
+					<video loop='loop' src="http://h5cdn.zhongguowangshi.com/hainan.mp4" x5-playsinline="" ref="video" controls x-webkit-airplay="true"  webkit-playsinline="true" playsinline="true" > 
 					</video>
 				</div>
-				<div class="zmiti-text zmiti-text1">改革开放是决定当代中国命运的关键一招</div>
+				<div class="zmiti-text zmiti-text1">让我们一起为新时代全面深化改革开放接力</div>
 			</section>
 		</transition>
 		
@@ -43,7 +43,7 @@
 	import {imgs} from '../lib/assets.js';
 	import zmitiUtil from '../lib/util';
 	export default {
-		props:['obserable'],
+		props:['obserable','nickname','pv'],
 		name:'zmitiindex',
 		data(){
 			return{
@@ -87,6 +87,8 @@
 				},200)
 			},
 			open(){
+
+				zmitiUtil.wxConfig('我是'+this.nickname+"，已获得改革开放40周年勋章，一起来吧！",'勋章编号：No.'+this.pv);
 				this.show = false;
 				setTimeout(()=>{
 					this.$refs['video'].pause()

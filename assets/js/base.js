@@ -20,21 +20,13 @@
 }
 
 
-var headImgs = [
-	
-]
-for(i =1 ;i<=100;i++){
-	headImgs.push('./assets/images/'+i+'.jpg');
-}
-
 var arr = [];
 
-arr = arr.concat(headImgs);
+
 for (var attr in imgs) {
 	arr.push(imgs[attr]);
 }
 
-var xionganDesc ='';// '雄安新区雄安新区（Xiongan New Area）[1]  位于中国河北省保定市境内，地处北京、天津、保定腹地，规划范围涵盖河北省雄县、容城、安新。 '
 
 var mainImgList = [
 	{

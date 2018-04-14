@@ -35,6 +35,7 @@ new Vue({
 		isShare: false,
 		show: false,
 		username: '',
+		pv:820121,
 		width:0,
 		loaded: false,
 		nickname: '',
@@ -53,7 +54,7 @@ new Vue({
 	*/
 	template: `<div>
 		<Music :obserable='obserable'></Music>
-		<Index   v-if='show && !isShare'  :obserable='obserable'></Index>
+		<Index :pv='pv' :nickname='nickname' :headimgurl='headimgurl'   v-if='show && !isShare'  :obserable='obserable'></Index>
 		<Main :pv='pv' :nickname='nickname' :headimgurl='headimgurl'  v-if='show && !isShare'  :obserable='obserable'></Main>
 		<div  v-if='!loaded' :style='{background:"#158ae4"}' class='zmiti-loading lt-full'>
 			<div class='zmiti-loading-ui'>
@@ -110,7 +111,7 @@ new Vue({
 
 
 					//zmitiUtil.wxConfig('我是第'+this.pv+'位参与者',window.desc);
-					zmitiUtil.wxConfig('我是'+(this.nickname||'新华社网友') +'，纪念是为了更好地出发，不忘初心，继续前进','我获得了改革开放40周年勋章，编号：No. '+this.pv);
+					//zmitiUtil.wxConfig('我是'+(this.nickname||'新华社网友') +'，已获得改革开放40周年勋章，一起来吧！','勋章编号：No.'+this.pv);
 				}
 			});
 		}
@@ -122,6 +123,7 @@ new Vue({
 	},
 	mounted() {
 
+		var s = this;
 
 		var src = (zmitiUtil.getQueryString('src'));
 		var num = (zmitiUtil.getQueryString('num'));
@@ -130,10 +132,8 @@ new Vue({
 
 		this.src = src;
 
-		this.updatePv();
-
-
 		obserable.on("setUserInfo",(data)=>{
+
 			this.nickname = data.nickname;
 			this.headimgurl = data.headimgurl;
 		})
@@ -152,15 +152,39 @@ new Vue({
 			},1000)
 		}
 
+		var t = setTimeout(()=>{
 
-		this.loading(arr, (s) => {
-			this.width = s * 100 | 0;
 
-		}, () => {
-			this.show = true;
-			this.loaded = true;
+			
 
-		})
+			window.headImgs = [
+			]
+
+			headimgList.length = 870;
+			headimgList.forEach((item,i)=>{
+				headImgs.push(item.headimgurl);
+			})
+			/*for(var i =1 ;i<=Math.min(100,870 - arr.length);i++){
+				//headImgs.push('./assets/images/'+i+'.jpg');
+			}*/
+
+			arr = arr.concat(headImgs);
+
+			s.loading(arr, (scale) => {
+				s.width = scale * 100 | 0;
+			}, () => {
+				s.show = true;
+				s.loaded = true;
+				obserable.trigger({
+					type:'initWebgl'
+				})
+			})
+		},1);
+
+		
+		
+
+		
 
 		window.$ = $;
 
@@ -174,7 +198,60 @@ new Vue({
 
 		});
 		zmitiUtil.getOauthurl(obserable);
-		//zmitiUtil.wxConfig(document.title, window.desc);
+		zmitiUtil.wxConfig(document.title, window.desc);
+		this.updatePv();
+		return;
+		/*$.ajax({
+			type:'post',
+			url:"http://api.zmiti.com/v2/weixin/getwxuserlist/",
+			data:{
+				worksid:window.customid
+			},
+			error(){
 
+				clearTimeout(t);
+				window.headImgs = [
+				]
+
+				for(var i =1 ;i<=Math.min(100,870 - arr.length);i++){
+					headImgs.push('./assets/images/'+i+'.jpg');
+				}
+				arr.concat(headImgs);
+
+				s.loading(arr, (scale) => {
+					s.width = scale * 100 | 0;
+				}, () => {
+					s.show = true;
+					s.loaded = true;
+				})
+			},
+			success(data){
+				clearTimeout(t);
+				if(data.getret === 0){
+					
+
+					if(data.list.length>=870){
+						data.list.length = 870;
+					}
+					window.headImgs = [
+						
+					]
+					headImgs =  headImgs.concat(data.list.map((item)=>{return item.headimgurl}));
+
+
+					for(var i =1 ;i<=Math.min(100,870 - arr.length);i++){
+						headImgs.push('./assets/images/'+i+'.jpg');
+					}
+					arr.concat(headImgs);
+
+					s.loading(arr, (scale) => {
+						s.width = scale * 100 | 0;
+					}, () => {
+						s.show = true;
+						s.loaded = true;
+					})
+				}
+			}
+		})*/
 	}
 })

@@ -79,9 +79,11 @@ $bgColor: #4081dd;
 		}
 		.zmiti-text1{
 			@include pos(a);
-			bottom: 60px;
+			bottom: 40px;
 			text-align: center;
 			width: 100%;
+			border-top:3px solid #fff;
+			padding-top: 20px;
 		}
 		video{
 			z-index: 10;

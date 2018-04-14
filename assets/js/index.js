@@ -108,6 +108,7 @@
 			isShare: false,
 			show: false,
 			username: '',
+			pv: 820121,
 			width: 0,
 			loaded: false,
 			nickname: '',
@@ -122,7 +123,7 @@
 	 	<audio src='./assets/music/bg.mp3' ref='audio'></audio>
 	 	<audio src='./assets/music/tu.mp3' ref='tu' loop></audio>
 	 */
-		template: '<div>\n\t\t<Music :obserable=\'obserable\'></Music>\n\t\t<Index   v-if=\'show && !isShare\'  :obserable=\'obserable\'></Index>\n\t\t<Main :pv=\'pv\' :nickname=\'nickname\' :headimgurl=\'headimgurl\'  v-if=\'show && !isShare\'  :obserable=\'obserable\'></Main>\n\t\t<div  v-if=\'!loaded\' :style=\'{background:"#158ae4"}\' class=\'zmiti-loading lt-full\'>\n\t\t\t<div class=\'zmiti-loading-ui\'>\n\t\t\t\t <a href="#">\n\t\t\t  \t\t<section class=\'zmiti-head\' :style="{background:\'url(./assets/images/logo.png) no-repeat center / cover\'}"></section>\n\t\t\t        <div class="line1"></div>\n\t\t\t        <div class="line2"></div>\n\t\t\t        <div class="line3"></div>\n\t\t\t\t\t<div class=\'zmiti-progress\'>{{width}}%</div>\n\t\t\t    </a>\n\t\t\t</div>\n\t\t</div>\n\n\t\n\t</div>',
+		template: '<div>\n\t\t<Music :obserable=\'obserable\'></Music>\n\t\t<Index :pv=\'pv\' :nickname=\'nickname\' :headimgurl=\'headimgurl\'   v-if=\'show && !isShare\'  :obserable=\'obserable\'></Index>\n\t\t<Main :pv=\'pv\' :nickname=\'nickname\' :headimgurl=\'headimgurl\'  v-if=\'show && !isShare\'  :obserable=\'obserable\'></Main>\n\t\t<div  v-if=\'!loaded\' :style=\'{background:"#158ae4"}\' class=\'zmiti-loading lt-full\'>\n\t\t\t<div class=\'zmiti-loading-ui\'>\n\t\t\t\t <a href="#">\n\t\t\t  \t\t<section class=\'zmiti-head\' :style="{background:\'url(./assets/images/logo.png) no-repeat center / cover\'}"></section>\n\t\t\t        <div class="line1"></div>\n\t\t\t        <div class="line2"></div>\n\t\t\t        <div class="line3"></div>\n\t\t\t\t\t<div class=\'zmiti-progress\'>{{width}}%</div>\n\t\t\t    </a>\n\t\t\t</div>\n\t\t</div>\n\n\t\n\t</div>',
 		methods: {
 
 			loading: function loading(arr, fn, fnEnd) {
@@ -165,7 +166,7 @@
 						_this.randomPv = data.randtotalpv;
 
 						//zmitiUtil.wxConfig('我是第'+this.pv+'位参与者',window.desc);
-						_componentsLibUtilJs2['default'].wxConfig('我是' + (_this.nickname || '新华社网友') + '，纪念是为了更好地出发，不忘初心，继续前进', '我获得了改革开放40周年勋章，编号：No. ' + _this.pv);
+						//zmitiUtil.wxConfig('我是'+(this.nickname||'新华社网友') +'，已获得改革开放40周年勋章，一起来吧！','勋章编号：No.'+this.pv);
 					}
 				});
 			}
@@ -178,6 +179,8 @@
 		mounted: function mounted() {
 			var _this2 = this;
 
+			var s = this;
+
 			var src = _componentsLibUtilJs2['default'].getQueryString('src');
 			var num = _componentsLibUtilJs2['default'].getQueryString('num');
 
@@ -185,9 +188,8 @@
 
 			this.src = src;
 
-			this.updatePv();
-
 			obserable.on("setUserInfo", function (data) {
+
 				_this2.nickname = data.nickname;
 				_this2.headimgurl = data.headimgurl;
 			});
@@ -206,12 +208,30 @@
 				}, 1000);
 			}
 
-			this.loading(arr, function (s) {
-				_this2.width = s * 100 | 0;
-			}, function () {
-				_this2.show = true;
-				_this2.loaded = true;
-			});
+			var t = setTimeout(function () {
+
+				window.headImgs = [];
+
+				headimgList.length = 870;
+				headimgList.forEach(function (item, i) {
+					headImgs.push(item.headimgurl);
+				});
+				/*for(var i =1 ;i<=Math.min(100,870 - arr.length);i++){
+	   	//headImgs.push('./assets/images/'+i+'.jpg');
+	   }*/
+
+				arr = arr.concat(headImgs);
+
+				s.loading(arr, function (scale) {
+					s.width = scale * 100 | 0;
+				}, function () {
+					s.show = true;
+					s.loaded = true;
+					obserable.trigger({
+						type: 'initWebgl'
+					});
+				});
+			}, 1);
 
 			window.$ = _jquery2['default'];
 
@@ -224,7 +244,55 @@
 				_this2.pv += data;
 			});
 			_componentsLibUtilJs2['default'].getOauthurl(obserable);
-			//zmitiUtil.wxConfig(document.title, window.desc);
+			_componentsLibUtilJs2['default'].wxConfig(document.title, window.desc);
+			this.updatePv();
+			return;
+			/*$.ajax({
+	  	type:'post',
+	  	url:"http://api.zmiti.com/v2/weixin/getwxuserlist/",
+	  	data:{
+	  		worksid:window.customid
+	  	},
+	  	error(){
+	  				clearTimeout(t);
+	  		window.headImgs = [
+	  		]
+	  				for(var i =1 ;i<=Math.min(100,870 - arr.length);i++){
+	  			headImgs.push('./assets/images/'+i+'.jpg');
+	  		}
+	  		arr.concat(headImgs);
+	  				s.loading(arr, (scale) => {
+	  			s.width = scale * 100 | 0;
+	  		}, () => {
+	  			s.show = true;
+	  			s.loaded = true;
+	  		})
+	  	},
+	  	success(data){
+	  		clearTimeout(t);
+	  		if(data.getret === 0){
+	  			
+	  					if(data.list.length>=870){
+	  				data.list.length = 870;
+	  			}
+	  			window.headImgs = [
+	  				
+	  			]
+	  			headImgs =  headImgs.concat(data.list.map((item)=>{return item.headimgurl}));
+	  
+	  			for(var i =1 ;i<=Math.min(100,870 - arr.length);i++){
+	  				headImgs.push('./assets/images/'+i+'.jpg');
+	  			}
+	  			arr.concat(headImgs);
+	  					s.loading(arr, (scale) => {
+	  				s.width = scale * 100 | 0;
+	  			}, () => {
+	  				s.show = true;
+	  				s.loaded = true;
+	  			})
+	  		}
+	  	}
+	  })*/
 		}
 	});
 
@@ -12028,12 +12096,12 @@
 	//
 	// 		<transition name='video'>
 	// 			<section v-if='showIndexMask' class="zmiti-vidoe-page">
-	// 				<div class="zmiti-text">中共中央总书记、国家主席、中央军委主席习近平带领全国人民深化改革、扩大开放，为实现中华民族伟大复兴的中国梦接力奋斗。</div>
+	// 				<div class="zmiti-text">习近平总书记在庆祝海南建省办经济特区30周年大会上发表重要讲话</div>
 	// 				<div class="zmiti-video-C" v-show='show' >
-	// 					<video loop='loop' src="./assets/video/4.mp4" x5-playsinline="" ref="video" controls x-webkit-airplay="true"  webkit-playsinline="true" playsinline="true" >
+	// 					<video loop='loop' src="http://h5cdn.zhongguowangshi.com/hainan.mp4" x5-playsinline="" ref="video" controls x-webkit-airplay="true"  webkit-playsinline="true" playsinline="true" >
 	// 					</video>
 	// 				</div>
-	// 				<div class="zmiti-text zmiti-text1">改革开放是决定当代中国命运的关键一招</div>
+	// 				<div class="zmiti-text zmiti-text1">让我们一起为新时代全面深化改革开放接力</div>
 	// 			</section>
 	// 		</transition>
 	//
@@ -12064,7 +12132,7 @@
 	var _libUtil2 = _interopRequireDefault(_libUtil);
 
 	exports['default'] = {
-		props: ['obserable'],
+		props: ['obserable', 'nickname', 'pv'],
 		name: 'zmitiindex',
 		data: function data() {
 			return {
@@ -12112,6 +12180,7 @@
 			open: function open() {
 				var _this2 = this;
 
+				_libUtil2['default'].wxConfig('我是' + this.nickname + "，已获得改革开放40周年勋章，一起来吧！", '勋章编号：No.' + this.pv);
 				this.show = false;
 				setTimeout(function () {
 					_this2.$refs['video'].pause();
@@ -12177,7 +12246,7 @@
 
 
 	// module
-	exports.push([module.id, ".lt-full {\r\n  width: 100%;\r\n  height: 100%;\r\n  position: absolute;\r\n  left: 0;\r\n  top: 0; }\r\n\r\n.zmiti-text-overflow {\r\n  overflow: hidden;\r\n  white-space: nowrap;\r\n  word-break: break-all;\r\n  text-overflow: ellipsis;\r\n  -webkit-text-overflow: ellipsis; }\r\n\r\n.zmiti-play {\r\n  width: .8rem;\r\n  height: .8rem;\r\n  border-radius: 50%;\r\n  position: fixed;\r\n  z-index: 1000;\r\n  right: .5rem;\r\n  top: .5rem; }\r\n  .zmiti-play.rotate {\r\n    -webkit-animation: rotate 5s linear infinite;\r\n    animation: rotate 5s linear infinite; }\r\n\r\n@-webkit-keyframes rotate {\r\n  to {\r\n    -webkit-transform: rotate(360deg);\r\n    transform: rotate(360deg); } }\r\n.zmiti-index-main-ui {\r\n  overflow: hidden;\r\n  width: 10rem;\r\n  left: 50% !important;\r\n  margin-left: -375px;\r\n  background: #4081dd;\r\n  opacity: 0;\r\n  z-index: -1; }\r\n  .zmiti-index-main-ui.show {\r\n    opacity: 1;\r\n    z-index: 200; }\r\n  .zmiti-index-main-ui .zmiti-title {\r\n    position: absolute;\r\n    height: 60vh;\r\n    left: 50%;\r\n    top: 14vh;\r\n    z-index: 10;\r\n    -webkit-transform: translate3d(-50%, 0, 0);\r\n    transform: translate3d(-50%, 0, 0); }\r\n    .zmiti-index-main-ui .zmiti-title img {\r\n      height: 100%;\r\n      width: auto; }\r\n  .zmiti-index-main-ui .zmiti-index.index-enter-active, .zmiti-index-main-ui .zmiti-index.index-leave-active {\r\n    -webkit-transition: 1s;\r\n    transition: 1s; }\r\n  .zmiti-index-main-ui .zmiti-index.index-enter, .zmiti-index-main-ui .zmiti-index.index-leave-to {\r\n    opacity: 0; }\r\n  .zmiti-index-main-ui .zmiti-mask {\r\n    z-index: 6; }\r\n    .zmiti-index-main-ui .zmiti-mask.mask-enter-active, .zmiti-index-main-ui .zmiti-mask.mask-leave-active {\r\n      -webkit-transition: 1s;\r\n      transition: 1s; }\r\n    .zmiti-index-main-ui .zmiti-mask.mask-enter, .zmiti-index-main-ui .zmiti-mask.mask-leave-to {\r\n      opacity: 0; }\r\n  .zmiti-index-main-ui .zmiti-vidoe-page {\r\n    width: 750px;\r\n    height: 70vh;\r\n    position: absolute;\r\n    top: 50%;\r\n    -webkit-transform: translate3d(0, -50%, 0);\r\n    transform: translate3d(0, -50%, 0);\r\n    left: 0;\r\n    z-index: 100;\r\n    overflow: hidden; }\r\n    .zmiti-index-main-ui .zmiti-vidoe-page .zmiti-text {\r\n      text-align: center;\r\n      width: 90%;\r\n      margin: 0 auto;\r\n      /*margin-top: 20px;*/\r\n      position: relative;\r\n      line-height: 0.6rem;\r\n      text-align: left;\r\n      z-index: 0; }\r\n    .zmiti-index-main-ui .zmiti-vidoe-page .zmiti-text1 {\r\n      position: absolute;\r\n      bottom: 60px;\r\n      text-align: center;\r\n      width: 100%; }\r\n    .zmiti-index-main-ui .zmiti-vidoe-page video {\r\n      z-index: 10;\r\n      position: fixed;\r\n      top: 50%;\r\n      margin-top: -284px;\r\n      width: 100%;\r\n      height: 567px;\r\n      background: #000; }\r\n    .zmiti-index-main-ui .zmiti-vidoe-page.video-enter-active, .zmiti-index-main-ui .zmiti-vidoe-page.video-leave-active {\r\n      -webkit-transition: 4s;\r\n      transition: 4s; }\r\n    .zmiti-index-main-ui .zmiti-vidoe-page.video-enter, .zmiti-index-main-ui .zmiti-vidoe-page.video-leave-to {\r\n      height: 0; }\r\n  .zmiti-index-main-ui .zmiti-open {\r\n    width: 400px;\r\n    height: 80px;\r\n    line-height: 80px;\r\n    position: absolute;\r\n    color: #fff;\r\n    left: 175px;\r\n    bottom: 10vh;\r\n    background: #ff3f37;\r\n    z-index: 102;\r\n    text-align: center;\r\n    border-radius: 40px;\r\n    font-size: 40px; }\r\n    .zmiti-index-main-ui .zmiti-open.open-enter-active, .zmiti-index-main-ui .zmiti-open.open-leave-active {\r\n      -webkit-transition: 1s 3s;\r\n      transition: 1s 3s; }\r\n    .zmiti-index-main-ui .zmiti-open.open-enter, .zmiti-index-main-ui .zmiti-open.open-leave-to {\r\n      opacity: 0; }\r\n  .zmiti-index-main-ui .zmiti-entry {\r\n    width: 2.4rem;\r\n    text-align: center;\r\n    background: #ff3f37;\r\n    line-height: .9rem;\r\n    border-radius: 30px;\r\n    position: absolute;\r\n    left: 3.8rem;\r\n    bottom: 1.5rem;\r\n    z-index: 10;\r\n    color: #fff;\r\n    font-size: .45rem;\r\n    -webkit-animation: scale 1s linear infinite alternate;\r\n    animation: scale 1s linear infinite alternate; }\r\n\r\n@-webkit-keyframes rotate1 {\r\n  to {\r\n    -webkit-transform: rotate(360deg) scale(2);\r\n    transform: rotate(360deg) scale(2);\r\n    opacity: 0; } }\r\n.zmiti-loading {\r\n  z-index: 1000; }\r\n  .zmiti-loading .zmiti-loading-ui {\r\n    width: 6rem;\r\n    left: 2rem;\r\n    position: absolute;\r\n    top: 6rem; }\r\n    .zmiti-loading .zmiti-loading-ui .zmiti-loading-bar {\r\n      width: 2rem;\r\n      border-radius: 10px;\r\n      position: relative;\r\n      margin: 0 auto; }\r\n      .zmiti-loading .zmiti-loading-ui .zmiti-loading-bar:before {\r\n        content: '';\r\n        border-radius: 10px;\r\n        position: absolute;\r\n        left: 0;\r\n        top: 0;\r\n        width: 100%;\r\n        height: 100%;\r\n        box-shadow: 0 0 3px rgba(255, 255, 255, 0.5); }\r\n      .zmiti-loading .zmiti-loading-ui .zmiti-loading-bar .zmiti-target {\r\n        width: 0.4rem;\r\n        height: 0.4rem;\r\n        border-radius: 50%;\r\n        background: #fff;\r\n        left: 50%;\r\n        top: .4rem;\r\n        position: absolute;\r\n        margin-left: -0.2rem;\r\n        -webkit-animation: scale linear 2s infinite alternate;\r\n        animation: scale linear 2s infinite alternate; }\r\n    .zmiti-loading .zmiti-loading-ui .zmiti-progress {\r\n      margin-top: .5rem;\r\n      text-align: center;\r\n      color: #fff;\r\n      font-family: Georgia;\r\n      font-size: .7rem; }\r\n\r\n/*# sourceMappingURL=index.css.map */\r\n", ""]);
+	exports.push([module.id, ".lt-full {\r\n  width: 100%;\r\n  height: 100%;\r\n  position: absolute;\r\n  left: 0;\r\n  top: 0; }\r\n\r\n.zmiti-text-overflow {\r\n  overflow: hidden;\r\n  white-space: nowrap;\r\n  word-break: break-all;\r\n  text-overflow: ellipsis;\r\n  -webkit-text-overflow: ellipsis; }\r\n\r\n.zmiti-play {\r\n  width: .8rem;\r\n  height: .8rem;\r\n  border-radius: 50%;\r\n  position: fixed;\r\n  z-index: 1000;\r\n  right: .5rem;\r\n  top: .5rem; }\r\n  .zmiti-play.rotate {\r\n    -webkit-animation: rotate 5s linear infinite;\r\n    animation: rotate 5s linear infinite; }\r\n\r\n@-webkit-keyframes rotate {\r\n  to {\r\n    -webkit-transform: rotate(360deg);\r\n    transform: rotate(360deg); } }\r\n.zmiti-index-main-ui {\r\n  overflow: hidden;\r\n  width: 10rem;\r\n  left: 50% !important;\r\n  margin-left: -375px;\r\n  background: #4081dd;\r\n  opacity: 0;\r\n  z-index: -1; }\r\n  .zmiti-index-main-ui.show {\r\n    opacity: 1;\r\n    z-index: 200; }\r\n  .zmiti-index-main-ui .zmiti-title {\r\n    position: absolute;\r\n    height: 60vh;\r\n    left: 50%;\r\n    top: 14vh;\r\n    z-index: 10;\r\n    -webkit-transform: translate3d(-50%, 0, 0);\r\n    transform: translate3d(-50%, 0, 0); }\r\n    .zmiti-index-main-ui .zmiti-title img {\r\n      height: 100%;\r\n      width: auto; }\r\n  .zmiti-index-main-ui .zmiti-index.index-enter-active, .zmiti-index-main-ui .zmiti-index.index-leave-active {\r\n    -webkit-transition: 1s;\r\n    transition: 1s; }\r\n  .zmiti-index-main-ui .zmiti-index.index-enter, .zmiti-index-main-ui .zmiti-index.index-leave-to {\r\n    opacity: 0; }\r\n  .zmiti-index-main-ui .zmiti-mask {\r\n    z-index: 6; }\r\n    .zmiti-index-main-ui .zmiti-mask.mask-enter-active, .zmiti-index-main-ui .zmiti-mask.mask-leave-active {\r\n      -webkit-transition: 1s;\r\n      transition: 1s; }\r\n    .zmiti-index-main-ui .zmiti-mask.mask-enter, .zmiti-index-main-ui .zmiti-mask.mask-leave-to {\r\n      opacity: 0; }\r\n  .zmiti-index-main-ui .zmiti-vidoe-page {\r\n    width: 750px;\r\n    height: 70vh;\r\n    position: absolute;\r\n    top: 50%;\r\n    -webkit-transform: translate3d(0, -50%, 0);\r\n    transform: translate3d(0, -50%, 0);\r\n    left: 0;\r\n    z-index: 100;\r\n    overflow: hidden; }\r\n    .zmiti-index-main-ui .zmiti-vidoe-page .zmiti-text {\r\n      text-align: center;\r\n      width: 90%;\r\n      margin: 0 auto;\r\n      /*margin-top: 20px;*/\r\n      position: relative;\r\n      line-height: 0.6rem;\r\n      text-align: left;\r\n      z-index: 0; }\r\n    .zmiti-index-main-ui .zmiti-vidoe-page .zmiti-text1 {\r\n      position: absolute;\r\n      bottom: 40px;\r\n      text-align: center;\r\n      width: 100%;\r\n      border-top: 3px solid #fff;\r\n      padding-top: 20px; }\r\n    .zmiti-index-main-ui .zmiti-vidoe-page video {\r\n      z-index: 10;\r\n      position: fixed;\r\n      top: 50%;\r\n      margin-top: -284px;\r\n      width: 100%;\r\n      height: 567px;\r\n      background: #000; }\r\n    .zmiti-index-main-ui .zmiti-vidoe-page.video-enter-active, .zmiti-index-main-ui .zmiti-vidoe-page.video-leave-active {\r\n      -webkit-transition: 4s;\r\n      transition: 4s; }\r\n    .zmiti-index-main-ui .zmiti-vidoe-page.video-enter, .zmiti-index-main-ui .zmiti-vidoe-page.video-leave-to {\r\n      height: 0; }\r\n  .zmiti-index-main-ui .zmiti-open {\r\n    width: 400px;\r\n    height: 80px;\r\n    line-height: 80px;\r\n    position: absolute;\r\n    color: #fff;\r\n    left: 175px;\r\n    bottom: 10vh;\r\n    background: #ff3f37;\r\n    z-index: 102;\r\n    text-align: center;\r\n    border-radius: 40px;\r\n    font-size: 40px; }\r\n    .zmiti-index-main-ui .zmiti-open.open-enter-active, .zmiti-index-main-ui .zmiti-open.open-leave-active {\r\n      -webkit-transition: 1s 3s;\r\n      transition: 1s 3s; }\r\n    .zmiti-index-main-ui .zmiti-open.open-enter, .zmiti-index-main-ui .zmiti-open.open-leave-to {\r\n      opacity: 0; }\r\n  .zmiti-index-main-ui .zmiti-entry {\r\n    width: 2.4rem;\r\n    text-align: center;\r\n    background: #ff3f37;\r\n    line-height: .9rem;\r\n    border-radius: 30px;\r\n    position: absolute;\r\n    left: 3.8rem;\r\n    bottom: 1.5rem;\r\n    z-index: 10;\r\n    color: #fff;\r\n    font-size: .45rem;\r\n    -webkit-animation: scale 1s linear infinite alternate;\r\n    animation: scale 1s linear infinite alternate; }\r\n\r\n@-webkit-keyframes rotate1 {\r\n  to {\r\n    -webkit-transform: rotate(360deg) scale(2);\r\n    transform: rotate(360deg) scale(2);\r\n    opacity: 0; } }\r\n.zmiti-loading {\r\n  z-index: 1000; }\r\n  .zmiti-loading .zmiti-loading-ui {\r\n    width: 6rem;\r\n    left: 2rem;\r\n    position: absolute;\r\n    top: 6rem; }\r\n    .zmiti-loading .zmiti-loading-ui .zmiti-loading-bar {\r\n      width: 2rem;\r\n      border-radius: 10px;\r\n      position: relative;\r\n      margin: 0 auto; }\r\n      .zmiti-loading .zmiti-loading-ui .zmiti-loading-bar:before {\r\n        content: '';\r\n        border-radius: 10px;\r\n        position: absolute;\r\n        left: 0;\r\n        top: 0;\r\n        width: 100%;\r\n        height: 100%;\r\n        box-shadow: 0 0 3px rgba(255, 255, 255, 0.5); }\r\n      .zmiti-loading .zmiti-loading-ui .zmiti-loading-bar .zmiti-target {\r\n        width: 0.4rem;\r\n        height: 0.4rem;\r\n        border-radius: 50%;\r\n        background: #fff;\r\n        left: 50%;\r\n        top: .4rem;\r\n        position: absolute;\r\n        margin-left: -0.2rem;\r\n        -webkit-animation: scale linear 2s infinite alternate;\r\n        animation: scale linear 2s infinite alternate; }\r\n    .zmiti-loading .zmiti-loading-ui .zmiti-progress {\r\n      margin-top: .5rem;\r\n      text-align: center;\r\n      color: #fff;\r\n      font-family: Georgia;\r\n      font-size: .7rem; }\r\n\r\n/*# sourceMappingURL=index.css.map */\r\n", ""]);
 
 	// exports
 
@@ -12314,7 +12383,28 @@
 			});
 		},
 
+		saveWxUserInfo: function saveWxUserInfo(option) {
+			_jquery2["default"].ajax({
+				url: window.protocol + '//api.zmiti.com/v2/weixin/add_wxuser/',
+				type: 'post',
+				data: option
+			}).done(function (data) {
+				//document.title = data.getret + ','+data.getmsg;
+				///alert('add_wxuser : data.getret => ' + data.getret + '\n data.getmsg =>' + data.getmsg);
+			});
+		},
+
 		getOauthurl: function getOauthurl(obserable) {
+
+			/*$.ajax({
+	  	type:"post",
+	  	url:"http://h5.zhongguowangshi.com/interface/public/index.php?s=v2/Share/createImageByUrl",
+	  	data:{
+	  		setimagesrc:"http://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTK4D8RdGsOFc4UuTR5vGdL1x2dHxMoABic6x21sjL6A1hj30MyZ2CMLJsYibyIUPKpEvCMRN18xBolw/0"
+	  	}
+	  }).done(data=>{
+	  	console.log(data)
+	  })*/
 			var s = this;
 
 			var _wxInfo = this.wxInfo();
@@ -12324,17 +12414,29 @@
 			var customid = _wxInfo.customid;
 
 			if (!s.isWeiXin()) {
+				setTimeout(function () {
+					obserable.trigger({
+						type: 'initWebgl'
+					});
+				}, 2000);
 				return;
 			}
-			if (window.localStorage.getItem('nickname') && window.localStorage.getItem('headimgurl1')) {
+			var key = 'headimgurl8';
+			if (window.localStorage.getItem('nickname') && window.localStorage.getItem(key)) {
 				if (obserable) {
 					obserable.trigger({
 						type: 'setUserInfo',
 						data: {
 							nickname: window.localStorage.getItem('nickname'),
-							headimgurl: window.localStorage.getItem('headimgurl1')
+							headimgurl: window.localStorage.getItem(key)
 						}
 					});
+
+					setTimeout(function () {
+						obserable.trigger({
+							type: 'initWebgl'
+						});
+					}, 2000);
 				}
 				return;
 			}
@@ -12349,7 +12451,6 @@
 				},
 				error: function error() {},
 				success: function success(dt) {
-
 					if (dt.getret === 0) {
 
 						s.openid = dt.userinfo.openid;
@@ -12360,7 +12461,7 @@
 						window.headimgurl = s.headimgurl;
 						window.openid = s.openid;
 						_jquery2["default"].ajax({
-							url: "http://api.zmiti.com/v2/share/createImageByUrl/",
+							url: "http://h5.zhongguowangshi.com/interface/public/index.php?s=v2/Share/createImageByUrl",
 							type: 'post',
 							data: {
 								setimagesrc: s.headimgurl,
@@ -12368,22 +12469,36 @@
 								setheight: 300
 							}
 						}).done(function (data) {
+
 							if (data.getret === 0) {
-								window.localStorage.setItem('headimgurl1', data.getimageurl);
+
+								window.localStorage.setItem(key, data.getimageurl);
+								window.localStorage.setItem('nickname', s.nickname);
+
+								if (obserable) {
+									obserable.trigger({
+										type: 'setUserInfo',
+										data: {
+											nickname: s.nickname,
+											headimgurl: s.headimgurl
+										}
+									});
+
+									setTimeout(function () {
+										obserable.trigger({
+											type: 'initWebgl'
+										});
+									}, 1000);
+								}
+								s.saveWxUserInfo({
+									wxappid: wxappid,
+									worksid: window.customid,
+									wxopenid: s.openid,
+									nickname: s.nickname,
+									headimgurl: data.getimageurl
+								});
 							}
 						});
-						window.localStorage.setItem('nickname', s.nickname);
-						window.localStorage.setItem('headimgurl', s.headimgurl);
-
-						if (obserable) {
-							obserable.trigger({
-								type: 'setUserInfo',
-								data: {
-									nickname: s.nickname,
-									headimgurl: s.headimgurl
-								}
-							});
-						}
 
 						//var URI = window.location.href.split('#')[0];
 
@@ -22259,7 +22374,7 @@
 /* 16 */
 /***/ (function(module, exports) {
 
-	module.exports = "\r\n\t<div v-tap='[entry]'  class=\"lt-full zmiti-index-main-ui \" :style=\"{background:'url('+imgs.indexBg+') no-repeat center bottom',backgroundSize:'cover'}\"  :class=\"{'show':show}\">\r\n\t\t\r\n\t\t<transition name='index'>\r\n\t\t\t<div class=\"zmiti-index\" v-if='!showIndexMask'>\r\n\t\t\t\t<div class=\"zmiti-title\">\r\n\t\t\t\t\t<img @touchstart='imgStart' :src=\"imgs.title1\">\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class=\"zmiti-entry\" >\r\n\t\t\t\t\t进入\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t</transition>\r\n\r\n\t\t<!-- <transition name='mask'>\r\n\t\t\t<div class=\"zmiti-mask lt-full\" v-if='showIndexMask' :style=\"{background:'url('+imgs.mask+') no-repeat center bottom',backgroundSize:'cover'}\">\r\n\t\t\t\r\n\t\t\t</div>\r\n\t\t</transition> -->\r\n\t\t\r\n\t\t<transition name='video'>\r\n\t\t\t<section v-if='showIndexMask' class=\"zmiti-vidoe-page\">\r\n\t\t\t\t<div class=\"zmiti-text\">中共中央总书记、国家主席、中央军委主席习近平带领全国人民深化改革、扩大开放，为实现中华民族伟大复兴的中国梦接力奋斗。</div>\r\n\t\t\t\t<div class=\"zmiti-video-C\" v-show='show' >\r\n\t\t\t\t\t<video loop='loop' src=\"./assets/video/4.mp4\" x5-playsinline=\"\" ref=\"video\" controls x-webkit-airplay=\"true\"  webkit-playsinline=\"true\" playsinline=\"true\" > \r\n\t\t\t\t\t</video>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class=\"zmiti-text zmiti-text1\">改革开放是决定当代中国命运的关键一招</div>\r\n\t\t\t</section>\r\n\t\t</transition>\r\n\t\t\r\n\t\t<transition name='open'>\r\n\t\t\t<div v-if='showIndexMask' class=\"zmiti-open\" v-tap='[open]'>\r\n\t\t\t\t开启接力\r\n\t\t\t</div>\r\n\t\t</transition>\r\n\r\n\t</div>\r\n";
+	module.exports = "\r\n\t<div v-tap='[entry]'  class=\"lt-full zmiti-index-main-ui \" :style=\"{background:'url('+imgs.indexBg+') no-repeat center bottom',backgroundSize:'cover'}\"  :class=\"{'show':show}\">\r\n\t\t\r\n\t\t<transition name='index'>\r\n\t\t\t<div class=\"zmiti-index\" v-if='!showIndexMask'>\r\n\t\t\t\t<div class=\"zmiti-title\">\r\n\t\t\t\t\t<img @touchstart='imgStart' :src=\"imgs.title1\">\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class=\"zmiti-entry\" >\r\n\t\t\t\t\t进入\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t</transition>\r\n\r\n\t\t<!-- <transition name='mask'>\r\n\t\t\t<div class=\"zmiti-mask lt-full\" v-if='showIndexMask' :style=\"{background:'url('+imgs.mask+') no-repeat center bottom',backgroundSize:'cover'}\">\r\n\t\t\t\r\n\t\t\t</div>\r\n\t\t</transition> -->\r\n\t\t\r\n\t\t<transition name='video'>\r\n\t\t\t<section v-if='showIndexMask' class=\"zmiti-vidoe-page\">\r\n\t\t\t\t<div class=\"zmiti-text\">习近平总书记在庆祝海南建省办经济特区30周年大会上发表重要讲话</div>\r\n\t\t\t\t<div class=\"zmiti-video-C\" v-show='show' >\r\n\t\t\t\t\t<video loop='loop' src=\"http://h5cdn.zhongguowangshi.com/hainan.mp4\" x5-playsinline=\"\" ref=\"video\" controls x-webkit-airplay=\"true\"  webkit-playsinline=\"true\" playsinline=\"true\" > \r\n\t\t\t\t\t</video>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class=\"zmiti-text zmiti-text1\">让我们一起为新时代全面深化改革开放接力</div>\r\n\t\t\t</section>\r\n\t\t</transition>\r\n\t\t\r\n\t\t<transition name='open'>\r\n\t\t\t<div v-if='showIndexMask' class=\"zmiti-open\" v-tap='[open]'>\r\n\t\t\t\t开启接力\r\n\t\t\t</div>\r\n\t\t</transition>\r\n\r\n\t</div>\r\n";
 
 /***/ }),
 /* 17 */
@@ -22544,7 +22659,7 @@
 				context.textAlign = 'center';
 				context.font = "30px Georgia";
 				context.fillStyle = '#696b72';
-				context.fillText('我获得了改革开放40周年勋章，编号：No.' + this.pv, this.viewW / 2, 50);
+				context.fillText('勋章编号：No.' + this.pv, this.viewW / 2, 50);
 
 				context.strokeStyle = 'rgba(105,107,114,.4)';
 				context.beginPath();
@@ -22563,7 +22678,7 @@
 
 				context.textAlign = 'start';
 				context.font = "24px Arial";
-				this.drawText(context, '我是' + (this.nickname || "新华社网友") + '，纪念是为了更好地出发，不忘初心，继续前进', 200, 130, this.viewW - 300);
+				this.drawText(context, '我是' + (this.nickname || "新华社网友") + '，已获得改革开放40周年勋章，一起来吧！', 200, 130, this.viewW - 300);
 
 				var img1 = new Image();
 				img1.onload = function () {
@@ -22768,17 +22883,21 @@
 		mounted: function mounted() {
 			var _this7 = this;
 
-			this.loadingTexture();
-
-			this.initOffScreenCanvas();
-			this.initWebgl();
-
 			//this.fillText();
 
 			window.s = this;
 
+			this.loadingTexture();
+			this.initOffScreenCanvas();
+			this.initWebgl();
+
 			var obserable = this.obserable;
 
+			obserable.on('initWebgl', function () {
+				_this7.loadingTexture();
+				_this7.initOffScreenCanvas();
+				_this7.initWebgl();
+			});
 			obserable.on('openWebGl', function () {
 
 				_this7.pressed = true;

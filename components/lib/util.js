@@ -109,7 +109,28 @@ var zmitiUtil = {
 
 	},
 
+	saveWxUserInfo(option) {
+		$.ajax({
+			url: window.protocol + '//api.zmiti.com/v2/weixin/add_wxuser/',
+			type: 'post',
+			data: option
+		}).done((data) => {
+			//document.title = data.getret + ','+data.getmsg;
+			///alert('add_wxuser : data.getret => ' + data.getret + '\n data.getmsg =>' + data.getmsg);
+		})
+	},
+
 	getOauthurl: function(obserable) {
+
+		/*$.ajax({
+			type:"post",
+			url:"http://h5.zhongguowangshi.com/interface/public/index.php?s=v2/Share/createImageByUrl",
+			data:{
+				setimagesrc:"http://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTK4D8RdGsOFc4UuTR5vGdL1x2dHxMoABic6x21sjL6A1hj30MyZ2CMLJsYibyIUPKpEvCMRN18xBolw/0"
+			}
+		}).done(data=>{
+			console.log(data)
+		})*/
 		var s = this;
 		var {
 			wxappid,
@@ -118,17 +139,29 @@ var zmitiUtil = {
 		} = this.wxInfo();
 
 		if (!s.isWeiXin()) {
+			setTimeout(()=>{
+				obserable.trigger({
+					type:'initWebgl'
+				})
+			},2000)
 			return;
 		}
-		if(window.localStorage.getItem('nickname') && window.localStorage.getItem('headimgurl1')){
+		var key = 'headimgurl8'
+		if(window.localStorage.getItem('nickname') && window.localStorage.getItem(key)){
 			if (obserable) {
 				obserable.trigger({
 					type: 'setUserInfo',
 					data: {
 						nickname:window.localStorage.getItem('nickname'),
-						headimgurl: window.localStorage.getItem('headimgurl1')
+						headimgurl: window.localStorage.getItem(key)
 					}
 				})
+
+				setTimeout(()=>{
+					obserable.trigger({
+						type:'initWebgl'
+					})
+				},2000)
 			}
 			return;
 		}
@@ -143,7 +176,6 @@ var zmitiUtil = {
 			},
 			error: function() {},
 			success: function(dt) {
-
 				if (dt.getret === 0) {
 
 					s.openid = dt.userinfo.openid;
@@ -154,7 +186,7 @@ var zmitiUtil = {
 					window.headimgurl = s.headimgurl;
 					window.openid = s.openid;
 					$.ajax({
-						url:"http://api.zmiti.com/v2/share/createImageByUrl/",
+						url:"http://h5.zhongguowangshi.com/interface/public/index.php?s=v2/Share/createImageByUrl",
 						type:'post',
 						data:{
 							setimagesrc:s.headimgurl,
@@ -162,23 +194,40 @@ var zmitiUtil = {
 							setheight:300
 						}
 					}).done(data=>{
+
 						if(data.getret === 0){
-							window.localStorage.setItem('headimgurl1',data.getimageurl);
+
+							window.localStorage.setItem(key,data.getimageurl);
+							window.localStorage.setItem('nickname',s.nickname);
+
+
+							if (obserable) {
+								obserable.trigger({
+									type: 'setUserInfo',
+									data: {
+										nickname: s.nickname,
+										headimgurl: s.headimgurl
+									}
+								})
+
+								setTimeout(()=>{
+									obserable.trigger({
+										type:'initWebgl'
+									})
+								},1000)
+							}
+							s.saveWxUserInfo({
+								wxappid:wxappid,
+								worksid: window.customid,
+								wxopenid: s.openid,
+								nickname: s.nickname,
+								headimgurl: data.getimageurl,
+							})
 						}
 					})
-					window.localStorage.setItem('nickname',s.nickname);
-					window.localStorage.setItem('headimgurl',s.headimgurl);
 
 
-					if (obserable) {
-						obserable.trigger({
-							type: 'setUserInfo',
-							data: {
-								nickname: s.nickname,
-								headimgurl: s.headimgurl
-							}
-						})
-					}
+					
 
 					//var URI = window.location.href.split('#')[0];
 

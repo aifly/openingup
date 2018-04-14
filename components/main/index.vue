@@ -275,7 +275,7 @@
 				context.textAlign = 'center';
 				context.font="30px Georgia";
 				context.fillStyle = '#696b72';
-				context.fillText('我获得了改革开放40周年勋章，编号：No.' + this.pv,this.viewW/2,50);
+				context.fillText('勋章编号：No.' + this.pv,this.viewW/2,50);
 
 				context.strokeStyle = 'rgba(105,107,114,.4)';
 				context.beginPath();
@@ -295,7 +295,7 @@
 				
 				context.textAlign = 'start';
 				context.font="24px Arial";
-				this.drawText(context,'我是'+(this.nickname||"新华社网友") + '，纪念是为了更好地出发，不忘初心，继续前进',200,130,this.viewW - 300);
+				this.drawText(context,'我是'+(this.nickname||"新华社网友") + '，已获得改革开放40周年勋章，一起来吧！',200,130,this.viewW - 300);
 
 
 				var img1 = new Image();
@@ -520,16 +520,24 @@
 
 
 
-			this.loadingTexture();
-
-			this.initOffScreenCanvas();
-			this.initWebgl();
+			
 
 			//this.fillText();
 
 			window.s = this;
 
+			this.loadingTexture();
+			this.initOffScreenCanvas();
+			this.initWebgl();
+
 			var {obserable} = this;
+
+			obserable.on('initWebgl',()=>{
+				this.loadingTexture();
+				this.initOffScreenCanvas();
+				this.initWebgl();
+
+			})
 			obserable.on('openWebGl',()=>{
 
 				this.pressed = true;
